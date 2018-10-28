@@ -35,7 +35,7 @@ CREATE TABLE responsavel (
 	sg_uf_rg VARCHAR(2),
 	nr_cpf VARCHAR(11),
 	ds_escolaridade VARCHAR(128),
-	lg_estudante BOOLEAN,
+	lg_estudante SMALLINT,
 	tp_nivel_escolar SMALLINT,
 	tp_turno SMALLINT,
 	nm_ocupacao VARCHAR(64),
@@ -66,9 +66,9 @@ ALTER TABLE endereco_responsavel ADD FOREIGN KEY (cd_responsavel) REFERENCES res
 CREATE TABLE perfil_social (
 	cd_perfil_social INTEGER NOT NULL,
 	cd_familia NOT NULL,
-	lg_nis BOOLEAN,
+	lg_nis SMALLINT,
 	nr_nis VARCHAR(32),
-	lg_beneficio BOOLEAN,
+	lg_beneficio SMALLINT,
 	nm_beneficio VARCHAR(64),
 	vl_beneficio DOUBLE PRECISION,
 	
@@ -108,9 +108,9 @@ CREATE TABLE aluno (
 	tp_turno_famec SMALLINT,
 	st_aluno SMALLINT,
 	hr_saida TIMESTAMP,
-	lg_acompanhante_saida BOOLEAN,
+	lg_acompanhante_saida SMALLINT,
 	nm_acompanhante_saida VARCHAR(128),
-	lg_almoco_instituicao BOOLEAN,
+	lg_almoco_instituicao SMALLINT,
 	
 	PRIMARY KEY(cd_aluno)
 );
