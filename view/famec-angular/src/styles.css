@@ -1,0 +1,128 @@
+/*@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';*/
+/*@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400');*/
+html, body {
+    height: 100%;
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+[fxFlex] {
+    display: flex;
+    flex-direction: row;
+    flex: 1 !important;
+}
+
+/* *[fxlayout='column'] > *[fxFlex] {
+flex-basis: 1e-9px !important;
+} */
+mat-card.form {
+    margin: 0 !important;
+    height: 100%;
+    border-radius: 0;
+}
+
+mat-card.form mat-card-header {
+    background: #4387B5;
+    color: #fff;
+    box-sizing: border-box;
+    padding: 10px;
+    width: 100%;
+    height: auto;
+}
+
+mat-card.form mat-card-title {
+    font-size: 1.3em !important;
+}
+
+mat-card.form mat-card-subtitle {
+    color: #eee;
+    opacity: .7;
+}
+
+mat-card.form mat-card-content {
+    overflow: auto;
+    margin-bottom: 0;
+    padding: 0 !important;
+}
+
+.navbar-filler-spacer {
+    flex: 1 1 auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-muted {
+    color: #AAA;
+}
+
+/* CSS HACKS */
+.no-padding {
+    padding: 0 !important;
+}
+
+hr.divider {
+    margin: 20px 0;
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* fix */
+.mat-table > .mat-header-row > .mat-header-cell,
+.mat-table > .mat-row > .mat-cell {
+    font-size: 13px !important;
+}
+
+.mat-form-field-underline {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* animate.css delay helper */
+.delay-1 {
+    animation-delay: .1s;
+}
+
+.delay-2 {
+    animation-delay: .2s;
+}
+
+.delay-3 {
+    animation-delay: .3s;
+}
+
+.delay-4 {
+    animation-delay: 1s;
+}
+
+button.offline {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    color: #fff !important;
+    /*z-index: 9999;*/
+}
+
+.group-fields {
+    display: flex;
+    flex-direction: column;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.group-fields h5 {
+    margin: 0 10px;
+}
+.group-fields .divider {
+    padding: 10px 10px 0;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: rgba(0, 0, 0, 0.2);
+}
