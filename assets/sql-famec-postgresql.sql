@@ -65,7 +65,7 @@ ALTER TABLE endereco_responsavel ADD FOREIGN KEY (cd_responsavel) REFERENCES res
 
 CREATE TABLE perfil_social (
 	cd_perfil_social INTEGER NOT NULL,
-	cd_familia NOT NULL,
+	cd_familia INTEGER NOT NULL,
 	lg_nis SMALLINT,
 	nr_nis VARCHAR(32),
 	lg_beneficio SMALLINT,
