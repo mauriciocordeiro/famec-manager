@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FamiliaService } from '../model/familia.service';
+import { FamiliaService } from '../model/familia/familia.service';
 
 @Component({
 	selector: 'app-home',
@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
 		debugger;
 		this.familaService.test().forEach((str:String[]) => {
 			console.log(str);
+			return;
 		});
 	}
 

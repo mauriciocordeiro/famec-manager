@@ -97,7 +97,8 @@ public class FamiliaServices {
 				Conexao.desconectar(connect);
 		}
 	}
-public static ResultSetMap getAll() {
+	
+	public static ResultSetMap getAll() {
 		return getAll(null);
 	}
 
@@ -131,7 +132,7 @@ public static ResultSetMap getAll() {
 	}
 
 	public static ResultSetMap find(ArrayList<ItemComparator> criterios, Connection connect) {
-		return Search.find("SELECT * FROM familia", criterios, true, connect!=null ? connect : Conexao.conectar(), connect==null);
+		return Search.find("SELECT * FROM familia", criterios, connect!=null ? connect : Conexao.conectar(), connect==null);
 	}
 
 }
