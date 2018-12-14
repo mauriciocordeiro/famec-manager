@@ -1,11 +1,17 @@
 package br.org.mac.famec.model;
 
-import java.sql.*;
-import com.tivic.manager.conexao.Conexao;
-import sol.dao.ResultSetMap;
-import sol.dao.ItemComparator;
-import sol.dao.Search;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
+
+import br.org.mac.famec.util.Conexao;
+
+import sol.dao.ItemComparator;
+import sol.dao.ResultSetMap;
+import sol.dao.Search;
 
 public class PerfilSocialDAO{
 
@@ -17,8 +23,8 @@ public class PerfilSocialDAO{
 		boolean isConnectionNull = connect==null;
 		try {
 			if (isConnectionNull)
-				connect = Conexao.conectar();
-			int code = Conexao.getNextCode("perfil_social", connect);
+				connect = Conexao.connect();
+			int code = Conexao.getCode("perfil_social", connect);
 			if (code <= 0) {
 				if (isConnectionNull)
 					com.tivic.manager.conexao.Conexao.rollback(connect);
@@ -57,7 +63,7 @@ public class PerfilSocialDAO{
 		}
 		finally{
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -77,7 +83,7 @@ public class PerfilSocialDAO{
 		boolean isConnectionNull = connect==null;
 		try {
 			if (isConnectionNull)
-				connect = Conexao.conectar();
+				connect = Conexao.connect();
 			PreparedStatement pstmt = connect.prepareStatement("UPDATE perfil_social SET cd_perfil_social=?,"+
 												      		   "cd_familia=?,"+
 												      		   "lg_nis=?,"+
@@ -111,7 +117,7 @@ public class PerfilSocialDAO{
 		}
 		finally{
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -123,7 +129,7 @@ public class PerfilSocialDAO{
 		boolean isConnectionNull = connect==null;
 		try {
 			if (isConnectionNull)
-				connect = Conexao.conectar();
+				connect = Conexao.connect();
 			PreparedStatement pstmt = connect.prepareStatement("DELETE FROM perfil_social WHERE cd_perfil_social=?");
 			pstmt.setInt(1, cdPerfilSocial);
 			pstmt.executeUpdate();
@@ -141,7 +147,7 @@ public class PerfilSocialDAO{
 		}
 		finally{
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -152,7 +158,7 @@ public class PerfilSocialDAO{
 	public static PerfilSocial get(int cdPerfilSocial, Connection connect){
 		boolean isConnectionNull = connect==null;
 		if (isConnectionNull)
-			connect = Conexao.conectar();
+			connect = Conexao.connect();
 		PreparedStatement pstmt;
 		ResultSet rs;
 		try {
@@ -184,7 +190,7 @@ public class PerfilSocialDAO{
 		}
 		finally {
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -195,7 +201,7 @@ public class PerfilSocialDAO{
 	public static ResultSetMap getAll(Connection connect) {
 		boolean isConnectionNull = connect==null;
 		if (isConnectionNull)
-			connect = Conexao.conectar();
+			connect = Conexao.connect();
 		PreparedStatement pstmt;
 		try {
 			pstmt = connect.prepareStatement("SELECT * FROM perfil_social");
@@ -213,7 +219,7 @@ public class PerfilSocialDAO{
 		}
 		finally {
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -224,7 +230,7 @@ public class PerfilSocialDAO{
 	public static ArrayList<PerfilSocial> getList(Connection connect) {
 		boolean isConnectionNull = connect==null;
 		if (isConnectionNull)
-			connect = Conexao.conectar();
+			connect = Conexao.connect();
 		try {
 			ArrayList<PerfilSocial> list = new ArrayList<PerfilSocial>();
 			ResultSetMap rsm = getAll(connect);
@@ -241,7 +247,7 @@ public class PerfilSocialDAO{
 		}
 		finally {
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -250,7 +256,7 @@ public class PerfilSocialDAO{
 	}
 
 	public static ResultSetMap find(ArrayList<ItemComparator> criterios, Connection connect) {
-		return Search.find("SELECT * FROM perfil_social", criterios, true, connect!=null ? connect : Conexao.conectar(), connect==null);
+		return Search.find("SELECT * FROM perfil_social", criterios, true, connect!=null ? connect : Conexao.connect(), connect==null);
 	}
 
 }

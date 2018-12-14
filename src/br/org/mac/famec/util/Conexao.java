@@ -1,5 +1,9 @@
 package br.org.mac.famec.util;
 
-public class Conexao extends com.tivic.manager.conexao.Conexao {
+import br.org.mac.midgard.dao.Connection;
+
+public class Conexao extends Connection {
+	
+	
 
 }

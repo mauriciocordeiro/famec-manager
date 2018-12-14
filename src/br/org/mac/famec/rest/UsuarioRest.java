@@ -7,8 +7,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import br.org.mac.famec.model.Aluno;
+import br.org.mac.famec.control.UsuarioServices;
 import br.org.mac.famec.model.Usuario;
+import br.org.mac.famec.util.Util;
 
 @Path("/usuario")
 public class UsuarioRest {
@@ -27,5 +28,13 @@ public class UsuarioRest {
 	public static String test() {
 		return new String("{\"retorno\":\"sucesso\"}");
 	}
+	
+	@GET
+	@Path("/getAll")
+	@Produces(MediaType.APPLICATION_JSON)
+	public static String getAll() {
+		return Util.rsmToJSON(UsuarioServices.getAll());
+	}
+	
 
 }

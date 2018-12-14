@@ -1,11 +1,16 @@
 package br.org.mac.famec.model;
 
-import java.sql.*;
-import br.org.mac.famec.util.Conexao;
-import sol.dao.ResultSetMap;
-import sol.dao.ItemComparator;
-import sol.dao.Search;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import br.org.mac.famec.util.Conexao;
+
+import sol.dao.ItemComparator;
+import sol.dao.ResultSetMap;
+import sol.dao.Search;
 
 public class EnderecoResponsavelDAO{
 
@@ -17,8 +22,8 @@ public class EnderecoResponsavelDAO{
 		boolean isConnectionNull = connect==null;
 		try {
 			if (isConnectionNull)
-				connect = Conexao.conectar();
-			int code = Conexao.getNextCode("endereco_responsavel", connect);
+				connect = Conexao.connect();
+			int code = Conexao.getCode("endereco_responsavel", connect);
 			if (code <= 0) {
 				if (isConnectionNull)
 					br.org.mac.famec.util.Conexao.rollback(connect);
@@ -56,7 +61,7 @@ public class EnderecoResponsavelDAO{
 		}
 		finally{
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -76,7 +81,7 @@ public class EnderecoResponsavelDAO{
 		boolean isConnectionNull = connect==null;
 		try {
 			if (isConnectionNull)
-				connect = Conexao.conectar();
+				connect = Conexao.connect();
 			PreparedStatement pstmt = connect.prepareStatement("UPDATE endereco_responsavel SET cd_endereco=?,"+
 												      		   "cd_responsavel=?,"+
 												      		   "nm_rua=?,"+
@@ -109,7 +114,7 @@ public class EnderecoResponsavelDAO{
 		}
 		finally{
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -121,7 +126,7 @@ public class EnderecoResponsavelDAO{
 		boolean isConnectionNull = connect==null;
 		try {
 			if (isConnectionNull)
-				connect = Conexao.conectar();
+				connect = Conexao.connect();
 			PreparedStatement pstmt = connect.prepareStatement("DELETE FROM endereco_responsavel WHERE cd_endereco=?");
 			pstmt.setInt(1, cdEndereco);
 			pstmt.executeUpdate();
@@ -139,7 +144,7 @@ public class EnderecoResponsavelDAO{
 		}
 		finally{
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -150,7 +155,7 @@ public class EnderecoResponsavelDAO{
 	public static EnderecoResponsavel get(int cdEndereco, Connection connect){
 		boolean isConnectionNull = connect==null;
 		if (isConnectionNull)
-			connect = Conexao.conectar();
+			connect = Conexao.connect();
 		PreparedStatement pstmt;
 		ResultSet rs;
 		try {
@@ -183,7 +188,7 @@ public class EnderecoResponsavelDAO{
 		}
 		finally {
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -194,7 +199,7 @@ public class EnderecoResponsavelDAO{
 	public static ResultSetMap getAll(Connection connect) {
 		boolean isConnectionNull = connect==null;
 		if (isConnectionNull)
-			connect = Conexao.conectar();
+			connect = Conexao.connect();
 		PreparedStatement pstmt;
 		try {
 			pstmt = connect.prepareStatement("SELECT * FROM endereco_responsavel");
@@ -212,7 +217,7 @@ public class EnderecoResponsavelDAO{
 		}
 		finally {
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -223,7 +228,7 @@ public class EnderecoResponsavelDAO{
 	public static ArrayList<EnderecoResponsavel> getList(Connection connect) {
 		boolean isConnectionNull = connect==null;
 		if (isConnectionNull)
-			connect = Conexao.conectar();
+			connect = Conexao.connect();
 		try {
 			ArrayList<EnderecoResponsavel> list = new ArrayList<EnderecoResponsavel>();
 			ResultSetMap rsm = getAll(connect);
@@ -240,7 +245,7 @@ public class EnderecoResponsavelDAO{
 		}
 		finally {
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -249,7 +254,7 @@ public class EnderecoResponsavelDAO{
 	}
 
 	public static ResultSetMap find(ArrayList<ItemComparator> criterios, Connection connect) {
-		return Search.find("SELECT * FROM endereco_responsavel", criterios, true, connect!=null ? connect : Conexao.conectar(), connect==null);
+		return Search.find("SELECT * FROM endereco_responsavel", criterios, true, connect!=null ? connect : Conexao.connect(), connect==null);
 	}
 
 }

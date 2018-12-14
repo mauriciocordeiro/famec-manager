@@ -1,12 +1,19 @@
 package br.org.mac.famec.model;
 
-import java.sql.*;
-import com.tivic.manager.conexao.Conexao;
-import sol.dao.ResultSetMap;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.sql.Types;
+import java.util.ArrayList;
+
+import br.org.mac.famec.util.Conexao;
+
 import sol.dao.ItemComparator;
+import sol.dao.ResultSetMap;
 import sol.dao.Search;
 import sol.dao.Util;
-import java.util.ArrayList;
 
 public class ResponsavelDAO{
 
@@ -18,8 +25,8 @@ public class ResponsavelDAO{
 		boolean isConnectionNull = connect==null;
 		try {
 			if (isConnectionNull)
-				connect = Conexao.conectar();
-			int code = Conexao.getNextCode("responsavel", connect);
+				connect = Conexao.connect();
+			int code = Conexao.getCode("responsavel", connect);
 			if (code <= 0) {
 				if (isConnectionNull)
 					com.tivic.manager.conexao.Conexao.rollback(connect);
@@ -91,7 +98,7 @@ public class ResponsavelDAO{
 		}
 		finally{
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -111,7 +118,7 @@ public class ResponsavelDAO{
 		boolean isConnectionNull = connect==null;
 		try {
 			if (isConnectionNull)
-				connect = Conexao.conectar();
+				connect = Conexao.connect();
 			PreparedStatement pstmt = connect.prepareStatement("UPDATE responsavel SET cd_responsavel=?,"+
 												      		   "cd_familia=?,"+
 												      		   "nm_responsavel=?,"+
@@ -178,7 +185,7 @@ public class ResponsavelDAO{
 		}
 		finally{
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -190,7 +197,7 @@ public class ResponsavelDAO{
 		boolean isConnectionNull = connect==null;
 		try {
 			if (isConnectionNull)
-				connect = Conexao.conectar();
+				connect = Conexao.connect();
 			PreparedStatement pstmt = connect.prepareStatement("DELETE FROM responsavel WHERE cd_responsavel=?");
 			pstmt.setInt(1, cdResponsavel);
 			pstmt.executeUpdate();
@@ -208,7 +215,7 @@ public class ResponsavelDAO{
 		}
 		finally{
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -219,7 +226,7 @@ public class ResponsavelDAO{
 	public static Responsavel get(int cdResponsavel, Connection connect){
 		boolean isConnectionNull = connect==null;
 		if (isConnectionNull)
-			connect = Conexao.conectar();
+			connect = Conexao.connect();
 		PreparedStatement pstmt;
 		ResultSet rs;
 		try {
@@ -266,7 +273,7 @@ public class ResponsavelDAO{
 		}
 		finally {
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -277,7 +284,7 @@ public class ResponsavelDAO{
 	public static ResultSetMap getAll(Connection connect) {
 		boolean isConnectionNull = connect==null;
 		if (isConnectionNull)
-			connect = Conexao.conectar();
+			connect = Conexao.connect();
 		PreparedStatement pstmt;
 		try {
 			pstmt = connect.prepareStatement("SELECT * FROM responsavel");
@@ -295,7 +302,7 @@ public class ResponsavelDAO{
 		}
 		finally {
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -306,7 +313,7 @@ public class ResponsavelDAO{
 	public static ArrayList<Responsavel> getList(Connection connect) {
 		boolean isConnectionNull = connect==null;
 		if (isConnectionNull)
-			connect = Conexao.conectar();
+			connect = Conexao.connect();
 		try {
 			ArrayList<Responsavel> list = new ArrayList<Responsavel>();
 			ResultSetMap rsm = getAll(connect);
@@ -323,7 +330,7 @@ public class ResponsavelDAO{
 		}
 		finally {
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -332,7 +339,7 @@ public class ResponsavelDAO{
 	}
 
 	public static ResultSetMap find(ArrayList<ItemComparator> criterios, Connection connect) {
-		return Search.find("SELECT * FROM responsavel", criterios, true, connect!=null ? connect : Conexao.conectar(), connect==null);
+		return Search.find("SELECT * FROM responsavel", criterios, true, connect!=null ? connect : Conexao.connect(), connect==null);
 	}
 
 }

@@ -1,12 +1,19 @@
 package br.org.mac.famec.model;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.sql.Types;
+import java.util.ArrayList;
+
 import br.org.mac.famec.util.Conexao;
-import sol.dao.ResultSetMap;
+
 import sol.dao.ItemComparator;
+import sol.dao.ResultSetMap;
 import sol.dao.Search;
 import sol.dao.Util;
-import java.util.ArrayList;
 
 public class AlunoDAO{
 
@@ -18,8 +25,8 @@ public class AlunoDAO{
 		boolean isConnectionNull = connect==null;
 		try {
 			if (isConnectionNull)
-				connect = Conexao.conectar();
-			int code = Conexao.getNextCode("aluno", connect);
+				connect = Conexao.connect();
+			int code = Conexao.getCode("aluno", connect);
 			if (code <= 0) {
 				if (isConnectionNull)
 					br.org.mac.famec.util.Conexao.rollback(connect);
@@ -79,7 +86,7 @@ public class AlunoDAO{
 		}
 		finally{
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -99,7 +106,7 @@ public class AlunoDAO{
 		boolean isConnectionNull = connect==null;
 		try {
 			if (isConnectionNull)
-				connect = Conexao.conectar();
+				connect = Conexao.connect();
 			PreparedStatement pstmt = connect.prepareStatement("UPDATE aluno SET cd_aluno=?,"+
 												      		   "cd_familia=?,"+
 												      		   "nm_aluno=?,"+
@@ -154,7 +161,7 @@ public class AlunoDAO{
 		}
 		finally{
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -166,7 +173,7 @@ public class AlunoDAO{
 		boolean isConnectionNull = connect==null;
 		try {
 			if (isConnectionNull)
-				connect = Conexao.conectar();
+				connect = Conexao.connect();
 			PreparedStatement pstmt = connect.prepareStatement("DELETE FROM aluno WHERE cd_aluno=?");
 			pstmt.setInt(1, cdAluno);
 			pstmt.executeUpdate();
@@ -184,7 +191,7 @@ public class AlunoDAO{
 		}
 		finally{
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -195,7 +202,7 @@ public class AlunoDAO{
 	public static Aluno get(int cdAluno, Connection connect){
 		boolean isConnectionNull = connect==null;
 		if (isConnectionNull)
-			connect = Conexao.conectar();
+			connect = Conexao.connect();
 		PreparedStatement pstmt;
 		ResultSet rs;
 		try {
@@ -236,7 +243,7 @@ public class AlunoDAO{
 		}
 		finally {
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -247,7 +254,7 @@ public class AlunoDAO{
 	public static ResultSetMap getAll(Connection connect) {
 		boolean isConnectionNull = connect==null;
 		if (isConnectionNull)
-			connect = Conexao.conectar();
+			connect = Conexao.connect();
 		PreparedStatement pstmt;
 		try {
 			pstmt = connect.prepareStatement("SELECT * FROM aluno");
@@ -265,7 +272,7 @@ public class AlunoDAO{
 		}
 		finally {
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -276,7 +283,7 @@ public class AlunoDAO{
 	public static ArrayList<Aluno> getList(Connection connect) {
 		boolean isConnectionNull = connect==null;
 		if (isConnectionNull)
-			connect = Conexao.conectar();
+			connect = Conexao.connect();
 		try {
 			ArrayList<Aluno> list = new ArrayList<Aluno>();
 			ResultSetMap rsm = getAll(connect);
@@ -293,7 +300,7 @@ public class AlunoDAO{
 		}
 		finally {
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -302,7 +309,7 @@ public class AlunoDAO{
 	}
 
 	public static ResultSetMap find(ArrayList<ItemComparator> criterios, Connection connect) {
-		return Search.find("SELECT * FROM aluno", criterios, true, connect!=null ? connect : Conexao.conectar(), connect==null);
+		return Search.find("SELECT * FROM aluno", criterios, true, connect!=null ? connect : Conexao.connect(), connect==null);
 	}
 
 }

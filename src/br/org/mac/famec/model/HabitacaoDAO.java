@@ -1,11 +1,17 @@
 package br.org.mac.famec.model;
 
-import java.sql.*;
-import com.tivic.manager.conexao.Conexao;
-import sol.dao.ResultSetMap;
-import sol.dao.ItemComparator;
-import sol.dao.Search;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
+
+import br.org.mac.famec.util.Conexao;
+
+import sol.dao.ItemComparator;
+import sol.dao.ResultSetMap;
+import sol.dao.Search;
 
 public class HabitacaoDAO{
 
@@ -17,8 +23,8 @@ public class HabitacaoDAO{
 		boolean isConnectionNull = connect==null;
 		try {
 			if (isConnectionNull)
-				connect = Conexao.conectar();
-			int code = Conexao.getNextCode("habitacao", connect);
+				connect = Conexao.connect();
+			int code = Conexao.getCode("habitacao", connect);
 			if (code <= 0) {
 				if (isConnectionNull)
 					com.tivic.manager.conexao.Conexao.rollback(connect);
@@ -63,7 +69,7 @@ public class HabitacaoDAO{
 		}
 		finally{
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -83,7 +89,7 @@ public class HabitacaoDAO{
 		boolean isConnectionNull = connect==null;
 		try {
 			if (isConnectionNull)
-				connect = Conexao.conectar();
+				connect = Conexao.connect();
 			PreparedStatement pstmt = connect.prepareStatement("UPDATE habitacao SET cd_habitacao=?,"+
 												      		   "cd_familia=?,"+
 												      		   "tp_situacao=?,"+
@@ -123,7 +129,7 @@ public class HabitacaoDAO{
 		}
 		finally{
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -135,7 +141,7 @@ public class HabitacaoDAO{
 		boolean isConnectionNull = connect==null;
 		try {
 			if (isConnectionNull)
-				connect = Conexao.conectar();
+				connect = Conexao.connect();
 			PreparedStatement pstmt = connect.prepareStatement("DELETE FROM habitacao WHERE cd_habitacao=?");
 			pstmt.setInt(1, cdHabitacao);
 			pstmt.executeUpdate();
@@ -153,7 +159,7 @@ public class HabitacaoDAO{
 		}
 		finally{
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -164,7 +170,7 @@ public class HabitacaoDAO{
 	public static Habitacao get(int cdHabitacao, Connection connect){
 		boolean isConnectionNull = connect==null;
 		if (isConnectionNull)
-			connect = Conexao.conectar();
+			connect = Conexao.connect();
 		PreparedStatement pstmt;
 		ResultSet rs;
 		try {
@@ -199,7 +205,7 @@ public class HabitacaoDAO{
 		}
 		finally {
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -210,7 +216,7 @@ public class HabitacaoDAO{
 	public static ResultSetMap getAll(Connection connect) {
 		boolean isConnectionNull = connect==null;
 		if (isConnectionNull)
-			connect = Conexao.conectar();
+			connect = Conexao.connect();
 		PreparedStatement pstmt;
 		try {
 			pstmt = connect.prepareStatement("SELECT * FROM habitacao");
@@ -228,7 +234,7 @@ public class HabitacaoDAO{
 		}
 		finally {
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -239,7 +245,7 @@ public class HabitacaoDAO{
 	public static ArrayList<Habitacao> getList(Connection connect) {
 		boolean isConnectionNull = connect==null;
 		if (isConnectionNull)
-			connect = Conexao.conectar();
+			connect = Conexao.connect();
 		try {
 			ArrayList<Habitacao> list = new ArrayList<Habitacao>();
 			ResultSetMap rsm = getAll(connect);
@@ -256,7 +262,7 @@ public class HabitacaoDAO{
 		}
 		finally {
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -265,7 +271,7 @@ public class HabitacaoDAO{
 	}
 
 	public static ResultSetMap find(ArrayList<ItemComparator> criterios, Connection connect) {
-		return Search.find("SELECT * FROM habitacao", criterios, true, connect!=null ? connect : Conexao.conectar(), connect==null);
+		return Search.find("SELECT * FROM habitacao", criterios, true, connect!=null ? connect : Conexao.connect(), connect==null);
 	}
 
 }

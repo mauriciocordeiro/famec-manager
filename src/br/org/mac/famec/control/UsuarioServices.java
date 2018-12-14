@@ -9,10 +9,9 @@ import sol.dao.ItemComparator;
 import sol.dao.Search;
 import sol.util.Result;
 
-import com.tivic.manager.conexao.Conexao;
-
 import br.org.mac.famec.model.Usuario;
 import br.org.mac.famec.model.UsuarioDAO;
+import br.org.mac.famec.util.Conexao;
 
 public class UsuarioServices {
 
@@ -24,7 +23,7 @@ public class UsuarioServices {
 		boolean isConnectionNull = connect==null;
 		try {
 			if (isConnectionNull) {
-				connect = Conexao.conectar();
+				connect = Conexao.connect();
 				connect.setAutoCommit(false);
 			}
 
@@ -55,7 +54,7 @@ public class UsuarioServices {
 		}
 		finally{
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 	public static Result remove(int cdUsuario){
@@ -68,7 +67,7 @@ public class UsuarioServices {
 		boolean isConnectionNull = connect==null;
 		try {
 			if (isConnectionNull) {
-				connect = Conexao.conectar();
+				connect = Conexao.connect();
 				connect.setAutoCommit(false);
 			}
 			int retorno = 0;
@@ -94,17 +93,18 @@ public class UsuarioServices {
 		}
 		finally{
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
-public static ResultSetMap getAll() {
+	
+	public static ResultSetMap getAll() {
 		return getAll(null);
 	}
 
 	public static ResultSetMap getAll(Connection connect) {
 		boolean isConnectionNull = connect==null;
 		if (isConnectionNull)
-			connect = Conexao.conectar();
+			connect = Conexao.connect();
 		PreparedStatement pstmt;
 		try {
 			pstmt = connect.prepareStatement("SELECT * FROM usuario");
@@ -122,7 +122,7 @@ public static ResultSetMap getAll() {
 		}
 		finally {
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -131,7 +131,7 @@ public static ResultSetMap getAll() {
 	}
 
 	public static ResultSetMap find(ArrayList<ItemComparator> criterios, Connection connect) {
-		return Search.find("SELECT * FROM usuario", criterios, true, connect!=null ? connect : Conexao.conectar(), connect==null);
+		return Search.find("SELECT * FROM usuario", criterios, true, connect!=null ? connect : Conexao.connect(), connect==null);
 	}
 
 }
