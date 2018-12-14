@@ -3,9 +3,13 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Usuario } from './usuario';
 import { Observable, of } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
+import { ResultSetMap } from 'src/app/utils/ResultSetMap';
 
 const httpOptions = {
-	headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+	headers: new HttpHeaders({ 
+		'Content-Type': 'application/json',
+		'Access-Control-Allow-Origin':'*' 
+	})
 };
 const apiUrl = "http://localhost:8080/famec/rws/usuario";
 
@@ -30,9 +34,10 @@ export class UsuarioService {
 	/**
 	 * CRUD
 	 */
-	getAll():Observable<Usuario[]> {
+	public getAll():Observable<ResultSetMap[]> {
+		this.http.options(apiUrl, httpOptions);
 
-		return this.http.get<Usuario[]>(apiUrl+'/getAll')
+		return this.http.get<ResultSetMap[]>(apiUrl+'/getAll')
 			.pipe(
 				tap(heroes => console.log('fetched usuario')),
 				catchError(this.handleError('getAll', []))
