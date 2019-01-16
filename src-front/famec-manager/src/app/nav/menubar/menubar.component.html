@@ -1,30 +1,36 @@
 <mat-toolbar color="primary" fxFlex fxLayoutGap="10px">
 
-  <mat-card-content class="content" fxFlex fxLayout="row" >
-    <button class="button" mat-icon-button [matMenuTriggerFor]="mnAluno"> Alunos </button>
+  <mat-card-content class="content" fxFlex fxLayout="row">
+    <button class="button" mat-icon-button [matMenuTriggerFor]="mnAluno">
+      <mat-icon>people</mat-icon>
+      <span class="span">Alunos</span>
+    </button>
     <mat-menu #mnAluno="matMenu">
       <button mat-menu-item>
         <mat-icon>add</mat-icon>
         <span>Cadastrar</span>
       </button>
-      <button mat-menu-item >
+      <button mat-menu-item>
         <mat-icon>search</mat-icon>
         <span>Pesquisar</span>
       </button>
     </mat-menu>
-
+    <button class="button" mat-icon-button [matMenuTriggerFor]="mnRelatorio">
+      <mat-icon>subject</mat-icon>
+      <span class="span">Relatórios</span>
+    </button>
+    <mat-menu #mnRelatorio="matMenu">
+      <button mat-menu-item>
+        <mat-icon>people</mat-icon>
+        <span>Alunos</span>
+      </button>
+    </mat-menu>
     <button class="button" mat-icon-button [mat-menu-trigger-for]="mnMais">
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #mnMais="matMenu">
-      <button mat-menu-item >
-        <mat-icon>contacts</mat-icon>
-        <span>Contato</span>
-      </button>
-      <button mat-menu-item >
-        <mat-icon>info</mat-icon>
-        <span>Sobre</span>
-      </button>
+      <button mat-menu-item (click)="miContatoOnClick()"> Contato </button>
+      <button mat-menu-item> Sobre </button>
     </mat-menu>
 
   </mat-card-content>

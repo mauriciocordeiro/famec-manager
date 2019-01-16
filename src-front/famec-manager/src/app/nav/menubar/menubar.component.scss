@@ -1,7 +1,10 @@
 .content {
     margin: 25px 25px;
     .button {
-        margin: 10px !important;
+        margin: 20px !important;
         width: fit-content;
+        .span {
+            margin: 10px;
+        }
     }
 }
