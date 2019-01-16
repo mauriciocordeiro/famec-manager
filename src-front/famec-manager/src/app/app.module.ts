@@ -6,12 +6,16 @@ import { AppComponent } from './app.component';
 
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { MaterialModule } from './material.module';
+import { MATERIAL_MODULES } from './app.material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SidebarComponent } from './nav/sidebar/sidebar.component';
+import { MenubarComponent } from './nav/menubar/menubar.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SidebarComponent,
+    MenubarComponent
   ],
   imports: [
     BrowserModule,
@@ -19,7 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
     FormsModule,
     HttpModule,
-    MaterialModule,
+    MATERIAL_MODULES,
     BrowserAnimationsModule
   ],
   providers: [],
