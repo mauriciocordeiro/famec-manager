@@ -29,9 +29,11 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #mnMais="matMenu">
-      <button mat-menu-item (click)="miContatoOnClick()"> Contato </button>
+      <button mat-menu-item routerLink="/contato"> Contato </button>
+      
       <button mat-menu-item> Sobre </button>
     </mat-menu>
 
   </mat-card-content>
 </mat-toolbar>
+<router-outlet></router-outlet>

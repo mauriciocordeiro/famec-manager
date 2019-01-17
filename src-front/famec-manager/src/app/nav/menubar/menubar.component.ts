@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menubar',
@@ -8,14 +7,9 @@ import { Router } from '@angular/router';
 })
 export class MenubarComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit() {
   }
-
-  miContatoOnClick() {
-    this.router.navigate(['/contato']);
-  }
-
 
 }
