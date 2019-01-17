@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ContatoComponent } from './forms/contato/contato.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: 'contato', component: ContatoComponent }
 ];
 
