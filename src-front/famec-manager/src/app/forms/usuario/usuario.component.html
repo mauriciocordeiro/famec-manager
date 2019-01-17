@@ -1,0 +1,66 @@
+<div *ngIf="showForm" style="width: fit-content; margin: 50px 200px 0px 200px;" fxFlex fxLayoutAlign="center center">
+
+  <mat-card fxLayout="row" fxFlex>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon>account_circle</mat-icon>
+      </div>
+      <mat-card-title>Usuário</mat-card-title>
+      <mat-card-subtitle>Gerenciamento de registro</mat-card-subtitle>
+    </mat-card-header>
+    <mat-divider [inset]="true"></mat-divider>
+    <mat-card-content fxFlex fxLayoutGap="10px">
+      <form id="usuarioForm" fxFlex>
+        <div fxLayout.xs="column" fxLayout="row" layout-margin>
+          <!--ln1-->
+          <!-- <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Id.</mat-label>
+            <input matInput #cdUsuario placeholder="0000" disabled>
+          </mat-form-field> -->
+          <mat-form-field appearance="outline" fxFlex style="width:90%;">
+            <mat-label>Nome</mat-label>
+            <input matInput #nmUsuario
+              placeholder="Pedro de Alcântara Francisco António João Carlos Xavier de Paula Miguel Rafael Joaquim José Gonzaga Pascoal Cipriano Serafim de Bragança e Bourbon">
+          </mat-form-field>
+          <mat-slide-toggle #stUsuario [color]="accent" [checked]="true" style="width:10%;">Ativo</mat-slide-toggle>
+        </div>
+        <div fxLayout.xs="column" fxLayout="row" layout-margin fxLayoutGap="10px">
+          <!--ln2-->
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Login</mat-label>
+            <input matInput #nmLogin placeholder="Nome de usuário">
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Senha</mat-label>
+            <input matInput type="password" #nmSenha placeholder="Senha">
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Confirme a Senha</mat-label>
+            <input matInput type="password" #nmSenha2 placeholder="Senha">
+          </mat-form-field>
+        </div>
+        <div fxLayout.xs="column" fxLayout="row" layout-margin fxLayoutGap="10px">
+          <!--ln3-->
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>E-mail</mat-label>
+            <input matInput #nmEmail type="email" placeholder="usuario@provedor.com">
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Função</mat-label>
+            <input matInput #nmFuncao placeholder="Função">
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-fab>
+        <mat-icon>add</mat-icon>
+      </button>
+      <button mat-fab>
+        <mat-icon>save</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+<!-- 
+<router-outlet></router-outlet> -->

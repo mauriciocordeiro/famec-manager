@@ -11,13 +11,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarComponent } from './nav/sidebar/sidebar.component';
 import { MenubarComponent } from './nav/menubar/menubar.component';
 import { ContatoComponent } from './forms/contato/contato.component';
+import { UsuarioComponent } from './forms/usuario/usuario.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
     MenubarComponent,
-    ContatoComponent
+    ContatoComponent,
+    UsuarioComponent
   ],
   imports: [
     BrowserModule,

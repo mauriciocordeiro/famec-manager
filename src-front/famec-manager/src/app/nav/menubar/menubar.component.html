@@ -1,7 +1,7 @@
 <mat-toolbar color="primary" fxFlex fxLayoutGap="10px">
-  <mat-card-content class="content" fxFlex fxLayout="row" routerLink="">
+  <mat-card-content class="content" fxFlex fxLayout="row">
     <!-- <mat-label class="logo">FAMEC</mat-label> -->
-    <button class="button" mat-icon-button>
+    <button class="button" mat-icon-button routerLink="">
       <mat-icon>home</mat-icon>
     </button>
     <button class="button" mat-icon-button [matMenuTriggerFor]="mnAluno">
@@ -28,6 +28,10 @@
         <span>Alunos</span>
       </button>
     </mat-menu>
+    <button class="button" routerLink="/usuario" mat-icon-button>
+      <mat-icon>account_circle</mat-icon>
+      <span class="span">Usuários</span>
+    </button>
     <button class="button" mat-icon-button [mat-menu-trigger-for]="mnMais">
       <mat-icon>more_vert</mat-icon>
     </button>
