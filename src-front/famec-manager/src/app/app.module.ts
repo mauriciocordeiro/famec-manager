@@ -12,6 +12,7 @@ import { SidebarComponent } from './nav/sidebar/sidebar.component';
 import { MenubarComponent } from './nav/menubar/menubar.component';
 import { ContatoComponent } from './forms/contato/contato.component';
 import { UsuarioComponent } from './forms/usuario/usuario.component';
+import { LoadingComponent } from './nav/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { UsuarioComponent } from './forms/usuario/usuario.component';
     SidebarComponent,
     MenubarComponent,
     ContatoComponent,
-    UsuarioComponent
+    UsuarioComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

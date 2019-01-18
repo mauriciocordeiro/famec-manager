@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-usuario',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsuarioComponent implements OnInit {
 
+  loading:Boolean = false;
   showForm:boolean = true;
+
+  formGroup: FormGroup;
 
   constructor() { }
 
@@ -15,6 +19,10 @@ export class UsuarioComponent implements OnInit {
     window.dispatchEvent(new Event('resize'));
 
     console.log("usuario");
+  }
+
+  salvar(form) {
+
   }
 
 }
