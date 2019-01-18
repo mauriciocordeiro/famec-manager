@@ -22,7 +22,8 @@ export class UsuarioComponent implements OnInit {
   }
 
   salvar(form) {
-
+    debugger;
+    console.log(form);
   }
 
 }
