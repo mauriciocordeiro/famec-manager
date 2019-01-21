@@ -19,7 +19,8 @@ public class UsuarioRest {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public static String save(Usuario usuario) {
-		return new String("\"retorno\":\"sucesso\"");
+		//return new String("\"retorno\":\"sucesso\"");
+		return UsuarioServices.save(usuario).toString();
 	}
 	
 	@GET

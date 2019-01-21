@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MATERIAL_MODULES } from './app.material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -28,6 +28,7 @@ import { LoadingComponent } from './nav/loading/loading.component';
     AppRoutingModule,
 
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     MATERIAL_MODULES,
     BrowserAnimationsModule

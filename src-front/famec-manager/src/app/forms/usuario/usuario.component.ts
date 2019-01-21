@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-usuario',
@@ -11,7 +11,14 @@ export class UsuarioComponent implements OnInit {
   loading:Boolean = false;
   showForm:boolean = true;
 
-  formGroup: FormGroup;
+  usuarioForm:FormGroup = new FormGroup({
+    nmUsuario: new FormControl(''),
+    stUsuario: new FormControl(true),
+    nmLogin: new FormControl(''),
+    nmSenha: new FormControl(''),
+    nmEmail: new FormControl(''),
+    nmFuncao: new FormControl('')
+  });
 
   constructor() { }
 
@@ -21,9 +28,12 @@ export class UsuarioComponent implements OnInit {
     console.log("usuario");
   }
 
-  salvar(form) {
-    debugger;
-    console.log(form);
+  onSubmit() {
+    console.log(this.usuarioForm.value);
+    if(!this.usuarioForm.valid)
+      return;
+
+    
   }
 
 }

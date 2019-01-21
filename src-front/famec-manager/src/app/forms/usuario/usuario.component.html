@@ -9,30 +9,30 @@
   </mat-card-header>
   <mat-divider [inset]="true"></mat-divider>
   <mat-card-content>
-    <form id="usuarioForm"  (ngSubmit)="salvar(usuarioForm.value)">
+    <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
       <table>
         <tr>
           <td colspan="2">
             <mat-form-field appearance="outline">
               <mat-label>Nome</mat-label>
-              <input matInput #nmUsuario placeholder="Pedro de Alcântara Francisco António João Carlos Xavier de Paula Miguel Rafael Joaquim José Gonzaga Pascoal Cipriano Serafim de Bragança e Bourbon">
+              <input matInput formControlName="nmUsuario" placeholder="Pedro de Alcântara Francisco António João Carlos Xavier de Paula Miguel Rafael Joaquim José Gonzaga Pascoal Cipriano Serafim de Bragança e Bourbon">
             </mat-form-field>
           </td>
           <td>
-            <mat-slide-toggle #stUsuario [color]="accent" [checked]="true">Ativo</mat-slide-toggle>
+            <mat-slide-toggle formControlName="stUsuario" [color]="accent" [checked]="true">Ativo</mat-slide-toggle>
           </td>
         </tr>
         <tr>
           <td>
             <mat-form-field appearance="outline">
               <mat-label>Login</mat-label>
-              <input matInput #nmLogin placeholder="Nome de usuário">
+              <input matInput formControlName="nmLogin" placeholder="Nome de usuário" required>
             </mat-form-field>
           </td>
           <td>
             <mat-form-field appearance="outline">
               <mat-label>Senha</mat-label>
-              <input matInput type="password" #nmSenha placeholder="Senha">
+              <input matInput type="password" formControlName="nmSenha" placeholder="Senha" required>
             </mat-form-field>
           </td>
           <td>
@@ -46,31 +46,31 @@
           <td colspan="2">
             <mat-form-field appearance="outline" fxFlex>
               <mat-label>E-mail</mat-label>
-              <input matInput #nmEmail type="email" placeholder="usuario@provedor.com">
+              <input matInput formControlName="nmEmail" type="email" placeholder="usuario@provedor.com">
             </mat-form-field>
           </td>
           <td>
             <mat-form-field appearance="outline" fxFlex>
               <mat-label>Função</mat-label>
-              <input matInput #nmFuncao placeholder="Função">
+              <input matInput formControlName="nmFuncao" placeholder="Função">
             </mat-form-field>
           </td>
         </tr>
       </table>
+      <mat-card-actions class="done">
+        <!-- <button mat-fab #btnAdd>
+            <mat-icon>add</mat-icon>
+          </button> -->
+        <button mat-fab type="submit">
+          <mat-icon>save</mat-icon>
+        </button>
+        <button mat-fab #btnSearch>
+          <mat-icon>search</mat-icon>
+        </button>
+        <button mat-fab #btnDelete>
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card-actions>
     </form>
-    <mat-card-actions class="done">
-      <!-- <button mat-fab #btnAdd>
-          <mat-icon>add</mat-icon>
-        </button> -->
-      <button mat-fab #btnSave type="submit" form="usuarioForm">
-        <mat-icon>save</mat-icon>
-      </button>
-      <button mat-fab #btnSearch>
-        <mat-icon>search</mat-icon>
-      </button>
-      <button mat-fab #btnDelete>
-        <mat-icon>delete</mat-icon>
-      </button>
-    </mat-card-actions>
   </mat-card-content>
 </mat-card>
