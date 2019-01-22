@@ -11,10 +11,8 @@ import { Usuario } from 'src/app/services/usuario';
 })
 export class UsuarioComponent implements OnInit {
 
-  loading:boolean = false;
-  loadingMessage:string = "Carregando...";
-
-  showForm:boolean = true;
+  loading:boolean = true;
+  loadingMessage:string = "";
 
   usuarioForm:FormGroup = new FormGroup({
     cdUsuario: new FormControl(0),
