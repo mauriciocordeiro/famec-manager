@@ -38,6 +38,9 @@ public class UsuarioServices {
 			else {
 				retorno = UsuarioDAO.update(usuario, connect);
 			}
+			
+			//XXX
+			System.out.println("UsuarioServices.retorno.save> retorno = "+retorno);
 
 			if(retorno<=0)
 				Conexao.rollback(connect);
@@ -47,7 +50,7 @@ public class UsuarioServices {
 			return new Result(retorno, (retorno<=0)?"Erro ao salvar...":"Salvo com sucesso...", "USUARIO", usuario);
 		}
 		catch(Exception e){
-			e.printStackTrace();
+			e.printStackTrace(System.out);
 			if (isConnectionNull)
 				Conexao.rollback(connect);
 			return new Result(-1, e.getMessage());
@@ -86,7 +89,7 @@ public class UsuarioServices {
 			return new Result(1, "Registro excluído com sucesso!");
 		}
 		catch(Exception e){
-			e.printStackTrace();
+			e.printStackTrace(System.out);
 			if (isConnectionNull)
 				Conexao.rollback(connect);
 			return new Result(-1, "Erro ao excluir registro!");
