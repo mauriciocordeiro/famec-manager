@@ -24,9 +24,17 @@ public class UsuarioRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	public static String save(String args) {
 		try {
+			Thread.sleep(2000);
 			JSONObject json = new JSONObject(args);
-			System.out.println(args);
-			Result result = UsuarioServices.save(new Usuario(json.getInt("cdUsuario"), json.getString("nmUsuario"), json.getString("nmLogin"), json.getString("nmSenha"), json.getString("nmEmail"), json.getInt("stUsuario"), json.getString("nmFuncao")));
+			Result result = UsuarioServices.save(
+					new Usuario(
+							json.getInt("cdUsuario"), 
+							json.getString("nmUsuario"), 
+							json.getString("nmLogin"), 
+							json.getString("nmSenha"), 
+							json.getString("nmEmail"), 
+							json.getInt("stUsuario"), 
+							json.getString("nmFuncao")));
 			
 			return new JSONObject((Usuario)result.getObjects().get("USUARIO")).toString();
 		} catch (Exception e) {

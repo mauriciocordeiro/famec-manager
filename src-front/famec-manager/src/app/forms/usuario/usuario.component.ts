@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-
+import { MatSnackBar } from '@angular/material';
 import { UsuarioService } from '../../services/usuario.services';
 import { Usuario } from 'src/app/services/usuario';
 
@@ -11,10 +11,13 @@ import { Usuario } from 'src/app/services/usuario';
 })
 export class UsuarioComponent implements OnInit {
 
-  loading:Boolean = false;
+  loading:boolean = false;
+  loadingMessage:string = "Carregando...";
+
   showForm:boolean = true;
 
   usuarioForm:FormGroup = new FormGroup({
+    cdUsuario: new FormControl(0),
     nmUsuario: new FormControl(''),
     stUsuario: new FormControl(1),
     nmLogin: new FormControl(''),
@@ -23,7 +26,10 @@ export class UsuarioComponent implements OnInit {
     nmFuncao: new FormControl('')
   });
 
-  constructor(private usuarioService:UsuarioService) { }
+  constructor(
+    private usuarioService:UsuarioService, 
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit() {
     window.dispatchEvent(new Event('resize'));
@@ -31,21 +37,23 @@ export class UsuarioComponent implements OnInit {
     console.log("usuario");
   }
 
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+
   onSubmit() {
-    this.loading = true;
-    console.log(this.usuarioForm.value);
     if(!this.usuarioForm.valid) {
-      this.loading = false;
-      console.log("Is form valid? "+this.usuarioForm.valid)
+      this.openSnackBar("Existem campos inválidos.", null);
       return;
     }
 
-    var usuario:Usuario = this.usuarioForm.value as Usuario;
-    usuario.cdUsuario = (this.usuarioForm.value.cdUsuario ? this.usuarioForm.value.cdUsuario : 0);
-    
-    this.usuarioService.addUsuario(usuario)
+    this.loading = true;
+    this.usuarioService.saveUsuario(this.usuarioForm.value as Usuario)
       .subscribe(usuario => {
-        console.log(usuario);
+        this.usuarioForm.setValue(usuario);
+        this.openSnackBar("Usuário registrado com sucesso", null);
       });
     
     this.loading = false;

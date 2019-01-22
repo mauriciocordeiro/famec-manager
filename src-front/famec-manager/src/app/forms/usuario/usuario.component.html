@@ -1,4 +1,4 @@
-<app-loading *ngIf="loading"></app-loading>
+<app-loading *ngIf="loading" [message]="loadingMessage"></app-loading>
 <mat-card>
   <mat-card-header>
     <div mat-card-avatar>
@@ -58,16 +58,13 @@
         </tr>
       </table>
       <mat-card-actions class="done">
-        <!-- <button mat-fab #btnAdd>
-            <mat-icon>add</mat-icon>
-          </button> -->
         <button mat-fab type="submit">
           <mat-icon>save</mat-icon>
         </button>
-        <button mat-fab #btnSearch>
+        <button mat-fab #btnSearch type="button">
           <mat-icon>search</mat-icon>
         </button>
-        <button mat-fab #btnDelete>
+        <button mat-fab #btnDelete type="button">
           <mat-icon>delete</mat-icon>
         </button>
       </mat-card-actions>

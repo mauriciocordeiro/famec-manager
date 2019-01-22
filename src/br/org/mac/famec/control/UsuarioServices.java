@@ -38,9 +38,6 @@ public class UsuarioServices {
 			else {
 				retorno = UsuarioDAO.update(usuario, connect);
 			}
-			
-			//XXX
-			System.out.println("UsuarioServices.retorno.save> retorno = "+retorno);
 
 			if(retorno<=0)
 				Conexao.rollback(connect);

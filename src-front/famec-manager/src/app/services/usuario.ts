@@ -6,8 +6,4 @@ export class Usuario {
     nmSenha: string;
     nmEmail: string;
     nmFuncao: string;
-
-    toString():string {
-        return "{}";
-    }
 }
