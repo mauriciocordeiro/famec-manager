@@ -5,8 +5,12 @@
       <mat-icon>account_circle</mat-icon>
     </div>
     <mat-card-title>Usuário</mat-card-title>
-    <!-- <mat-card-subtitle>Gerenciamento de registro</mat-card-subtitle> -->
   </mat-card-header>
+  <mat-form-field class="search-field">
+    <mat-label>Pesquisar</mat-label>
+    <input matInput type="search" placeholder="Nome de usuário">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
   <mat-divider [inset]="true"></mat-divider>
   <mat-card-content>
     <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">

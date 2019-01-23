@@ -3,7 +3,6 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { UsuarioService } from '../../services/usuario.services';
 import { Usuario } from 'src/app/services/usuario';
-import { Result } from 'src/app/services/result';
 
 @Component({
   selector: 'app-usuario',
@@ -18,6 +17,8 @@ export class UsuarioComponent implements OnInit {
 
   loading:boolean = false;
   loadingMessage:string = "";
+
+  showSearch:boolean = true;
 
   usuarioForm:FormGroup = new FormGroup({
     cdUsuario: new FormControl(0),
@@ -40,7 +41,7 @@ export class UsuarioComponent implements OnInit {
     console.log("usuario");
   }
 
-  openSnackBar(message: string, action: string, type:string=this.SUCCESS) {
+  openSnackBar(message:string, action:string, type:string=this.SUCCESS) {
     this.snackBar.open(message, action, {
       duration: 3000,
       panelClass: [type+'-snackbar']
@@ -64,6 +65,10 @@ export class UsuarioComponent implements OnInit {
         this.usuarioForm.setValue(usuario);
         this.openSnackBar(result.message, null);
       });
+  }
+
+  onSearch() {
+
   }
 
 }
