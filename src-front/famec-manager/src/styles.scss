@@ -29,3 +29,21 @@ mat-card.form mat-card-content {
     margin-bottom: 0;
     padding: 0 !important;
 }
+
+.error-snackbar {
+    color: crimson;
+    font-weight: bold;
+    //background: #FF0505;
+}
+
+.alert-snackbar {
+    color: yellow;
+    font-weight: bold;
+    //background: #FFFF05;
+}
+
+.success-snackbar {
+    color: royalblue;
+    font-weight: bold;
+    //background: #2196F3;
+}

@@ -1,4 +1,5 @@
 import { Observable, of } from 'rxjs';
+import { MatSnackBar } from '@angular/material';
 
 export class Services {
     
@@ -6,7 +7,6 @@ export class Services {
     public HOST: string = window.location.host.split(":")[0];
     public CONTEXT: string = 'famec';
     public FULL_CONTEXT: string = "http://"+this.HOST+":"+this.PORT+"/"+this.CONTEXT;
-
 
     /**
    * Handle Http operation that failed.
@@ -32,6 +32,6 @@ export class Services {
 	public log(message: string) {
         // this.messageService.add(`HeroService: ${message}`);
         console.log(message);
-	}
+    }
 
 }

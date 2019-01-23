@@ -32,6 +32,12 @@ public class UsuarioServices {
 
 			int retorno;
 			if(usuario.getCdUsuario()==0){
+				if(connect.prepareStatement("SELECT cd_usuario FROM usuario WHERE nm_login = '"+usuario.getNmLogin()+"'").executeQuery().next()) {
+					if(isConnectionNull)
+						connect.rollback();
+					return new Result(-2, "Login já utilizado.");
+				}
+				
 				retorno = UsuarioDAO.insert(usuario, connect);
 				usuario.setCdUsuario(retorno);
 			}

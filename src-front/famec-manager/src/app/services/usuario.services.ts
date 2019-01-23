@@ -4,6 +4,7 @@ import { Usuario } from './usuario';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Services } from './services';
+import { Result } from './result';
 
 const httpOptions = {
 	headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -18,11 +19,10 @@ export class UsuarioService extends Services {
 		super();
 	}
 
-	saveUsuario(usuario: Usuario): Observable<Usuario> {
-		debugger;
-		return this.http.put<Usuario>(this.serviceUrl+"/save", JSON.stringify(usuario, null, 2), httpOptions).pipe(
-			tap((usuario: Usuario) => this.log(`added user w/ id=${usuario.cdUsuario}`)),
-			catchError(this.handleError<Usuario>('addUsuario'))
+	saveUsuario(usuario: Usuario):Observable<Result> {
+		return this.http.put(this.serviceUrl+"/save", JSON.stringify(usuario, null, 2), httpOptions).pipe(
+			tap((result: Result) => this.log(result.message)),
+			catchError(this.handleError<Result>('Erro! saveUsuario.'))
 		);
 	}
 

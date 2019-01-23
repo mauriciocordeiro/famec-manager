@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { UsuarioService } from '../../services/usuario.services';
 import { Usuario } from 'src/app/services/usuario';
+import { Result } from 'src/app/services/result';
 
 @Component({
   selector: 'app-usuario',
@@ -11,7 +12,11 @@ import { Usuario } from 'src/app/services/usuario';
 })
 export class UsuarioComponent implements OnInit {
 
-  loading:boolean = true;
+  ALERT:string='alert';
+  ERROR:string='error';
+  SUCCESS:string='success';
+
+  loading:boolean = false;
   loadingMessage:string = "";
 
   usuarioForm:FormGroup = new FormGroup({
@@ -35,27 +40,30 @@ export class UsuarioComponent implements OnInit {
     console.log("usuario");
   }
 
-  openSnackBar(message: string, action: string) {
+  openSnackBar(message: string, action: string, type:string=this.SUCCESS) {
     this.snackBar.open(message, action, {
-      duration: 2000,
+      duration: 3000,
+      panelClass: [type+'-snackbar']
     });
   }
 
   onSubmit() {
     if(!this.usuarioForm.valid) {
-      this.openSnackBar("Existem campos inválidos.", null);
+      this.openSnackBar("Existem campos inválidos.", null, this.ALERT);
       return;
     }
 
-    this.loading = true;
     this.usuarioService.saveUsuario(this.usuarioForm.value as Usuario)
-      .subscribe(usuario => {
-        this.usuarioForm.setValue(usuario);
-        this.openSnackBar("Usuário registrado com sucesso", null);
-      });
+      .subscribe(result => {
+        if(result.code <= 0) {
+          this.openSnackBar(result.message, null, this.ERROR);
+          return;
+        }
     
-    this.loading = false;
-
+        var usuario:Usuario = result.objects.USUARIO as Usuario;
+        this.usuarioForm.setValue(usuario);
+        this.openSnackBar(result.message, null);
+      });
   }
 
 }

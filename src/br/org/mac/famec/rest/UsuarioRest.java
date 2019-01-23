@@ -24,7 +24,6 @@ public class UsuarioRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	public static String save(String args) {
 		try {
-			Thread.sleep(2000);
 			JSONObject json = new JSONObject(args);
 			Result result = UsuarioServices.save(
 					new Usuario(
@@ -36,7 +35,7 @@ public class UsuarioRest {
 							json.getInt("stUsuario"), 
 							json.getString("nmFuncao")));
 			
-			return new JSONObject((Usuario)result.getObjects().get("USUARIO")).toString();
+			return new JSONObject(result).toString();
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
 			return null;
