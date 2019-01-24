@@ -27,7 +27,7 @@ import { MatTableModule } from '@angular/material';
 import { MatSortModule } from '@angular/material';
 import { MatPaginatorModule } from '@angular/material';
 import { MatRippleModule } from "@angular/material";
-import {MatStepperModule} from '@angular/material';
+import { MatStepperModule } from '@angular/material';
 
 export const MATERIAL_MODULES : any[] = [
     MatDialogModule,

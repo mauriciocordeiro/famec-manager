@@ -26,7 +26,22 @@ export class UsuarioService extends Services {
 		);
 	}
 
+	searchUsuarios(term: string): Observable<any> {
+		if (!term.trim()) {
+			return of([]);
+		}
 
+		if(term.length < 3) {
+			return of([]);
+		}
+
+		return this.http.get(`${this.serviceUrl}/pesquisar?nome=${term}`)
+			.pipe(
+				tap(_ => this.log(`found heroes matching "${term}": `)),
+				catchError(this.handleError<Usuario[]>('searchHeroes', [])
+			)
+		);
+	}
 
 
 
@@ -70,14 +85,5 @@ export class UsuarioService extends Services {
 		); 	
 	}
 
-	searchHeroes(term: string): Observable<Usuario[]> {
-		if (!term.trim()) {
-			// if not search term, return empty hero array.
-			return of([]);
-		}
-		return this.http.get<Usuario[]>(`${this.serviceUrl}/?name=${term}`).pipe(
-			tap(_ => this.log(`found heroes matching "${term}"`)),
-			catchError(this.handleError<Usuario[]>('searchHeroes', []))
-		);
-	}
+	
 }

@@ -65,6 +65,23 @@ td{
     width: 90%;
 } 
 
+.search-result {
+    background-color: rgba(white, 1);
+    margin-top: -17px;
+    margin-bottom: 15px;
+    padding-left: 25px;
+    position: sticky;
+    text-align: -webkit-center;    
+    width: 90%;
+}
+
+p {
+    background-color: white;
+    padding-left: 10px;
+    border-left: 6px solid royalblue;
+}
+
 button {
     margin: 0px 10px;
 }
+

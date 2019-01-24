@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { UsuarioService } from '../../services/usuario.services';
@@ -11,16 +11,18 @@ import { Usuario } from 'src/app/services/usuario';
 })
 export class UsuarioComponent implements OnInit {
 
-  ALERT:string='alert';
-  ERROR:string='error';
-  SUCCESS:string='success';
+  @ViewChild('searchField') searchField:any;
 
-  loading:boolean = false;
-  loadingMessage:string = "";
+  ALERT: string = 'alert';
+  ERROR: string = 'error';
+  SUCCESS: string = 'success';
 
-  showSearch:boolean = true;
+  loading: boolean = false;
+  loadingMessage: string = "";
 
-  usuarioForm:FormGroup = new FormGroup({
+  showSearch: boolean = true;
+
+  usuarioForm: FormGroup = new FormGroup({
     cdUsuario: new FormControl(0),
     nmUsuario: new FormControl(''),
     stUsuario: new FormControl(1),
@@ -30,45 +32,59 @@ export class UsuarioComponent implements OnInit {
     nmFuncao: new FormControl('')
   });
 
+  usuarios:Usuario[];
+
   constructor(
-    private usuarioService:UsuarioService, 
+    private usuarioService: UsuarioService,
     private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
     window.dispatchEvent(new Event('resize'));
-
-    console.log("usuario");
   }
 
-  openSnackBar(message:string, action:string, type:string=this.SUCCESS) {
+  openSnackBar(message: string, action: string, type: string = this.SUCCESS) {
     this.snackBar.open(message, action, {
       duration: 3000,
-      panelClass: [type+'-snackbar']
+      panelClass: [type + '-snackbar']
     });
   }
 
   onSubmit() {
-    if(!this.usuarioForm.valid) {
+    if (!this.usuarioForm.valid) {
       this.openSnackBar("Existem campos inválidos.", null, this.ALERT);
       return;
     }
 
+    this.usuarioForm.value.stUsuario = this.usuarioForm.value.stUsuario ? 1 : 0;
+
     this.usuarioService.saveUsuario(this.usuarioForm.value as Usuario)
       .subscribe(result => {
-        if(result.code <= 0) {
+        if (result.code <= 0) {
           this.openSnackBar(result.message, null, this.ERROR);
           return;
         }
-    
-        var usuario:Usuario = result.objects.USUARIO as Usuario;
+
+        var usuario: Usuario = result.objects.USUARIO as Usuario;
         this.usuarioForm.setValue(usuario);
         this.openSnackBar(result.message, null);
       });
   }
 
-  onSearch() {
-
+  onSearch(term: string): void {
+    this.usuarioService.searchUsuarios(term)
+        .subscribe(list => {
+          this.usuarios = list;
+          
+        });
   }
 
+  onSelectItem(arg:Usuario):void {
+    if(!arg)
+      return;
+
+    this.usuarioForm.setValue(arg);
+    this.usuarios = [];
+    this.searchField.value = "";
+  }
 }

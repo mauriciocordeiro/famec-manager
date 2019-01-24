@@ -137,7 +137,7 @@ public class UsuarioServices {
 	}
 
 	public static ResultSetMap find(ArrayList<ItemComparator> criterios, Connection connect) {
-		return Search.find("SELECT * FROM usuario", criterios, true, connect!=null ? connect : Conexao.connect(), connect==null);
+		return Search.find("SELECT * FROM usuario", criterios, connect!=null ? connect : Conexao.connect(), connect==null);
 	}
 
 }
