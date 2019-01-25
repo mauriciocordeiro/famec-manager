@@ -4,6 +4,7 @@ import java.sql.Types;
 import java.util.ArrayList;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -76,12 +77,29 @@ public class UsuarioRest {
 		}
 	}
 	
+	@DELETE
+	@Path("/delete")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public static String delete(@QueryParam("codigo") String codigo) {
+		try {
+			Result result = UsuarioServices.remove(Integer.parseInt(codigo));
+						
+			return new JSONObject(result).toString();
+		} catch (Exception e) {
+			e.printStackTrace(System.out);
+			return null;
+		}
+	}
+	
+	
+	
+	
 	
 	// \/ \/ \/ \/ \/ \/ \/ \/ \/ 
 	
 	@GET
 	@Path("/test")
-	
 	@Produces(MediaType.APPLICATION_JSON)
 	public static String test() {
 		return new String("{\"retorno\":\"sucesso\"}");

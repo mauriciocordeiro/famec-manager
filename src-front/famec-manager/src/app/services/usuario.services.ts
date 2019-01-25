@@ -2,88 +2,50 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Usuario } from './usuario';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { Services } from './services';
 import { Result } from './result';
 
 const httpOptions = {
-	headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
 @Injectable({ providedIn: 'root' })
 export class UsuarioService extends Services {
+	/**
+	 * manage back-end request/response
+	 */
 
-	private serviceUrl = this.FULL_CONTEXT+"/rws/usuario";//'http://localhost:8080/famec/rws/usuario';  // URL to web api
+  // URL to web api
+  private serviceUrl = this.FULL_CONTEXT + "/rws/usuario"; 
 
-	constructor(private http: HttpClient) { 
-		super();
-	}
+  constructor(private http: HttpClient) {
+    super();
+  }
 
-	saveUsuario(usuario: Usuario):Observable<Result> {
-		return this.http.put(this.serviceUrl+"/save", JSON.stringify(usuario, null, 2), httpOptions).pipe(
-			tap((result: Result) => this.log(result.message)),
-			catchError(this.handleError<Result>('Erro! saveUsuario.'))
-		);
-	}
+  saveUsuario(usuario: Usuario): Observable<Result> {
+    return this.http.put(this.serviceUrl + "/save", JSON.stringify(usuario, null, 2), httpOptions).pipe(
+      tap((result: Result) => this.log(result.message)),
+      catchError(this.handleError<Result>('Erro! saveUsuario.'))
+    );
+  }
 
-	searchUsuarios(term: string): Observable<any> {
-		if (!term.trim()) {
-			return of([]);
-		}
+  getUsuarios(term: string): Observable<any> {
+    return this.http.get(`${this.serviceUrl}/pesquisar?nome=${term}`)
+      .pipe(
+        tap(_ => this.log(`found users matching "${term}"`)),
+        catchError(this.handleError<Usuario[]>('searchUsuarios', [])
+      )
+    );
+  }
+  
+  deleteUsuario(cdUsuario): Observable<Result> {
+    const url = `${this.serviceUrl}/delete?codigo=${cdUsuario}`;
 
-		if(term.length < 3) {
-			return of([]);
-		}
+    return this.http.delete<Result>(url, httpOptions).pipe(
+      tap(_ => this.log(`deleted user cdUsuario=${cdUsuario}`)),
+      catchError(this.handleError<Result>('deleteUsuario'))
+    );
+  }
 
-		return this.http.get(`${this.serviceUrl}/pesquisar?nome=${term}`)
-			.pipe(
-				tap(_ => this.log(`found heroes matching "${term}": `)),
-				catchError(this.handleError<Usuario[]>('searchHeroes', [])
-			)
-		);
-	}
-
-
-
-
-
-
-
-
-	getUsuarios(): Observable<Usuario[]> {
-		return this.http.get<Usuario[]>(this.serviceUrl)
-			.pipe(
-				tap(_ => this.log('fetched users')),
-				catchError(this.handleError('getUsuarios', []))
-			);
-	}
-
-	getUsuario(id: number): Observable<Usuario> {
-		const url = `${this.serviceUrl}/${id}`;
-		return this.http.get<Usuario>(url).pipe(
-			tap(_ => this.log(`fetched user id=${id}`)),
-			catchError(this.handleError<Usuario>(`getUsuario id=${id}`))
-		);
-	}
-
-	updateHero(hero: Usuario): Observable<any> {
-		return this.http.put(this.serviceUrl, hero, httpOptions).pipe(
-			tap(_ => this.log(`updated hero id=${hero.cdUsuario}`)),
-			catchError(this.handleError<any>('updateHero'))
-		);
-	}
-
-	
-
-	deleteHero(hero: Usuario | number): Observable<Usuario> {
-		const id = typeof hero === 'number' ? hero : hero.cdUsuario;
-		const url = `${this.serviceUrl}/${id}`;
-
-		return this.http.delete<Usuario>(url, httpOptions).pipe(
-			tap(_ => this.log(`deleted hero id=${id}`)),
-			catchError(this.handleError<Usuario>('deleteHero'))
-		); 	
-	}
-
-	
 }

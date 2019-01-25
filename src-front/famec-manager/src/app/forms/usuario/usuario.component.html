@@ -14,8 +14,8 @@
   <mat-list class="search-result">
     <mat-list-item *ngFor="let user of usuarios">
       <p style="padding-right: 50px;">{{user.nmUsuario}}
-        <button mat-icon-button (click)="onSelectItem(user)">
-          <mat-icon>open_in_new</mat-icon>
+        <button mat-icon-button (click)="onSelectItem(user)" matTooltip="Carregue este item">
+          <mat-icon>subdirectory_arrow_left</mat-icon>
         </button>
       </p>
     </mat-list-item>
@@ -28,7 +28,7 @@
           <td colspan="2">
             <mat-form-field appearance="outline">
               <mat-label>Nome</mat-label>
-              <input matInput formControlName="nmUsuario" placeholder="Pedro de Alcântara Francisco António João Carlos Xavier de Paula Miguel Rafael Joaquim José Gonzaga Pascoal Cipriano Serafim de Bragança e Bourbon">
+              <input matInput formControlName="nmUsuario" required placeholder="Pedro de Alcântara Francisco António João Carlos Xavier de Paula Miguel Rafael Joaquim José Gonzaga Pascoal Cipriano Serafim de Bragança e Bourbon">
             </mat-form-field>
           </td>
           <td>
@@ -51,7 +51,7 @@
           <td>
             <mat-form-field appearance="outline">
               <mat-label>Confirme a Senha</mat-label>
-              <input matInput type="password" #nmSenha2 placeholder="Senha">
+              <input matInput type="password" #nmSenha2 placeholder="Confirme a senha">
             </mat-form-field>
           </td>
         </tr>
@@ -74,7 +74,7 @@
         <button mat-fab type="submit">
           <mat-icon>save</mat-icon>
         </button>
-        <button mat-fab #btnDelete type="button">
+        <button mat-fab type="button" (click)="onDelete()">
           <mat-icon>delete</mat-icon>
         </button>
       </mat-card-actions>

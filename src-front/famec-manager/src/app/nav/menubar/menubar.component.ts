@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./menubar.component.scss']
 })
 export class MenubarComponent implements OnInit {
+  /**
+   * Application's top bar
+   */
 
   constructor() { }
 

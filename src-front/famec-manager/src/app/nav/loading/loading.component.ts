@@ -6,6 +6,9 @@ import { Component, OnInit, Input } from '@angular/core';
     styleUrls: ['./loading.component.scss']
 })
 export class LoadingComponent implements OnInit {
+    /**
+     * Loading screen to blur application whenever it is necessary
+     */
 
     @Input('color') color = 'accent';
     @Input('mode')  mode  = 'indeterminate';
