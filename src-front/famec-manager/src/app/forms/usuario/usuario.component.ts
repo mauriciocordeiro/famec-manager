@@ -78,7 +78,7 @@ export class UsuarioComponent implements OnInit {
   // form submit
   onSubmit() {
     //form validation
-    if (!this.usuarioForm.valid) {
+    if (!this.usuarioForm.valid || !this.nmSenha2.nativeElement.value) {
       this.openSnackBar("Existem campos inválidos.", null, this.ALERT);
       return;
     }
