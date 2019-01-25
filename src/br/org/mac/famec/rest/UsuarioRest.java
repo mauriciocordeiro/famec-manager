@@ -66,7 +66,14 @@ public class UsuarioRest {
 			int i = 0;
 			Usuario[] list = new Usuario[rsm.size()];
 			while(rsm.next()) {
-				list[i] = new Usuario(rsm.getInt("cd_usuario"), rsm.getString("nm_usuario"), rsm.getString("nm_login"), rsm.getString("nm_senha"), rsm.getString("nm_email"), rsm.getInt("st_usuario"), rsm.getString("nm_funcao"));
+				list[i] = new Usuario(
+						rsm.getInt("cd_usuario"), 
+						rsm.getString("nm_usuario"), 
+						rsm.getString("nm_login"), 
+						rsm.getString("nm_senha"), 
+						rsm.getString("nm_email", ""), 
+						rsm.getInt("st_usuario"), 
+						rsm.getString("nm_funcao", ""));
 				i++;
 			}
 			
