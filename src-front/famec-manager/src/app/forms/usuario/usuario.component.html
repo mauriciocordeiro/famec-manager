@@ -13,7 +13,8 @@
   </mat-form-field>
   <mat-list class="search-result">
     <mat-list-item *ngFor="let user of usuarios">
-      <p style="padding-right: 50px;">{{user.nmUsuario}}
+      <p style="padding-right: 50px;">
+        {{user.nmUsuario}}
         <button mat-icon-button (click)="onSelectItem(user)" matTooltip="Carregue este item">
           <mat-icon>subdirectory_arrow_left</mat-icon>
         </button>

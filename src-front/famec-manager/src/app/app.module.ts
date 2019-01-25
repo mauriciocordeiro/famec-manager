@@ -15,6 +15,7 @@ import { MenubarComponent } from './nav/menubar/menubar.component';
 import { ContatoComponent } from './forms/contato/contato.component';
 import { UsuarioComponent } from './forms/usuario/usuario.component';
 import { LoadingComponent } from './nav/loading/loading.component';
+import { AlunoComponent } from './forms/aluno/aluno.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { LoadingComponent } from './nav/loading/loading.component';
     MenubarComponent,
     ContatoComponent,
     UsuarioComponent,
-    LoadingComponent
+    LoadingComponent,
+    AlunoComponent
   ],
   imports: [
     BrowserModule,

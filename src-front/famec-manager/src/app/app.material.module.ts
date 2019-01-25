@@ -1,4 +1,4 @@
-import { MatButtonModule } from "@angular/material";
+import { MatButtonModule, MatExpansionModule } from "@angular/material";
 import { MatDialogModule } from "@angular/material";
 import { MatButtonToggleModule } from "@angular/material";
 import { MatCardModule } from "@angular/material";
@@ -59,5 +59,6 @@ export const MATERIAL_MODULES : any[] = [
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatStepperModule
+    MatStepperModule,
+    MatExpansionModule
 ];

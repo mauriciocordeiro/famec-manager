@@ -4,20 +4,10 @@
     <button class="button" mat-icon-button routerLink="">
       <mat-icon>home</mat-icon>
     </button>
-    <button class="button" mat-icon-button [matMenuTriggerFor]="mnAluno">
+    <button class="button" routerLink="/aluno" mat-icon-button>
       <mat-icon>people</mat-icon>
       <span class="span">Alunos</span>
     </button>
-    <mat-menu #mnAluno="matMenu">
-      <button mat-menu-item>
-        <mat-icon>add</mat-icon>
-        <span>Cadastrar</span>
-      </button>
-      <button mat-menu-item>
-        <mat-icon>search</mat-icon>
-        <span>Pesquisar</span>
-      </button>
-    </mat-menu>
     <button class="button" mat-icon-button [matMenuTriggerFor]="mnRelatorio">
       <mat-icon>subject</mat-icon>
       <span class="span">Relatórios</span>
@@ -37,7 +27,7 @@
     </button>
     <mat-menu #mnMais="matMenu">
       <button mat-menu-item routerLink="/contato"> Contato </button>
-      <button mat-menu-item> Sobre </button>
+      <!-- <button mat-menu-item> Sobre </button> -->
     </mat-menu>
   </mat-card-content>
 </mat-toolbar>
