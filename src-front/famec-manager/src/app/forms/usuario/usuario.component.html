@@ -74,7 +74,7 @@
         <button mat-fab type="submit">
           <mat-icon>save</mat-icon>
         </button>
-        <button mat-fab type="button" (click)="onDelete()">
+        <button *ngIf="usuarioForm.value.cdUsuario" mat-fab type="button" (click)="onDelete()">
           <mat-icon>delete</mat-icon>
         </button>
       </mat-card-actions>
