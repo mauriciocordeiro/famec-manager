@@ -38,28 +38,43 @@ mat-form-field {
     width: 100%;
 }
 
+.form-field-inline + .form-field-inline {
+    margin-left: 10px;
+}
+
+mat-card-content {
+    display: inline-flex;
+    flex-direction: row;
+    width: 100%;
+}
+
 .radio-group {
     display: inline-flex;
     flex-direction: row;
+    width: 100%;
+    align-self: center;
+    align-content: flex-end;
+    align-items: center;
+    vertical-align: -webkit-baseline-middle;
+    margin-left: 50px;
   }
   
 .radio-button {
-    margin-top: -7px;
-    margin-left: 5px;
-    margin-right: 5px;
+    // margin-top: -5px;
+    margin-left: 20px;
+    margin-right: 10px;
     margin-bottom: 5px;
 }
   
 .selected-value {
     margin: 15px 0;
-}
-  
+} 
 
 table {
     margin: 5px 20px;
 }
 
-td{
+td {
     width: 100%;
 }
     

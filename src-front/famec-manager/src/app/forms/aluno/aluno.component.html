@@ -37,54 +37,60 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
 
+        <!-- ln1 -->
         <mat-card-content>
-          <table>
-            <tr>
-              <td colspan="4">
-                <mat-form-field appearance="outline">
-                  <mat-label>Nome</mat-label>
-                  <input matInput required placeholder="Pedro de Alcântara Francisco António João Carlos Xavier de Paula Miguel Rafael Joaquim José Gonzaga Pascoal Cipriano Serafim de Bragança e Bourbon">
-                </mat-form-field>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2">
-                <mat-form-field appearance="outline">
-                  <mat-label>Parentesco</mat-label>
-                  <input matInput required placeholder="Mãe, Pai, ...">
-                </mat-form-field>
-              </td>
-              <td colspan="2">
-                <mat-radio-group class="radio-group" appearance="outline">
-                  <mat-label style="margin-top: -5px; margin-left: 10px;">Sexo</mat-label>
-                  <mat-radio-button class="radio-button" value="1">Masculino</mat-radio-button>
-                  <mat-radio-button class="radio-button" value="2">Feminino</mat-radio-button>
-                </mat-radio-group>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="4">
-                <mat-form-field appearance="outline">
-                  <mat-label>Endereço completo</mat-label>
-                  <input matInput required placeholder="Av. Ivo Freire de Aguiar, S/N">
-                </mat-form-field>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2">
-                <mat-form-field appearance="outline">
-                  <mat-label>Bairro</mat-label>
-                  <input matInput required placeholder="Candeias">
-                </mat-form-field>
-              </td>
-              <td colspan="2">
-                <mat-form-field appearance="outline">
-                  <mat-label>Ponto de referência</mat-label>
-                  <input matInput placeholder="Próx. ao ">
-                </mat-form-field>
-              </td>
-            </tr>
-          </table>
+          <mat-form-field appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input matInput required placeholder="Pedro de Alcântara Francisco António João Carlos Xavier de Paula Miguel Rafael Joaquim José Gonzaga Pascoal Cipriano Serafim de Bragança e Bourbon">
+          </mat-form-field>
+        </mat-card-content>
+
+        <!-- ln2 -->
+        <mat-card-content>
+          <mat-form-field appearance="outline">
+            <mat-label>Parentesco</mat-label>
+            <input matInput required placeholder="Mãe, Pai, ...">
+          </mat-form-field>
+          <mat-radio-group class="radio-group">
+            <mat-label style="margin-top: -5px; margin-left: 10px;">Sexo</mat-label>
+            <mat-radio-button class="radio-button" value="1">Masculino</mat-radio-button>
+            <mat-radio-button class="radio-button" value="2">Feminino</mat-radio-button>
+          </mat-radio-group>
+        </mat-card-content>
+
+        <!-- ln3 -->
+        <mat-card-content>
+          <mat-form-field appearance="outline">
+            <mat-label>Endereço completo</mat-label>
+            <input matInput required placeholder="Av. Ivo Freire de Aguiar, S/N">
+          </mat-form-field>
+        </mat-card-content>
+
+        <!-- ln4 -->
+        <mat-card-content>
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Bairro</mat-label>
+            <input matInput required placeholder="Candeias">
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Ponto de referência</mat-label>
+            <input matInput placeholder="Próx. ao ">
+          </mat-form-field>
+        </mat-card-content>
+
+        <!-- ln5 -->
+        <mat-card-content>
+          <mat-form-field class="form-field-inline" appearance="outline" s>
+            <mat-label>Data de nascimento</mat-label>
+            <input matInput [matDatepicker]="dtNascPicker" placeholder="Data de nascimento" required>
+            <mat-datepicker-toggle matSuffix [for]="dtNascPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dtNascPicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Idade</mat-label>
+            <input matInput type="number" disabled>
+          </mat-form-field>
         </mat-card-content>
 
         <mat-action-row>
@@ -103,10 +109,6 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <mat-form-field>
-          <input matInput placeholder="Country">
-        </mat-form-field>
-
         <mat-action-row>
           <button mat-button color="warn" (click)="prevStep()">Anterior</button>
           <button mat-button color="primary" (click)="nextStep()">Próximo</button>
@@ -124,10 +126,7 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <mat-form-field>
-          <input matInput placeholder="Date" [matDatepicker]="picker" (focus)="picker.open()" readonly>
-        </mat-form-field>
-        <mat-datepicker #picker></mat-datepicker>
+        
 
         <mat-action-row>
           <button mat-button color="warn" (click)="prevStep()">Anterior</button>

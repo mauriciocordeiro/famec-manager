@@ -7,12 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AlunoComponent implements OnInit {
 
-  step = 0;
+  step = -1;
 
   constructor() { }
 
   ngOnInit() {
   }
+
+
+
+
+
+
 
   setStep(index: number) {
     this.step = index;
