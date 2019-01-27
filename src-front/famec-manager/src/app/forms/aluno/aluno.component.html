@@ -52,7 +52,7 @@
             <input matInput required placeholder="Mãe, Pai, ...">
           </mat-form-field>
           <mat-radio-group class="radio-group">
-            <mat-label style="margin-top: -5px; margin-left: 10px;">Sexo</mat-label>
+            <mat-label style="margin-top: -5px;">Sexo</mat-label>
             <mat-radio-button class="radio-button" value="1">Masculino</mat-radio-button>
             <mat-radio-button class="radio-button" value="2">Feminino</mat-radio-button>
           </mat-radio-group>
@@ -92,6 +92,19 @@
             <input matInput type="number" disabled>
           </mat-form-field>
         </mat-card-content>
+
+        <!-- ln6 -->
+        <mat-card-content>
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Telefone 1</mat-label>
+            <input matInput required placeholder="(77) 0000-0000">
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Telefone 2</mat-label>
+            <input matInput required placeholder="Av. Ivo Freire de Aguiar, S/N">
+          </mat-form-field>
+        </mat-card-content>
+
 
         <mat-action-row>
           <button mat-button color="primary" (click)="nextStep()">Próximo</button>
