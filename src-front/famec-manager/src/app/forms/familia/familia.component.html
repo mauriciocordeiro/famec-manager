@@ -23,7 +23,7 @@
     </mat-list-item>
   </mat-list>
   <mat-divider [inset]="true"></mat-divider>
-  <form>
+  <form (ngSubmit)="onSubmit()">
     <mat-accordion class="example-headers-align">
       <!-- PANEL 1-->
       <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
@@ -258,7 +258,7 @@
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Situação Habitacional</mat-label>
             <mat-select (selectionChange)="onChangeSituacaoHabitacional($event)">
-              <mat-option *ngFor="let item of situacaoHabitacional" [value]="item.id" >
+              <mat-option *ngFor="let item of situacaoHabitacional" [value]="item.id">
                 {{item.label}}
               </mat-option>
             </mat-select>
@@ -346,8 +346,15 @@
           <button mat-button color="warn" (click)="prevStep()">Anterior</button>
           <button mat-button color="primary" (click)="nextStep()">Fim</button>
         </mat-action-row>
-
       </mat-expansion-panel>
     </mat-accordion>
+    <mat-card-actions class="done">
+      <button mat-fab type="submit">
+        <mat-icon>save</mat-icon>
+      </button>
+      <button mat-fab type="button" (click)="onDelete()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card-actions>
   </form>
 </mat-card>

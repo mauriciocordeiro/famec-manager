@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class FamiliaComponent implements OnInit {
 
   step = -1;
-  
+
   lgHabitacaoAluguel:boolean = false;
   lgResponsavelEstudando:boolean = false;
 
@@ -82,6 +82,15 @@ export class FamiliaComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onSubmit() {
+    console.log(this.alunos);
+    debugger;
+  }
+
+  onDelete() {
+
   }
 
   onChangeEstudando(event) {
