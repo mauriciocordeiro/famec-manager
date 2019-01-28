@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FamiliaComponent implements OnInit {
 
-  step = -1;
+  step = 0;
 
   lgHabitacaoAluguel:boolean = false;
   lgResponsavelEstudando:boolean = false;
