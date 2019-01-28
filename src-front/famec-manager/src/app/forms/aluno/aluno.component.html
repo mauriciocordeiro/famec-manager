@@ -2,8 +2,7 @@
 <div class="form-line">
   <mat-form-field appearance="outline">
     <mat-label>Nome</mat-label>
-    <input matInput required [(ngModel)]="aluno.nmAluno"
-          placeholder="Pedro de Alcântara Francisco António João Carlos Xavier de Paula Miguel Rafael Joaquim José Gonzaga Pascoal Cipriano Serafim de Bragança e Bourbon">
+    <input matInput required [(ngModel)]="aluno.nmAluno" placeholder="Pedro de Alcântara Francisco António João Carlos Xavier de Paula Miguel Rafael Joaquim José Gonzaga Pascoal Cipriano Serafim de Bragança e Bourbon">
   </mat-form-field>
 </div>
 
@@ -67,6 +66,21 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-
+</div>
+<!-- ln5 -->
+<div class="form-line">
+  <mat-checkbox style="margin-right: 10px; padding-top: 20px;">Almoço na Instituição</mat-checkbox>
+  <mat-form-field class="form-field-inline" style="width: 110px;" appearance="outline">
+    <mat-label>Saída da FAMEC</mat-label>
+    <input matInput type="time">
+  </mat-form-field>
+  <mat-radio-group class="radio-group">
+    <mat-radio-button class="radio-button" value="1">Sozinho</mat-radio-button>
+    <mat-radio-button class="radio-button" value="2">Acompanhado</mat-radio-button>
+  </mat-radio-group>
+  <mat-form-field class="form-field-inline" appearance="outline">
+    <mat-label>Acompanhante</mat-label>
+    <input matInput>
+  </mat-form-field>
 </div>
 <mat-divider style="margin-top: 10px; margin-bottom: 10px;" [inset]="true"></mat-divider>

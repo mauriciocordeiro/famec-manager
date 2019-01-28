@@ -57,16 +57,16 @@ mat-card-content {
 .radio-group {
     display: inline-flex;
     flex-direction: row;
-    width: 100%;
+    //width: 100%;
     align-self: center;
     align-content: flex-end;
     align-items: center;
     vertical-align: -webkit-baseline-middle;
-    margin-left: 10px;
+    // margin-left: 10px;
   }
   
 .radio-button {
-    // margin-top: -5px;
+    margin-top: -5px;
     margin-left: 20px;
     margin-right: 10px;
     margin-bottom: 5px;
