@@ -15,6 +15,7 @@ import { MenubarComponent } from './nav/menubar/menubar.component';
 import { ContatoComponent } from './forms/contato/contato.component';
 import { UsuarioComponent } from './forms/usuario/usuario.component';
 import { LoadingComponent } from './nav/loading/loading.component';
+import { FamiliaComponent } from './forms/familia/familia.component';
 import { AlunoComponent } from './forms/aluno/aluno.component';
 
 @NgModule({
@@ -25,6 +26,7 @@ import { AlunoComponent } from './forms/aluno/aluno.component';
     ContatoComponent,
     UsuarioComponent,
     LoadingComponent,
+    FamiliaComponent,
     AlunoComponent
   ],
   imports: [

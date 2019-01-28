@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ContatoComponent } from './forms/contato/contato.component';
 import { UsuarioComponent } from './forms/usuario/usuario.component';
-import { AlunoComponent } from './forms/aluno/aluno.component';
+import { FamiliaComponent } from './forms/familia/familia.component';
 
 const routes: Routes = [
   //{ path: '', redirectTo: '/', pathMatch: 'full' },
-  { path: 'aluno', component: AlunoComponent },
+  { path: 'familia', component: FamiliaComponent },
   { path: 'contato', component: ContatoComponent },
   { path: 'usuario', component: UsuarioComponent }
 ];
