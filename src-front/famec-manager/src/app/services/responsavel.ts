@@ -21,4 +21,5 @@ export class Responsavel {
     vlRendaMensal:number;
     nmLocalTrabalho:string;
     nrTelefoneTrabalho:string;
+    nmParentesco:string;
 }

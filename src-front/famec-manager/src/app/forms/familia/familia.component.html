@@ -23,7 +23,7 @@
     </mat-list-item>
   </mat-list>
   <mat-divider [inset]="true"></mat-divider>
-  <form (ngSubmit)="onSubmit()">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
     <mat-accordion class="example-headers-align">
       <!-- PANEL 1-->
       <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
@@ -41,7 +41,8 @@
         <div class="form-line">
           <mat-form-field appearance="outline">
             <mat-label>Nome</mat-label>
-            <input matInput required placeholder="Pedro de Alcântara Francisco António João Carlos Xavier de Paula Miguel Rafael Joaquim José Gonzaga Pascoal Cipriano Serafim de Bragança e Bourbon">
+            <input matInput required formControlName="nmResponsavel"
+              placeholder="Pedro de Alcântara Francisco António João Carlos Xavier de Paula Miguel Rafael Joaquim José Gonzaga Pascoal Cipriano Serafim de Bragança e Bourbon">
           </mat-form-field>
         </div>
 
@@ -49,9 +50,9 @@
         <div class="form-line">
           <mat-form-field appearance="outline">
             <mat-label>Parentesco</mat-label>
-            <input matInput required placeholder="Mãe, Pai, ...">
+            <input matInput formControlName="nmParentesco" required placeholder="Mãe, Pai, ..." >
           </mat-form-field>
-          <mat-radio-group class="radio-group">
+          <mat-radio-group class="radio-group" formControlName="tpGenero">
             <mat-label style="margin-top: -5px;">Sexo</mat-label>
             <mat-radio-button class="radio-button" value="1">Masculino</mat-radio-button>
             <mat-radio-button class="radio-button" value="2">Feminino</mat-radio-button>
@@ -60,21 +61,25 @@
 
         <!-- ln3 -->
         <div class="form-line">
-          <mat-form-field appearance="outline">
-            <mat-label>Endereço completo</mat-label>
-            <input matInput required placeholder="Av. Ivo Freire de Aguiar, S/N">
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Endereço</mat-label>
+            <input matInput required formControlName="nmRua" placeholder="Av. Ivo Freire de Aguiar">
           </mat-form-field>
+          <mat-form-field class="form-field-inline" appearance="outline" style="width: 100px;">
+              <mat-label>Nº</mat-label>
+              <input matInput required formControlName="nrCasa" placeholder="637">
+            </mat-form-field>
         </div>
 
         <!-- ln4 -->
         <div class="form-line">
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Bairro</mat-label>
-            <input matInput required placeholder="Candeias">
+            <input matInput required formControlName="nmBairro" placeholder="Candeias">
           </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Ponto de referência</mat-label>
-            <input matInput placeholder="Próx. ao ">
+            <input matInput formControlName="nmComplemento" placeholder="Próx. ao ">
           </mat-form-field>
         </div>
 
@@ -82,7 +87,7 @@
         <div class="form-line">
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Data de nascimento</mat-label>
-            <input matInput [matDatepicker]="dtNascPicker" placeholder="Data de nascimento" required>
+            <input matInput formControlName="dtNascimento" [matDatepicker]="dtNascPicker" placeholder="Data de nascimento" required>
             <mat-datepicker-toggle matSuffix [for]="dtNascPicker"></mat-datepicker-toggle>
             <mat-datepicker #dtNascPicker></mat-datepicker>
           </mat-form-field>
@@ -92,11 +97,11 @@
           </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Naturalidade</mat-label>
-            <input matInput placeholder="Vitória da Conquista - BA">
+            <input matInput formControlName="nmNaturalidade" placeholder="Vitória da Conquista - BA">
           </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Estado Civil</mat-label>
-            <mat-select>
+            <mat-select formControlName="tpEstadoCivil">
               <mat-option *ngFor="let estado of estadoCivil" [value]="estado.id">
                 {{estado.label}}
               </mat-option>
@@ -108,11 +113,11 @@
         <div class="form-line">
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Telefone 1</mat-label>
-            <input matInput placeholder="(77) 0000-0000">
+            <input matInput formControlName="nrTelefone1" placeholder="(77) 0000-0000">
           </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Telefone 2</mat-label>
-            <input matInput placeholder="(77) 99191-9911">
+            <input matInput formControlName="nrTelefone2" placeholder="(77) 99191-9911">
           </mat-form-field>
         </div>
 
@@ -120,15 +125,15 @@
         <div class="form-line">
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>RG</mat-label>
-            <input matInput required placeholder="0000000000">
+            <input matInput formControlName="nrRg" required placeholder="0000000000">
           </mat-form-field>
           <mat-form-field class="form-field-inline" style="width: 200px;" appearance="outline">
             <mat-label>Órgão Emissor</mat-label>
-            <input matInput placeholder="SSP">
+            <input matInput formControlName="nmOrgaoExpedidorRg" placeholder="SSP">
           </mat-form-field>
           <mat-form-field class="form-field-inline" style="width: 80px;" appearance="outline">
             <mat-label>UF</mat-label>
-            <mat-select>
+            <mat-select formControlName="sgUfRg">
               <mat-option *ngFor="let item of sgUf" [value]="item">
                 {{item}}
               </mat-option>
@@ -136,7 +141,7 @@
           </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>CPF</mat-label>
-            <input matInput required placeholder="000.000.000-00">
+            <input matInput formControlName="nrCpf" required placeholder="000.000.000-00">
           </mat-form-field>
         </div>
 
@@ -144,9 +149,9 @@
         <div class="form-line">
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Escolaridade</mat-label>
-            <input matInput>
+            <input matInput formControlName="dsEscolaridade">
           </mat-form-field>
-          <mat-checkbox #ckEstudante style="margin-left: 10px; padding-top: 20px;" (change)=onChangeEstudando($event)>
+          <mat-checkbox #ckEstudante formControlName="lgEstudante" style="margin-left: 10px; padding-top: 20px;" (change)=onChangeEstudando($event)>
             Estudando atualmente
           </mat-checkbox>
         </div>
@@ -155,7 +160,7 @@
         <div class="form-line" *ngIf="lgResponsavelEstudando">
           <mat-form-field class="form-field-inline" style=" width: 180px" appearance="outline">
             <mat-label>Horário Escolar</mat-label>
-            <mat-select>
+            <mat-select formControlName="tpTurno">
               <mat-option *ngFor="let hrEscola of horarioEscolar" [value]="hrEscola.id">
                 {{hrEscola.label}}
               </mat-option>
@@ -163,7 +168,7 @@
           </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Nível</mat-label>
-            <mat-select>
+            <mat-select formControlName="tpNivelEscolar">
               <mat-option *ngFor="let nivel of nivelEscolaridade" [value]="nivel.id">
                 {{nivel.label}}
               </mat-option>
@@ -179,19 +184,19 @@
         <div class="form-line">
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Ocupação atual</mat-label>
-            <input matInput>
+            <input matInput formControlName="nmOcupacao">
           </mat-form-field>
           <mat-form-field class="form-field-inline" style="width: 120px;" appearance="outline">
             <mat-label>Renda mensal</mat-label>
-            <input matInput>
+            <input matInput formControlName="vlRendaMensal">
           </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Local de trabalho</mat-label>
-            <input matInput>
+            <input matInput formControlName="nmLocalTrabalho">
           </mat-form-field>
           <mat-form-field class="form-field-inline" style="width: 150px;" appearance="outline">
             <mat-label>Telefone</mat-label>
-            <input matInput type="tel" placeholder="(77) 0000-0000">
+            <input matInput formControlName="nrTelefoneTrabalho" type="tel" placeholder="(77) 0000-0000">
           </mat-form-field>
         </div>
 
@@ -213,16 +218,16 @@
 
         <!-- ln1 -->
         <div class="form-line">
-          <mat-checkbox style="margin-left: 10px; padding-top: 20px;">Família com CAD-ÚNICO</mat-checkbox>
+          <mat-checkbox formControlName="lgNis" style="margin-left: 10px; padding-top: 20px;">Família com CAD-ÚNICO</mat-checkbox>
           <mat-form-field style="margin-left: 10px;" appearance="outline">
             <mat-label>NIS</mat-label>
-            <input matInput>
+            <input matInput formControlName="nrNis">
           </mat-form-field>
         </div>
 
         <!-- ln2 -->
         <div class="form-line">
-          <mat-checkbox style="margin-left: 10px; padding-top: 20px;">
+          <mat-checkbox formControlName="lgBeneficio" style="margin-left: 10px; padding-top: 20px;">
             Recebe algum benefício ou participa de algum programa Federal, Estadual ou Municipal? Bolsa Família, BPC,
             outros
           </mat-checkbox>
@@ -232,11 +237,11 @@
         <div class="form-line">
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Nome do Programa/Benefício</mat-label>
-            <input matInput>
+            <input matInput formControlName="nmBeneficio">
           </mat-form-field>
           <mat-form-field class="form-field-inline" style="width: 120px;" appearance="outline">
             <mat-label>Valor</mat-label>
-            <input matInput>
+            <input matInput formControlName="vlBeneficio">
           </mat-form-field>
         </div>
 
@@ -261,7 +266,7 @@
         <div class="form-line">
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Situação Habitacional</mat-label>
-            <mat-select (selectionChange)="onChangeSituacaoHabitacional($event)">
+            <mat-select formControlName="tpSituacao" (selectionChange)="onChangeSituacaoHabitacional($event)">
               <mat-option *ngFor="let item of situacaoHabitacional" [value]="item.id">
                 {{item.label}}
               </mat-option>
@@ -269,15 +274,15 @@
           </mat-form-field>
           <mat-form-field class="form-field-inline" style="width: 180px;" appearance="outline" *ngIf="lgHabitacaoAluguel">
             <mat-label>Valor</mat-label>
-            <input matInput>
+            <input matInput formControlName="vlAluguel">
           </mat-form-field>
           <mat-form-field class="form-field-inline" style="width: 180px;" appearance="outline">
             <mat-label>Nº de Cômodos</mat-label>
-            <input matInput type="number">
+            <input matInput type="number" formControlName="nrComodos">
           </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Iluminação</mat-label>
-            <mat-select>
+            <mat-select formControlName="tpIluminacao">
               <mat-option *ngFor="let item of iluminacao" [value]="item.id">
                 {{item.label}}
               </mat-option>
@@ -289,7 +294,7 @@
         <div class="form-line">
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Abastecimento de Água</mat-label>
-            <mat-select>
+            <mat-select formControlName="tpAbastecimento">
               <mat-option *ngFor="let item of abastecimentoAgua" [value]="item.id">
                 {{item.label}}
               </mat-option>
@@ -297,7 +302,7 @@
           </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Tratamento de Água</mat-label>
-            <mat-select>
+            <mat-select formControlName="tpTratamentoAgua">
               <mat-option *ngFor="let item of tratamentoAgua" [value]="item.id">
                 {{item.label}}
               </mat-option>
@@ -305,7 +310,7 @@
           </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Escoamento Sanitário</mat-label>
-            <mat-select>
+            <mat-select formControlName="tpEscoamentoSanitario">
               <mat-option *ngFor="let item of escoamentoSanitario" [value]="item.id">
                 {{item.label}}
               </mat-option>
@@ -313,14 +318,13 @@
           </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Destino do Lixo</mat-label>
-            <mat-select>
+            <mat-select formControlName="tpDestinoLixo">
               <mat-option *ngFor="let item of destinoLixo" [value]="item.id">
                 {{item.label}}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-
 
         <mat-action-row>
           <button mat-button color="warn" (click)="prevStep()">Anterior</button>
@@ -339,8 +343,8 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <div *ngFor="let aluno of alunos">
-          <app-aluno [aluno]="aluno"></app-aluno>
+        <div *ngFor="let form of formGroup.value.arrayAlunos">
+          <app-aluno [formAluno]="form"></app-aluno>
         </div>
         <button mat-mini-fab style="margin-top: 10px; margin-right: 0px;" type="button" matTooltip="Adicionar outro aluno"
           (click)=onClickAddAluno()>
