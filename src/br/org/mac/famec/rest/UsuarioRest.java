@@ -98,26 +98,5 @@ public class UsuarioRest {
 			return null;
 		}
 	}
-	
-	
-	
-	
-	
-	// \/ \/ \/ \/ \/ \/ \/ \/ \/ 
-	
-	@GET
-	@Path("/test")
-	@Produces(MediaType.APPLICATION_JSON)
-	public static String test() {
-		return new String("{\"retorno\":\"sucesso\"}");
-	}
-	
-	@GET
-	@Path("/getAll")
-	@Produces(MediaType.APPLICATION_JSON)
-	public static String getAll() {
-		return Util.rsmToJSON(UsuarioServices.getAll());
-	}
-	
 
 }

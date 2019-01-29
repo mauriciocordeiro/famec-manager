@@ -126,9 +126,13 @@
             <mat-label>Órgão Emissor</mat-label>
             <input matInput placeholder="SSP">
           </mat-form-field>
-          <mat-form-field class="form-field-inline" style="width: 60px;" appearance="outline">
+          <mat-form-field class="form-field-inline" style="width: 80px;" appearance="outline">
             <mat-label>UF</mat-label>
-            <input matInput placeholder="BA">
+            <mat-select>
+              <mat-option *ngFor="let item of sgUf" [value]="item">
+                {{item}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>CPF</mat-label>

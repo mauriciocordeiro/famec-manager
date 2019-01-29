@@ -73,6 +73,8 @@ export class FamiliaComponent implements OnInit {
     {id: 4, label:'Céu aberto'},
     {id: 5, label:'Outros'}
   ];
+
+  sgUf = ['AC','AL','AM','AP','BA','CE','DF','ES','GO','MA','MG','MS','MT','PA','PB','PE','PI','PR','RJ','RN','RO','RR','RS','SC','SE','SP','TO'];
   
 
   alunos:any = [
