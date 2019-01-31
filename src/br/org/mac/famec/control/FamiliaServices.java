@@ -9,22 +9,26 @@ import sol.dao.ItemComparator;
 import sol.dao.Search;
 import sol.util.Result;
 
-import com.tivic.manager.conexao.Conexao;
-
+import br.org.mac.famec.model.Aluno;
+import br.org.mac.famec.model.EnderecoResponsavel;
 import br.org.mac.famec.model.Familia;
 import br.org.mac.famec.model.FamiliaDAO;
+import br.org.mac.famec.model.Habitacao;
+import br.org.mac.famec.model.PerfilSocial;
+import br.org.mac.famec.model.Responsavel;
+import br.org.mac.famec.util.Conexao;
 
 public class FamiliaServices {
 
 	public static Result save(Familia familia){
-		return save(familia, null);
+		return save(familia, null, null, null, null, null, null);
 	}
 
-	public static Result save(Familia familia, Connection connect){
+	public static Result save(Familia familia, Responsavel responsavel, EnderecoResponsavel endereco, PerfilSocial perfilSocial, Habitacao habitacao, ArrayList<Aluno> arrayAluno, Connection connect){
 		boolean isConnectionNull = connect==null;
 		try {
 			if (isConnectionNull) {
-				connect = Conexao.conectar();
+				connect = Conexao.connect();
 				connect.setAutoCommit(false);
 			}
 
@@ -32,6 +36,9 @@ public class FamiliaServices {
 				return new Result(-1, "Erro ao salvar. Familia é nulo");
 
 			int retorno;
+			Result result = new Result(1);
+			
+			// familia
 			if(familia.getCdFamilia()==0){
 				retorno = FamiliaDAO.insert(familia, connect);
 				familia.setCdFamilia(retorno);
@@ -39,13 +46,85 @@ public class FamiliaServices {
 			else {
 				retorno = FamiliaDAO.update(familia, connect);
 			}
+			
+			// responsavel
+			if(responsavel!=null) {
+				responsavel.setCdFamilia(familia.getCdFamilia());
+				
+				result = ResponsavelServices.save(responsavel, connect);	
+				if(result.getCode() <= 0) {
+					if(isConnectionNull)
+						connect.rollback();
+					return result;
+				}
+				
+				responsavel = (Responsavel)result.getObjects().get("RESPONSAVEL");
+			}
+			
+			// endereço
+			if(endereco!=null) {
+				endereco.setCdResponsavel(responsavel.getCdResponsavel());
+				
+				result = EnderecoResponsavelServices.save(endereco, connect);
+				if(result.getCode() <= 0) {
+					if(isConnectionNull)
+						connect.rollback();
+					return result;
+				}
+			}
+			
+			// perfil social
+			if(perfilSocial!=null) {
+				perfilSocial.setCdFamilia(familia.getCdFamilia());
+				
+				result = PerfilSocialServices.save(perfilSocial, connect);
+				if(result.getCode() <= 0) {
+					if(isConnectionNull)
+						connect.rollback();
+					return result;
+				}
+			}
+			
+			// habitacao
+			if(habitacao!=null) {
+				habitacao.setCdFamilia(familia.getCdFamilia());
+				
+				result = HabitacaoServices.save(habitacao, connect);
+				if(result.getCode() <= 0) {
+					if(isConnectionNull)
+						connect.rollback();
+					return result;
+				}
+			}
+			
+			
+			// alunos
+			if(arrayAluno!=null) {
+				for (Aluno aluno : arrayAluno) {
+					aluno.setCdFamilia(familia.getCdFamilia());
+					
+					result = AlunoServices.save(aluno, connect);
+					if(result.getCode() <= 0) {
+						if(isConnectionNull)
+							connect.rollback();
+						return result;
+					}
+				}
+			}	
 
 			if(retorno<=0)
 				Conexao.rollback(connect);
 			else if (isConnectionNull)
 				connect.commit();
+			
+			result = new Result(retorno, (retorno<=0)?"Erro ao salvar...":"Salvo com sucesso...", "FAMILIA", familia);
+			result.addObject("RESPONSAVEL", responsavel);
+			result.addObject("ENDERECORESPONSAVEL", endereco);
+			result.addObject("PERFILSOCIAL", perfilSocial);
+			result.addObject("HABITACAO", habitacao);
+			result.addObject("ARRAYALUNO", arrayAluno);
 
-			return new Result(retorno, (retorno<=0)?"Erro ao salvar...":"Salvo com sucesso...", "FAMILIA", familia);
+			return result;
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -55,7 +134,7 @@ public class FamiliaServices {
 		}
 		finally{
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 	public static Result remove(int cdFamilia){
@@ -68,7 +147,7 @@ public class FamiliaServices {
 		boolean isConnectionNull = connect==null;
 		try {
 			if (isConnectionNull) {
-				connect = Conexao.conectar();
+				connect = Conexao.connect();
 				connect.setAutoCommit(false);
 			}
 			int retorno = 0;
@@ -94,7 +173,7 @@ public class FamiliaServices {
 		}
 		finally{
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 	
@@ -105,7 +184,7 @@ public class FamiliaServices {
 	public static ResultSetMap getAll(Connection connect) {
 		boolean isConnectionNull = connect==null;
 		if (isConnectionNull)
-			connect = Conexao.conectar();
+			connect = Conexao.connect();
 		PreparedStatement pstmt;
 		try {
 			pstmt = connect.prepareStatement("SELECT * FROM familia");
@@ -123,7 +202,7 @@ public class FamiliaServices {
 		}
 		finally {
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -132,7 +211,7 @@ public class FamiliaServices {
 	}
 
 	public static ResultSetMap find(ArrayList<ItemComparator> criterios, Connection connect) {
-		return Search.find("SELECT * FROM familia", criterios, connect!=null ? connect : Conexao.conectar(), connect==null);
+		return Search.find("SELECT * FROM familia", criterios, connect!=null ? connect : Conexao.connect(), connect==null);
 	}
 
 }

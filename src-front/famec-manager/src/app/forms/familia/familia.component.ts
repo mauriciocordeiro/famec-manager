@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
+import { FamiliaService } from 'src/app/services/familia.service';
+import { ObjectUtils } from 'src/app/services/ObjectUtils';
+import { Familia } from 'src/app/services/familia';
 
 @Component({
   selector: 'app-familia',
@@ -12,6 +16,19 @@ export class FamiliaComponent implements OnInit {
 
   lgHabitacaoAluguel: boolean = false;
   lgResponsavelEstudando: boolean = false;
+
+  // snackbar message type
+  ALERT: string = 'alert';
+  ERROR: string = 'error';
+  SUCCESS: string = 'success';
+
+  parentesco = [
+    { id: 1, label: 'Mãe/Pai' },
+    { id: 2, label: 'Avó/Avô' },
+    { id: 3, label: 'Irmã/Irmão' },
+    { id: 4, label: 'Tia/Tio' },
+    { id: 5, label: 'Outro' }
+  ];
 
   estadoCivil = [
     { id: 1, label: 'Solteiro' },
@@ -77,14 +94,9 @@ export class FamiliaComponent implements OnInit {
 
   sgUf = ['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO'];
 
-  alunos: any = [
-    { id: 1, nmAluno: 'Alfa Centauro' }
-  ];
-
   formGroup: FormGroup;
 
-  
-  constructor() { }
+  constructor(private snackBar: MatSnackBar, private familiaService: FamiliaService) { }
 
   ngOnInit() {
 
@@ -94,26 +106,17 @@ export class FamiliaComponent implements OnInit {
 
   }
 
-  onSubmit() {
-    console.log(this.formGroup.value);
-    // debugger;
-  }
-
-  onDelete() {
-
-  }
-
-  getFormGroup():FormGroup {
+  getFormGroup(): FormGroup {
     return new FormGroup({
       // familia
       cdFamilia: new FormControl(0),
       dtCadastro: new FormControl(''),
       cdUsuarioCadastro: new FormControl(0),
-  
+
       // responsavel
       cdResponsavel: new FormControl(0),
       nmResponsavel: new FormControl(''),
-      nmParentesco: new FormControl(''),
+      tpParentesco: new FormControl(0),
       tpGenero: new FormControl(0),
       dtNascimento: new FormControl(''),
       nmNaturalidade: new FormControl(''),
@@ -132,7 +135,7 @@ export class FamiliaComponent implements OnInit {
       vlRendaMensal: new FormControl(0),
       nmLocalTrabalho: new FormControl(''),
       nrTelefoneTrabalho: new FormControl(''),
-  
+
       // endereco
       cdEndereco: new FormControl(0),
       nmRua: new FormControl(''),
@@ -141,7 +144,7 @@ export class FamiliaComponent implements OnInit {
       nmBairro: new FormControl(''),
       nmCidade: new FormControl(''),
       nmEstado: new FormControl(''),
-  
+
       // habitação
       cdHabitacao: new FormControl(0),
       tpSituacao: new FormControl(0),
@@ -152,7 +155,7 @@ export class FamiliaComponent implements OnInit {
       tpIluminacao: new FormControl(0),
       tpEscoamentoSanitario: new FormControl(0),
       tpDestinoLixo: new FormControl(0),
-  
+
       // perfil social
       cdPerfilSocial: new FormControl(0),
       lgNis: new FormControl(0),
@@ -160,13 +163,13 @@ export class FamiliaComponent implements OnInit {
       lgBeneficio: new FormControl(0),
       nmBeneficio: new FormControl(''),
       vlBeneficio: new FormControl(0),
-  
+
       // alunos
       arrayAlunos: new FormControl([])
     });
   }
 
-  getAlunoFormGroup():FormGroup {
+  getAlunoFormGroup(): FormGroup {
     return new FormGroup({
       cdAluno: new FormControl(0),
       cdFamilia: new FormControl(0),
@@ -185,6 +188,39 @@ export class FamiliaComponent implements OnInit {
       nmAcompanhanteSaida: new FormControl(''),
       lgAlmocoInstituicao: new FormControl(0),
     });
+  }
+
+  // show messages
+  openSnackBar(message: string, action: string, type: string = this.SUCCESS) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+      panelClass: [type + '-snackbar']
+    });
+  }
+
+
+  onSubmit() {
+    //form validation
+    if (!this.formGroup.valid) {
+      this.openSnackBar("Existem campos inválidos.", null, this.ALERT);
+      return;
+    }
+
+    this.familiaService.saveFamilia(this.mapRegister())
+      .subscribe(result => {
+        if (result.code <= 0) { // save failed 
+          this.openSnackBar(result.message, null, this.ERROR);
+          return;
+        }
+
+        this.openSnackBar(result.message, null);
+        debugger;
+      });
+
+  }
+
+  onDelete() {
+
   }
 
   onChangeEstudando(event) {
@@ -209,6 +245,78 @@ export class FamiliaComponent implements OnInit {
 
   prevStep() {
     this.step--;
+  }
+
+  mapRegister(): any {
+    var register: any = {};
+
+    // FAMILIA
+    register.cdFamilia         = this.formGroup.value.cdFamilia;
+    register.cdUsuarioCadastro = this.formGroup.value.cdUsuarioCadastro;
+    register.dtCadastro        = new Date();
+    // RESPONSAVEL
+    register.cdResponsavel      = this.formGroup.value.cdResponsavel;
+    register.nmResponsavel      = this.formGroup.value.nmResponsavel;
+    register.tpParentesco       = this.formGroup.value.tpParentesco;
+    register.tpGenero           = this.formGroup.value.tpGenero ? 1 : 0;
+    register.dtNascimento       = this.formGroup.value.dtNascimento;
+    register.nmNaturalidade     = this.formGroup.value.nmNaturalidade;
+    register.tpEstadoCivil      = this.formGroup.value.tpEstadoCivil;
+    register.nrTelefone1        = this.formGroup.value.nrTelefone1;
+    register.nrTelefone2        = this.formGroup.value.nrTelefone2;
+    register.nrRg               = this.formGroup.value.nrRg;
+    register.nmOrgaoExpedidorRg = this.formGroup.value.nmOrgaoExpedidorRg;
+    register.sgUfRg             = this.formGroup.value.sgUfRg;
+    register.nrCpf              = this.formGroup.value.nrCpf;
+    register.dsEscolaridade     = this.formGroup.value.dsEscolaridade;
+    register.lgEstudante        = this.formGroup.value.lgEstudante ? 1 : 0;
+    register.tpNivelEscolar     = this.formGroup.value.tpNivelEscolar;
+    register.tpTurno            = this.formGroup.value.tpTurno;
+    register.nmOcupacao         = this.formGroup.value.nmOcupacao;
+    register.vlRendaMensal      = this.formGroup.value.vlRendaMensal;
+    register.nmLocalTrabalho    = this.formGroup.value.nmLocalTrabalho;
+    register.nrTelefoneTrabalho = this.formGroup.value.nrTelefoneTrabalho;
+    // ENDERECO
+    register.cdEndereco    = this.formGroup.value.cdEndereco;
+    register.nmRua         = this.formGroup.value.nmRua;
+    register.nrCasa        = this.formGroup.value.nrCasa;
+    register.nmComplemento = this.formGroup.value.nmComplemento;
+    register.nmBairro      = this.formGroup.value.nmBairro;
+    register.nmCidade      = this.formGroup.value.nmCidade;
+    register.nmEstado      = this.formGroup.value.nmEstado;
+    // HABITACAO
+    register.cdHabitacao           = this.formGroup.value.cdHabitacao;
+    register.tpSituacao            = this.formGroup.value.tpSituacao;
+    register.vlAluguel             = this.formGroup.value.vlAluguel;
+    register.nrComodos             = this.formGroup.value.nrComodos;
+    register.tpAbastecimento       = this.formGroup.value.tpAbastecimento;
+    register.tpTratamentoAgua      = this.formGroup.value.tpTratamentoAgua;
+    register.tpIluminacao          = this.formGroup.value.tpIluminacao;
+    register.tpEscoamentoSanitario = this.formGroup.value.tpEscoamentoSanitario;
+    register.tpDestinoLixo         = this.formGroup.value.tpDestinoLixo;
+    // PERFIL SOCIAL
+    register.cdPerfilSocial = this.formGroup.value.cdPerfilSocial;
+    register.lgNis          = this.formGroup.value.lgNis ? 1 : 0;
+    register.nrNis          = this.formGroup.value.nrNis;
+    register.lgBeneficio    = this.formGroup.value.lgBeneficio ? 1 : 0;
+    register.nmBeneficio    = this.formGroup.value.nmBeneficio;
+    register.vlBeneficio    = this.formGroup.value.vlBeneficio;
+    // ALUNOS
+    var arrayAlunos: Array<any> = [];
+    this.formGroup.value.arrayAlunos.forEach(fgAluno => {
+      if (!fgAluno.valid) {
+        this.openSnackBar("Existem campos inválidos.", null, this.ALERT);
+        return;
+      }
+
+      fgAluno.value.lgAlmocoInstituicao = fgAluno.value.lgAlmocoInstituicao ? 1 : 0;
+      fgAluno.value.lgAcompanhanteSaida = fgAluno.value.lgAcompanhanteSaida ? 1 : 0;
+
+      arrayAlunos.push(fgAluno.value);
+    });
+    register.arrayAlunos = arrayAlunos;
+    debugger;
+    return register;
   }
 
 }

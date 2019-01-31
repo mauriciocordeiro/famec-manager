@@ -92,7 +92,7 @@ export class UsuarioComponent implements OnInit {
       return;
     }
 
-    // cast Slide Toggle to Integer
+    // cast SlideToggle to Integer
     this.usuarioForm.value.stUsuario = this.usuarioForm.value.stUsuario ? 1 : 0;
 
     // save request

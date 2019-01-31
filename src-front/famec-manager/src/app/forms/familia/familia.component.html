@@ -39,20 +39,20 @@
 
         <!-- ln1 -->
         <div class="form-line">
-          <mat-form-field appearance="outline">
+          <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Nome</mat-label>
             <input matInput required formControlName="nmResponsavel"
               placeholder="Pedro de Alcântara Francisco António João Carlos Xavier de Paula Miguel Rafael Joaquim José Gonzaga Pascoal Cipriano Serafim de Bragança e Bourbon">
           </mat-form-field>
-        </div>
-
-        <!-- ln2 -->
-        <div class="form-line">
-          <mat-form-field appearance="outline">
+          <mat-form-field class="form-field-inline" style="width: 120px;" appearance="outline">
             <mat-label>Parentesco</mat-label>
-            <input matInput formControlName="nmParentesco" required placeholder="Mãe, Pai, ..." >
+            <mat-select formControlName="tpParentesco">
+              <mat-option *ngFor="let item of parentesco" [value]="item.id">
+                {{item.label}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
-          <mat-radio-group class="radio-group" formControlName="tpGenero">
+          <mat-radio-group class="radio-group" style="width: 300px;" formControlName="tpGenero">
             <mat-label style="margin-top: -5px;">Sexo</mat-label>
             <mat-radio-button class="radio-button" value="1">Masculino</mat-radio-button>
             <mat-radio-button class="radio-button" value="2">Feminino</mat-radio-button>
@@ -67,7 +67,7 @@
           </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline" style="width: 100px;">
               <mat-label>Nº</mat-label>
-              <input matInput required formControlName="nrCasa" placeholder="637">
+              <input matInput type="number" required formControlName="nrCasa" placeholder="637">
             </mat-form-field>
         </div>
 
@@ -201,7 +201,7 @@
         </div>
 
         <mat-action-row>
-          <button mat-button color="primary" (click)="nextStep()">Próximo</button>
+          <button mat-button type="button" color="primary" (click)="nextStep()">Próximo</button>
         </mat-action-row>
       </mat-expansion-panel>
 
@@ -246,8 +246,8 @@
         </div>
 
         <mat-action-row>
-          <button mat-button color="warn" (click)="prevStep()">Anterior</button>
-          <button mat-button color="primary" (click)="nextStep()">Próximo</button>
+          <button mat-button type="button" color="warn" (click)="prevStep()">Anterior</button>
+          <button mat-button type="button" color="primary" (click)="nextStep()">Próximo</button>
         </mat-action-row>
       </mat-expansion-panel>
 
@@ -327,8 +327,8 @@
         </div>
 
         <mat-action-row>
-          <button mat-button color="warn" (click)="prevStep()">Anterior</button>
-          <button mat-button color="primary" (click)="nextStep()">Próximo</button>
+          <button mat-button type="button" color="warn" (click)="prevStep()">Anterior</button>
+          <button mat-button type="button" color="primary" (click)="nextStep()">Próximo</button>
         </mat-action-row>
       </mat-expansion-panel>
 
@@ -346,13 +346,13 @@
         <div *ngFor="let form of formGroup.value.arrayAlunos">
           <app-aluno [formAluno]="form"></app-aluno>
         </div>
-        <button mat-mini-fab style="margin-top: 10px; margin-right: 0px;" type="button" matTooltip="Adicionar outro aluno"
+        <button type="button" mat-mini-fab style="margin-top: 10px; margin-right: 0px;" type="button" matTooltip="Adicionar outro aluno"
           (click)=onClickAddAluno()>
           <mat-icon>add</mat-icon>
         </button>
         <mat-action-row>
-          <button mat-button color="warn" (click)="prevStep()">Anterior</button>
-          <button mat-button color="primary" (click)="nextStep()">Fim</button>
+          <button type="button" mat-button color="warn" (click)="prevStep()">Anterior</button>
+          <button type="button" mat-button color="primary" (click)="nextStep()">Fim</button>
         </mat-action-row>
       </mat-expansion-panel>
     </mat-accordion>
