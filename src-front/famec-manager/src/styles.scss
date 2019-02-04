@@ -1,3 +1,53 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
+mat-card.form {
+    margin: 0 !important;
+    border-radius: 0;
+}
+
+mat-card.form mat-card-header {
+    background: #4387B5;
+    color: #fff;
+    box-sizing: border-box;
+    padding: 10px;
+    width: 100%;
+    height: auto;
+}
+
+mat-card.form mat-card-title {
+    font-size: 1.3em !important;
+}
+
+mat-card.form mat-card-subtitle {
+    color: #eee;
+    opacity: .7;
+}
+
+mat-card.form mat-card-content {
+    overflow: auto;
+    margin-bottom: 0;
+    padding: 0 !important;
+}
+
+.error-snackbar {
+    color: crimson;
+    font-weight: bold;
+    //background: #FF0505;
+}
+
+.alert-snackbar {
+    color: yellow;
+    font-weight: bold;
+    //background: #FFFF05;
+}
+
+.success-snackbar {
+    color: royalblue;
+    font-weight: bold;
+    //background: #2196F3;
+}
+
+.app-background {
+    background-color: rgba(#000000, .05);
+}

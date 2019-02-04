@@ -1,0 +1,368 @@
+<app-loading *ngIf="loading" [message]="loadingMessage"></app-loading>
+<mat-card>
+  <mat-card-header>
+    <div mat-card-avatar>
+      <mat-icon>people</mat-icon>
+    </div>
+    <mat-card-title>Família</mat-card-title>
+    <!-- <mat-card-subtitle>Cadastro da Família</mat-card-subtitle> -->
+  </mat-card-header>
+  <mat-form-field class="search-field">
+    <mat-label>Pesquisar</mat-label>
+    <input matInput #searchField type="search" placeholder="Nome do aluno" (keyup)="onSearch(searchField.value)">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+  <mat-list class="search-result">
+    <mat-list-item *ngFor="let familia of familias">
+      <p style="padding-right: 50px;">
+        {{aluno.nmAluno}}
+        <button mat-icon-button (click)="onSelectItem(user)" matTooltip="Carregue este item">
+          <mat-icon>subdirectory_arrow_left</mat-icon>
+        </button>
+      </p>
+    </mat-list-item>
+  </mat-list>
+  <mat-divider [inset]="true"></mat-divider>
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <mat-accordion class="example-headers-align">
+      <!-- PANEL 1-->
+      <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <i>Responsável</i>
+          </mat-panel-title>
+          <mat-panel-description>
+            I - Identificação do responsável
+            <mat-icon>supervisor_account</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <!-- ln1 -->
+        <div class="form-line">
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input matInput required formControlName="nmResponsavel"
+              placeholder="Pedro de Alcântara Francisco António João Carlos Xavier de Paula Miguel Rafael Joaquim José Gonzaga Pascoal Cipriano Serafim de Bragança e Bourbon">
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" style="width: 120px;" appearance="outline">
+            <mat-label>Parentesco</mat-label>
+            <mat-select formControlName="tpParentesco">
+              <mat-option *ngFor="let item of parentesco" [value]="item.id">
+                {{item.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-radio-group class="radio-group" style="width: 300px;" formControlName="tpGenero">
+            <mat-label style="margin-top: -5px;">Sexo</mat-label>
+            <mat-radio-button class="radio-button" value="1">Masculino</mat-radio-button>
+            <mat-radio-button class="radio-button" value="2">Feminino</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <!-- ln3 -->
+        <div class="form-line">
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Endereço</mat-label>
+            <input matInput required formControlName="nmRua" placeholder="Av. Ivo Freire de Aguiar">
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" appearance="outline" style="width: 100px;">
+              <mat-label>Nº</mat-label>
+              <input matInput type="number" required formControlName="nrCasa" placeholder="637">
+            </mat-form-field>
+        </div>
+
+        <!-- ln4 -->
+        <div class="form-line">
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Bairro</mat-label>
+            <input matInput required formControlName="nmBairro" placeholder="Candeias">
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Ponto de referência</mat-label>
+            <input matInput formControlName="nmComplemento" placeholder="Próx. ao ">
+          </mat-form-field>
+        </div>
+
+        <!-- ln5 -->
+        <div class="form-line">
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Data de nascimento</mat-label>
+            <input matInput formControlName="dtNascimento" [matDatepicker]="dtNascPicker" placeholder="Data de nascimento" required>
+            <mat-datepicker-toggle matSuffix [for]="dtNascPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dtNascPicker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" style="width: 80px;" appearance="outline">
+            <mat-label>Idade</mat-label>
+            <input matInput type="number">
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Naturalidade</mat-label>
+            <input matInput formControlName="nmNaturalidade" placeholder="Vitória da Conquista - BA">
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Estado Civil</mat-label>
+            <mat-select formControlName="tpEstadoCivil">
+              <mat-option *ngFor="let estado of estadoCivil" [value]="estado.id">
+                {{estado.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- ln6 -->
+        <div class="form-line">
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Telefone 1</mat-label>
+            <input matInput formControlName="nrTelefone1" placeholder="(77) 0000-0000">
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Telefone 2</mat-label>
+            <input matInput formControlName="nrTelefone2" placeholder="(77) 99191-9911">
+          </mat-form-field>
+        </div>
+
+        <!-- ln7 -->
+        <div class="form-line">
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>RG</mat-label>
+            <input matInput formControlName="nrRg" required placeholder="0000000000">
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" style="width: 200px;" appearance="outline">
+            <mat-label>Órgão Emissor</mat-label>
+            <input matInput formControlName="nmOrgaoExpedidorRg" placeholder="SSP">
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" style="width: 80px;" appearance="outline">
+            <mat-label>UF</mat-label>
+            <mat-select formControlName="sgUfRg">
+              <mat-option *ngFor="let item of sgUf" [value]="item">
+                {{item}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>CPF</mat-label>
+            <input matInput formControlName="nrCpf" required placeholder="000.000.000-00">
+          </mat-form-field>
+        </div>
+
+        <!-- ln8 -->
+        <div class="form-line">
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Escolaridade</mat-label>
+            <input matInput formControlName="dsEscolaridade">
+          </mat-form-field>
+          <mat-checkbox #ckEstudante formControlName="lgEstudante" style="margin-left: 10px; padding-top: 20px;" (change)=onChangeEstudando($event)>
+            Estudando atualmente
+          </mat-checkbox>
+        </div>
+
+        <!-- ln9 -->
+        <div class="form-line" *ngIf="lgResponsavelEstudando">
+          <mat-form-field class="form-field-inline" style=" width: 180px" appearance="outline">
+            <mat-label>Horário Escolar</mat-label>
+            <mat-select formControlName="tpTurno">
+              <mat-option *ngFor="let hrEscola of horarioEscolar" [value]="hrEscola.id">
+                {{hrEscola.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Nível</mat-label>
+            <mat-select formControlName="tpNivelEscolar">
+              <mat-option *ngFor="let nivel of nivelEscolaridade" [value]="nivel.id">
+                {{nivel.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" style="width: 180px;" appearance="outline">
+            <mat-label>Ano</mat-label>
+            <input matInput type="number">
+          </mat-form-field>
+        </div>
+
+        <!-- ln10 -->
+        <div class="form-line">
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Ocupação atual</mat-label>
+            <input matInput formControlName="nmOcupacao">
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" style="width: 120px;" appearance="outline">
+            <mat-label>Renda mensal</mat-label>
+            <input matInput formControlName="vlRendaMensal">
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Local de trabalho</mat-label>
+            <input matInput formControlName="nmLocalTrabalho">
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" style="width: 150px;" appearance="outline">
+            <mat-label>Telefone</mat-label>
+            <input matInput formControlName="nrTelefoneTrabalho" type="tel" placeholder="(77) 0000-0000">
+          </mat-form-field>
+        </div>
+
+        <mat-action-row>
+          <button mat-button type="button" color="primary" (click)="nextStep()">Próximo</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <i>Social</i>
+          </mat-panel-title>
+          <mat-panel-description>
+            II - Perfil Social
+            <mat-icon>accessibility</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <!-- ln1 -->
+        <div class="form-line">
+          <mat-checkbox formControlName="lgNis" style="margin-left: 10px; padding-top: 20px;">Família com CAD-ÚNICO</mat-checkbox>
+          <mat-form-field style="margin-left: 10px;" appearance="outline">
+            <mat-label>NIS</mat-label>
+            <input matInput formControlName="nrNis">
+          </mat-form-field>
+        </div>
+
+        <!-- ln2 -->
+        <div class="form-line">
+          <mat-checkbox formControlName="lgBeneficio" style="margin-left: 10px; padding-top: 20px;">
+            Recebe algum benefício ou participa de algum programa Federal, Estadual ou Municipal? Bolsa Família, BPC,
+            outros
+          </mat-checkbox>
+        </div>
+
+        <!-- ln3 -->
+        <div class="form-line">
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Nome do Programa/Benefício</mat-label>
+            <input matInput formControlName="nmBeneficio">
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" style="width: 120px;" appearance="outline">
+            <mat-label>Valor</mat-label>
+            <input matInput formControlName="vlBeneficio">
+          </mat-form-field>
+        </div>
+
+        <mat-action-row>
+          <button mat-button type="button" color="warn" (click)="prevStep()">Anterior</button>
+          <button mat-button type="button" color="primary" (click)="nextStep()">Próximo</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <i>Habitação</i>
+          </mat-panel-title>
+          <mat-panel-description>
+            III - Condições Habitacionais
+            <mat-icon>location_city</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <!-- ln1 -->
+        <div class="form-line">
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Situação Habitacional</mat-label>
+            <mat-select formControlName="tpSituacao" (selectionChange)="onChangeSituacaoHabitacional($event)">
+              <mat-option *ngFor="let item of situacaoHabitacional" [value]="item.id">
+                {{item.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" style="width: 180px;" appearance="outline" *ngIf="lgHabitacaoAluguel">
+            <mat-label>Valor</mat-label>
+            <input matInput formControlName="vlAluguel">
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" style="width: 180px;" appearance="outline">
+            <mat-label>Nº de Cômodos</mat-label>
+            <input matInput type="number" formControlName="nrComodos">
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Iluminação</mat-label>
+            <mat-select formControlName="tpIluminacao">
+              <mat-option *ngFor="let item of iluminacao" [value]="item.id">
+                {{item.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- ln2 -->
+        <div class="form-line">
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Abastecimento de Água</mat-label>
+            <mat-select formControlName="tpAbastecimento">
+              <mat-option *ngFor="let item of abastecimentoAgua" [value]="item.id">
+                {{item.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Tratamento de Água</mat-label>
+            <mat-select formControlName="tpTratamentoAgua">
+              <mat-option *ngFor="let item of tratamentoAgua" [value]="item.id">
+                {{item.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Escoamento Sanitário</mat-label>
+            <mat-select formControlName="tpEscoamentoSanitario">
+              <mat-option *ngFor="let item of escoamentoSanitario" [value]="item.id">
+                {{item.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="form-field-inline" appearance="outline">
+            <mat-label>Destino do Lixo</mat-label>
+            <mat-select formControlName="tpDestinoLixo">
+              <mat-option *ngFor="let item of destinoLixo" [value]="item.id">
+                {{item.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <mat-action-row>
+          <button mat-button type="button" color="warn" (click)="prevStep()">Anterior</button>
+          <button mat-button type="button" color="primary" (click)="nextStep()">Próximo</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <i>Alunos</i>
+          </mat-panel-title>
+          <mat-panel-description>
+            IV - Composição Familiar (Criança ou adolescente matriculado)
+            <mat-icon>face</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div *ngFor="let form of formGroup.value.arrayAlunos">
+          <app-aluno [formAluno]="form"></app-aluno>
+        </div>
+        <button type="button" mat-mini-fab style="margin-top: 10px; margin-right: 0px;" type="button" matTooltip="Adicionar outro aluno"
+          (click)=onClickAddAluno()>
+          <mat-icon>add</mat-icon>
+        </button>
+        <mat-action-row>
+          <button type="button" mat-button color="warn" (click)="prevStep()">Anterior</button>
+          <button type="button" mat-button color="primary" (click)="nextStep()">Fim</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-card-actions class="done">
+      <button mat-fab type="submit">
+        <mat-icon>save</mat-icon>
+      </button>
+      <button mat-fab type="button" (click)="onDelete()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card-actions>
+  </form>
+</mat-card>

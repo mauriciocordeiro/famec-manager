@@ -1,0 +1,17 @@
+<div >
+  <ul style="list-style-type: none;">
+    <li *ngFor="let contato of contatos">
+      <mat-card style="margin: 10px 100px;" fxLayoutGap="10px" fxFlex>
+        <mat-card-title class="title">{{contato.nome}}</mat-card-title>
+        <mat-card-content class="content" fxFlex>
+          <mat-icon>phone</mat-icon>
+          <mat-label fxFlex style="margin-left:10px;">{{contato.telefone}}</mat-label>
+        </mat-card-content>
+        <mat-card-content class="content">
+          <mat-icon>email</mat-icon>
+          <mat-label fxFlex style="margin-left:10px;">{{contato.email}}</mat-label>
+        </mat-card-content>
+      </mat-card>
+    </li>
+  </ul>
+</div>

@@ -32,6 +32,12 @@ public class UsuarioServices {
 
 			int retorno;
 			if(usuario.getCdUsuario()==0){
+				if(connect.prepareStatement("SELECT cd_usuario FROM usuario WHERE nm_login = '"+usuario.getNmLogin()+"'").executeQuery().next()) {
+					if(isConnectionNull)
+						connect.rollback();
+					return new Result(-2, "Login já utilizado.");
+				}
+				
 				retorno = UsuarioDAO.insert(usuario, connect);
 				usuario.setCdUsuario(retorno);
 			}
@@ -47,7 +53,7 @@ public class UsuarioServices {
 			return new Result(retorno, (retorno<=0)?"Erro ao salvar...":"Salvo com sucesso...", "USUARIO", usuario);
 		}
 		catch(Exception e){
-			e.printStackTrace();
+			e.printStackTrace(System.out);
 			if (isConnectionNull)
 				Conexao.rollback(connect);
 			return new Result(-1, e.getMessage());
@@ -86,7 +92,7 @@ public class UsuarioServices {
 			return new Result(1, "Registro excluído com sucesso!");
 		}
 		catch(Exception e){
-			e.printStackTrace();
+			e.printStackTrace(System.out);
 			if (isConnectionNull)
 				Conexao.rollback(connect);
 			return new Result(-1, "Erro ao excluir registro!");
@@ -131,7 +137,7 @@ public class UsuarioServices {
 	}
 
 	public static ResultSetMap find(ArrayList<ItemComparator> criterios, Connection connect) {
-		return Search.find("SELECT * FROM usuario", criterios, true, connect!=null ? connect : Conexao.connect(), connect==null);
+		return Search.find("SELECT * FROM usuario", criterios, connect!=null ? connect : Conexao.connect(), connect==null);
 	}
 
 }

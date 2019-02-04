@@ -1,0 +1,16 @@
+.content {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-left: 100px;
+    margin-right: 10px;
+    .logo {
+        font-weight: bolder;
+    }
+    .button {
+        margin: 20px !important;
+        width: fit-content;
+        .span {
+            margin: 10px;
+        }
+    }
+}

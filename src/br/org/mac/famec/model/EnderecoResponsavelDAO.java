@@ -30,7 +30,7 @@ public class EnderecoResponsavelDAO{
 				return -1;
 			}
 			objeto.setCdEndereco(code);
-			PreparedStatement pstmt = connect.prepareStatement("INSERT INTO endereco_responsavel (cd_endereco,"+
+			PreparedStatement pstmt = connect.prepareStatement("INSERT INTO endereco_responsavel (cd_endereco_responsavel,"+
 			                                  "cd_responsavel,"+
 			                                  "nm_rua,"+
 			                                  "nr_casa,"+
@@ -82,14 +82,14 @@ public class EnderecoResponsavelDAO{
 		try {
 			if (isConnectionNull)
 				connect = Conexao.connect();
-			PreparedStatement pstmt = connect.prepareStatement("UPDATE endereco_responsavel SET cd_endereco=?,"+
+			PreparedStatement pstmt = connect.prepareStatement("UPDATE endereco_responsavel SET cd_endereco_responsavel=?,"+
 												      		   "cd_responsavel=?,"+
 												      		   "nm_rua=?,"+
 												      		   "nr_casa=?,"+
 												      		   "nm_complemento=?,"+
 												      		   "nm_bairro=?,"+
 												      		   "nm_cidade=?,"+
-												      		   "nm_estado=? WHERE cd_endereco=?");
+												      		   "nm_estado=? WHERE cd_endereco_responsavel=?");
 			pstmt.setInt(1,objeto.getCdEndereco());
 			pstmt.setInt(2,objeto.getCdResponsavel());
 			pstmt.setString(3,objeto.getNmRua());
@@ -127,7 +127,7 @@ public class EnderecoResponsavelDAO{
 		try {
 			if (isConnectionNull)
 				connect = Conexao.connect();
-			PreparedStatement pstmt = connect.prepareStatement("DELETE FROM endereco_responsavel WHERE cd_endereco=?");
+			PreparedStatement pstmt = connect.prepareStatement("DELETE FROM endereco_responsavel WHERE cd_endereco_responsavel=?");
 			pstmt.setInt(1, cdEndereco);
 			pstmt.executeUpdate();
 			return 1;
@@ -159,11 +159,11 @@ public class EnderecoResponsavelDAO{
 		PreparedStatement pstmt;
 		ResultSet rs;
 		try {
-			pstmt = connect.prepareStatement("SELECT * FROM endereco_responsavel WHERE cd_endereco=?");
+			pstmt = connect.prepareStatement("SELECT * FROM endereco_responsavel WHERE cd_endereco_responsavel=?");
 			pstmt.setInt(1, cdEndereco);
 			rs = pstmt.executeQuery();
 			if(rs.next()){
-				return new EnderecoResponsavel(rs.getInt("cd_endereco"),
+				return new EnderecoResponsavel(rs.getInt("cd_endereco_responsavel"),
 						rs.getInt("cd_responsavel"),
 						rs.getString("nm_rua"),
 						rs.getInt("nr_casa"),
@@ -233,7 +233,7 @@ public class EnderecoResponsavelDAO{
 			ArrayList<EnderecoResponsavel> list = new ArrayList<EnderecoResponsavel>();
 			ResultSetMap rsm = getAll(connect);
 			while(rsm.next()){
-				EnderecoResponsavel obj = EnderecoResponsavelDAO.get(rsm.getInt("cd_endereco"), connect);
+				EnderecoResponsavel obj = EnderecoResponsavelDAO.get(rsm.getInt("cd_endereco_responsavel"), connect);
 				list.add(obj);
 			}
 			return list;

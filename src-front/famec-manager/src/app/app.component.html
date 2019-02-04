@@ -1,25 +1,9 @@
-<div>
-  <mat-toolbar color="primary">
-    <span>Angular Material Tutorial</span>
-    <button mat-icon-button [mat-menu-trigger-for]="menu">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-  </mat-toolbar>
-  <mat-menu x-position="before" #menu="matMenu">
-    <button mat-menu-item>About</button>
-    <button mat-menu-item>Contact</button>
-  </mat-menu>
-  <mat-card>
-    <button mat-raised-button>Cersie Lannister</button>
-    <button mat-raised-button color="primary">Jaime Lannister</button>
-    <button mat-raised-button color="accent">Tyrion Lannister</button>
-  </mat-card>
-  <form class="form-center">
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Favorite food" value="Pizza">
-    </mat-form-field>
-  </form>
-</div>
+<div fxLayout="column" fxFlex>
+  <mat-drawer-container class="app-background" fullscreen>
+      <app-menubar></app-menubar>
 
+      <!-- <app-contato></app-contato> -->
+  </mat-drawer-container>
+</div>
 
 <router-outlet></router-outlet>
