@@ -17,6 +17,7 @@ import { UsuarioComponent } from './forms/usuario/usuario.component';
 import { LoadingComponent } from './nav/loading/loading.component';
 import { FamiliaComponent } from './forms/familia/familia.component';
 import { AlunoComponent } from './forms/aluno/aluno.component';
+import { LoginComponent } from './forms/login/login.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AlunoComponent } from './forms/aluno/aluno.component';
     UsuarioComponent,
     LoadingComponent,
     FamiliaComponent,
-    AlunoComponent
+    AlunoComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

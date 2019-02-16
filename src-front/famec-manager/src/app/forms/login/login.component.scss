@@ -1,0 +1,30 @@
+:host {
+    .background {
+        // background-image: url("../../../assets/images/background.png");
+        background-repeat: repeat;
+    }
+    
+    .main-div{
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    p, mat-form-field {
+        width: 100%;
+    }
+    
+    mat-card-actions {
+        text-align: end;
+        .button + .button {
+            margin-left: 10px;
+        }
+    }
+    
+    .logo {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+    }
+}

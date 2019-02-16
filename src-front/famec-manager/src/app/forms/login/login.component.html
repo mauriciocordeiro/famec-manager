@@ -1,0 +1,34 @@
+<div>
+  <mat-drawer-container class="background" fullscreen>
+    <div class="main-div">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Autenticar</mat-card-title>
+          <mat-card-subtitle>Entre com seus dados de autenticação</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            <mat-form-field>
+              <input #nmLogin matInput type="text" placeholder="Usuário">
+              <mat-icon matSuffix>account_box</mat-icon>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field>
+              <input #nmSenha matInput type="password" placeholder="Senha" (keyup)="onEnterKey($event)">
+              <mat-icon matSuffix>lock</mat-icon>
+              <mat-hint *ngIf="!loginResult.success" style="color: red; font-weight: bold;">
+                {{loginResult.message}}
+              </mat-hint>
+            </mat-form-field>
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button #btnAutenticar class="button" mat-flat-button color="primary" (click)="onAutenticar()">Autenticar</button>
+          <button #btnCancelar class="button" mat-flat-button color="accent" (click)=onCancelar()>Cancelar</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </mat-drawer-container>
+</div>
+<router-outlet></router-outlet>
