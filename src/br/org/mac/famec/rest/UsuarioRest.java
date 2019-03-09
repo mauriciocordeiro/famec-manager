@@ -98,5 +98,23 @@ public class UsuarioRest {
 			return null;
 		}
 	}
+	
+	@PUT
+	@Path("/login")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public static String login(String args) {
+		try {
+			JSONObject json = new JSONObject(args);
+			//XXX:
+			System.out.println(json);
+			Result result = UsuarioServices.autenticar(json.getString("nmLogin"), json.getString("nmSenha"));
+			
+			return new JSONObject(result).toString();
+		} catch (Exception e) {
+			e.printStackTrace(System.out);
+			return null;
+		}
+	}
 
 }

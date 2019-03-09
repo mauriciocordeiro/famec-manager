@@ -1,3 +1,9 @@
-.form-center {
-    margin-top: 20px
+:host {
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  .form-center {
+    margin-top: 20px;
   }
+}

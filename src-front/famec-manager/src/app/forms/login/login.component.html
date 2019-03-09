@@ -1,3 +1,4 @@
+<app-loading *ngIf="loading" message="autenticando..."></app-loading>
 <div>
   <mat-drawer-container class="background" fullscreen>
     <div class="main-div">
@@ -15,13 +16,13 @@
           </p>
           <p>
             <mat-form-field>
-              <input #nmSenha matInput type="password" placeholder="Senha" (keyup)="onEnterKey($event)">
+              <input #nmSenha matInput type="password" placeholder="Senha">
               <mat-icon matSuffix>lock</mat-icon>
               <mat-hint *ngIf="!loginResult.success" style="color: red; font-weight: bold;">
                 {{loginResult.message}}
               </mat-hint>
             </mat-form-field>
-          </p>
+          </p> 
         </mat-card-content>
         <mat-card-actions>
           <button #btnAutenticar class="button" mat-flat-button color="primary" (click)="onAutenticar()">Autenticar</button>

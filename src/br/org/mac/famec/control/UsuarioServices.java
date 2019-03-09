@@ -139,5 +139,42 @@ public class UsuarioServices {
 	public static ResultSetMap find(ArrayList<ItemComparator> criterios, Connection connect) {
 		return Search.find("SELECT * FROM usuario", criterios, connect!=null ? connect : Conexao.connect(), connect==null);
 	}
+	
+	
+	public static Result autenticar(String nmLogin, String nmSenha){
+		return autenticar(nmLogin, nmSenha, null);
+	}
+
+	public static Result autenticar(String nmLogin, String nmSenha, Connection connect){
+		boolean isConnectionNull = connect==null;
+		try {
+			if (isConnectionNull) {
+				connect = Conexao.connect();
+			}
+
+			int retorno = 0;
+			Usuario usuario = null;
+			
+			PreparedStatement ps = connect.prepareStatement("SELECT cd_usuario FROM usuario WHERE nm_login=? AND nm_senha=?");
+			ps.setString(1, nmLogin);
+			ps.setString(2, nmSenha);
+			
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				retorno = rs.getInt("cd_usuario");
+				usuario = UsuarioDAO.get(retorno, connect);
+			}
+
+			return new Result(retorno, (retorno<=0)?"Erro ao autenticar...":"Autenticado com sucesso...", "USUARIO", usuario);
+		}
+		catch(Exception e){
+			e.printStackTrace(System.out);
+			return new Result(-1, e.getMessage());
+		}
+		finally{
+			if (isConnectionNull)
+				Conexao.disconnect(connect);
+		}
+	}
 
 }

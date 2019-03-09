@@ -17,7 +17,7 @@ export class UsuarioService extends Services {
 	 */
 
   // URL to web api
-  private serviceUrl = this.FULL_CONTEXT + "/rws/usuario"; 
+  private serviceUrl = this.FULL_CONTEXT + "/rws/usuario";
 
   constructor(private http: HttpClient) {
     super();
@@ -35,16 +35,29 @@ export class UsuarioService extends Services {
       .pipe(
         tap(_ => this.log(`found users matching "${term}"`)),
         catchError(this.handleError<Usuario[]>('searchUsuarios', [])
-      )
-    );
+        )
+      );
   }
-  
+
   deleteUsuario(cdUsuario): Observable<Result> {
     const url = `${this.serviceUrl}/delete?codigo=${cdUsuario}`;
 
     return this.http.delete<Result>(url, httpOptions).pipe(
       tap(_ => this.log(`deleted user cdUsuario=${cdUsuario}`)),
       catchError(this.handleError<Result>('deleteUsuario'))
+    );
+  }
+
+  // public static async doLogin(nmLogin, nmSenha): Promise<Result> {
+  //   return Object.assign(new Result(-1), await function(): Observable<Result> {
+  //     return null;
+  //   });
+  // }
+
+  doLogin(nmLogin, nmSenha): Observable<Result> {
+    return this.http.put(this.serviceUrl + "/login", JSON.stringify({ nmLogin: nmLogin, nmSenha: nmSenha }, null, 2), httpOptions).pipe(
+      tap((result: Result) => this.log(result.message)),
+      catchError(this.handleError<Result>('Erro! auth.'))
     );
   }
 
