@@ -1,6 +1,7 @@
 <app-loading *ngIf="loading" message="autenticando..."></app-loading>
 <div>
   <mat-drawer-container class="background" fullscreen>
+    <img style="position: absolute;" src="./assets/logo/logo-default.png" />
     <div class="main-div">
       <mat-card>
         <mat-card-header>
@@ -22,11 +23,12 @@
                 {{loginResult.message}}
               </mat-hint>
             </mat-form-field>
-          </p> 
+          </p>
         </mat-card-content>
         <mat-card-actions>
-          <button #btnAutenticar class="button" mat-flat-button color="primary" (click)="onAutenticar()">Autenticar</button>
-          <button #btnCancelar class="button" mat-flat-button color="accent" (click)=onCancelar()>Cancelar</button>
+          <button #btnAutenticar class="button" mat-flat-button color="primary"
+            (click)="onAutenticar()">Autenticar</button>
+          <button #btnCancelar class="button" mat-button color="warn" (click)=onCancelar()>Cancelar</button>
         </mat-card-actions>
       </mat-card>
     </div>

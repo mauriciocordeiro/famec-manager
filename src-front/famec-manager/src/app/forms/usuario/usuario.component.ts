@@ -3,6 +3,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { UsuarioService } from '../../services/usuario.services';
 import { Usuario } from 'src/app/services/usuario';
+import { Router } from '@angular/router';
+import { Utils } from 'src/app/services/Utils';
 
 @Component({
   selector: 'app-usuario',
@@ -41,11 +43,13 @@ export class UsuarioComponent implements OnInit {
   usuarios: Usuario[];
 
   constructor(
+    private router:Router,
     private usuarioService: UsuarioService,
     private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
+    UsuarioService.checkAuth(this.router);
     window.dispatchEvent(new Event('resize'));
   }
 

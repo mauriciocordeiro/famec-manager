@@ -33,7 +33,7 @@
             </mat-form-field>
           </td>
           <td>
-            <mat-slide-toggle formControlName="stUsuario" [color]="accent" [checked]="true">Ativo</mat-slide-toggle>
+            <mat-slide-toggle formControlName="stUsuario" color="primary" [checked]="true">Ativo</mat-slide-toggle>
           </td>
         </tr>
         <tr>
@@ -72,11 +72,13 @@
         </tr>
       </table>
       <mat-card-actions class="done">
-        <button mat-fab type="submit">
+        <button mat-raised-button color="accent" type="submit">
           <mat-icon>save</mat-icon>
+          Salvar
         </button>
-        <button *ngIf="usuarioForm.value.cdUsuario" mat-fab type="button" (click)="onDelete()">
-          <mat-icon>delete</mat-icon>
+        <button *ngIf="usuarioForm.value.cdUsuario" mat-raised-button color="warn" type="button" (click)="onDelete()">
+          <mat-icon>clear</mat-icon>
+          Excluir
         </button>
       </mat-card-actions>
     </form>

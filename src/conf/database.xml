@@ -4,5 +4,5 @@
 	<driver>org.postgresql.Driver</driver>
 	<url>jdbc:postgresql://localhost/famec</url>
 	<user>postgres</user>
-	<pass>postgres</pass>
+	<pass>t1v1k!</pass>
 </database>

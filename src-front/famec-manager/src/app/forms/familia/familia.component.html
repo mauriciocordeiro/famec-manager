@@ -52,10 +52,10 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-radio-group class="radio-group" style="width: 300px;" formControlName="tpGenero">
+          <mat-radio-group class="radio-group" style="width: 300px;" formControlName="tpGenero" color="primary">
             <mat-label style="margin-top: -5px;">Sexo</mat-label>
-            <mat-radio-button class="radio-button" value="1">Masculino</mat-radio-button>
-            <mat-radio-button class="radio-button" value="2">Feminino</mat-radio-button>
+            <mat-radio-button class="radio-button" value="1" color="primary">Masculino</mat-radio-button>
+            <mat-radio-button class="radio-button" value="2" color="primary">Feminino</mat-radio-button>
           </mat-radio-group>
         </div>
 
@@ -151,7 +151,7 @@
             <mat-label>Escolaridade</mat-label>
             <input matInput formControlName="dsEscolaridade">
           </mat-form-field>
-          <mat-checkbox #ckEstudante formControlName="lgEstudante" style="margin-left: 10px; padding-top: 20px;" (change)=onChangeEstudando($event)>
+          <mat-checkbox #ckEstudante formControlName="lgEstudante" style="margin-left: 10px; padding-top: 20px;" (change)=onChangeEstudando($event) color="primary">
             Estudando atualmente
           </mat-checkbox>
         </div>
@@ -218,7 +218,7 @@
 
         <!-- ln1 -->
         <div class="form-line">
-          <mat-checkbox formControlName="lgNis" style="margin-left: 10px; padding-top: 20px;">Família com CAD-ÚNICO</mat-checkbox>
+          <mat-checkbox formControlName="lgNis" style="margin-left: 10px; padding-top: 20px;" color="primary">Família com CAD-ÚNICO</mat-checkbox>
           <mat-form-field style="margin-left: 10px;" appearance="outline">
             <mat-label>NIS</mat-label>
             <input matInput formControlName="nrNis">
@@ -227,7 +227,7 @@
 
         <!-- ln2 -->
         <div class="form-line">
-          <mat-checkbox formControlName="lgBeneficio" style="margin-left: 10px; padding-top: 20px;">
+          <mat-checkbox formControlName="lgBeneficio" style="margin-left: 10px; padding-top: 20px;" color="primary">
             Recebe algum benefício ou participa de algum programa Federal, Estadual ou Municipal? Bolsa Família, BPC,
             outros
           </mat-checkbox>
@@ -347,7 +347,7 @@
           <app-aluno [formAluno]="form"></app-aluno>
         </div>
         <button type="button" mat-mini-fab style="margin-top: 10px; margin-right: 0px;" type="button" matTooltip="Adicionar outro aluno"
-          (click)=onClickAddAluno()>
+          (click)=onClickAddAluno() color="primary">
           <mat-icon>add</mat-icon>
         </button>
         <mat-action-row>
@@ -357,11 +357,13 @@
       </mat-expansion-panel>
     </mat-accordion>
     <mat-card-actions class="done">
-      <button mat-fab type="submit">
+      <button mat-raised-button color="accent" type="submit">
         <mat-icon>save</mat-icon>
+        Salvar
       </button>
-      <button mat-fab type="button" (click)="onDelete()">
-        <mat-icon>delete</mat-icon>
+      <button mat-raised-button color="warn" type="button" (click)="onDelete()">
+        <mat-icon>clear</mat-icon>
+        Excluir
       </button>
     </mat-card-actions>
   </form>

@@ -4,6 +4,9 @@ import { MatSnackBar } from '@angular/material';
 import { FamiliaService } from 'src/app/services/familia.service';
 import { ObjectUtils } from 'src/app/services/ObjectUtils';
 import { Familia } from 'src/app/services/familia';
+import { Router } from '@angular/router';
+import { Utils } from 'src/app/services/Utils';
+import { UsuarioService } from 'src/app/services/usuario.services';
 
 @Component({
   selector: 'app-familia',
@@ -96,9 +99,13 @@ export class FamiliaComponent implements OnInit {
 
   formGroup: FormGroup;
 
-  constructor(private snackBar: MatSnackBar, private familiaService: FamiliaService) { }
+  constructor(
+    private router:Router,
+    private snackBar: MatSnackBar, 
+    private familiaService: FamiliaService) { }
 
   ngOnInit() {
+    UsuarioService.checkAuth(this.router);
 
     // building formGroup
     this.formGroup = this.getFormGroup();

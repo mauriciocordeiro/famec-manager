@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
+@import '~@angular/material/theming';
+@import './theme.scss';
+
 mat-card.form {
     margin: 0 !important;
     border-radius: 0;
@@ -31,19 +34,19 @@ mat-card.form mat-card-content {
 }
 
 .error-snackbar {
-    color: crimson;
+    color: rgba(map_get($famec-app-warn, 700), 1);
     font-weight: bold;
     //background: #FF0505;
 }
 
 .alert-snackbar {
-    color: yellow;
+    color: rgba(map_get($famec-app-accent, 700), 1);
     font-weight: bold;
     //background: #FFFF05;
 }
 
 .success-snackbar {
-    color: royalblue;
+    color: rgba(map_get($famec-app-primary, 700), 1);
     font-weight: bold;
     //background: #2196F3;
 }

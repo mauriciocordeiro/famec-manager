@@ -1,21 +1,23 @@
 :host {
-    .content {
-        margin-top: 25px;
-        margin-bottom: 25px;
-        margin-left: 100px;
-        margin-right: 10px;
-        .logo {
-            font-weight: bolder;
-        }
-        .button {
-            margin: 20px !important;
-            width: fit-content;
-            .span {
-                margin: 10px;
-            }
+    z-index: 1;
+    box-shadow: 2px 6px 12px rgba(0, 0, 0, .5);
+
+    mat-toolbar-row {
+        width: 100%;
+    }
+    
+    button {
+        margin: 20px !important;
+        width: fit-content;
+        min-height: 64px;
+        border-radius: 5px;
+        span {
+            margin: 10px;
         }
     }
-
-    z-index: 3;
+    
+    button:hover {
+        background-color: rgba(141, 110, 99, .1);
+    }
 
 }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Utils } from 'src/app/services/Utils';
+import { Router } from '@angular/router';
+import { UsuarioService } from 'src/app/services/usuario.services';
 
 @Component({
   selector: 'app-contato',
@@ -16,10 +19,10 @@ export class ContatoComponent implements OnInit {
     { nome: "Natália Amorim", telefone: "+55 77 99175-4969", email: "natalia.amorim2@hotmail.com" }
   ];
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit() {
-    // console.log("contato");
+    UsuarioService.checkAuth(this.router);
   }
 
 

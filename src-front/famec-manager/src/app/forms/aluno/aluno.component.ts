@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Utils } from 'src/app/services/Utils';
+import { UsuarioService } from 'src/app/services/usuario.services';
 
 @Component({
   selector: 'app-aluno',
@@ -36,8 +39,9 @@ export class AlunoComponent implements OnInit {
     { id: 4, label: 'Diurno' }
   ];
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit() {
+    UsuarioService.checkAuth(this.router);
   }
 }

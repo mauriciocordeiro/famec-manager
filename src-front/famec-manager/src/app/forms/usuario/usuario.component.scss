@@ -1,87 +1,99 @@
-.mat-card {    
-    text-align: -webkit-center;    
-}    
-    
-.demo-toolbar {    
-    display: flex;    
-    align-items: center;    
-    width: 100%;    
-}    
-    
-.demo-form { 
-    align-content: center;    
-    min-width: 150px;    
-    max-width: 500px;    
-    width: 100%;    
-}    
-    
-.demo-full-width {    
-    width: 100%;    
-}    
-    
-body {    
-    margin: 0;    
-    font-family: Roboto, sans-serif;    
-}    
-    
-mat-card {    
-    max-width: 50%;    
-    margin: 2em auto;    
-    text-align: center;    
-}    
-    
-mat-toolbar-row {    
-    justify-content: space-between;    
-}    
+@import '~@angular/material/theming';
+@import '../../../theme.scss';
 
-mat-form-field {
-    width: 100%;
+:host {
+
+    .mat-card {    
+        text-align: -webkit-center;    
+    }    
+        
+    .demo-toolbar {    
+        display: flex;    
+        align-items: center;    
+        width: 100%;    
+    }    
+        
+    .demo-form { 
+        align-content: center;    
+        min-width: 150px;    
+        max-width: 500px;    
+        width: 100%;    
+    }    
+        
+    .demo-full-width {    
+        width: 100%;    
+    }    
+        
+    body {    
+        margin: 0;    
+        font-family: Roboto, sans-serif;    
+    }    
+        
+    mat-card {    
+        max-width: 50%;    
+        margin: 2em auto;    
+        text-align: center;    
+    }    
+        
+    mat-toolbar-row {    
+        justify-content: space-between;    
+    }    
+    
+    mat-form-field {
+        width: 100%;
+    }
+    
+    table {
+        margin: 5px 20px;
+    }
+    
+    td{
+        width: 100%;
+    }
+        
+    .done {    
+        position: relative; 
+        top: 10px;   
+        bottom: 20px;    
+        right: 20px;    
+        color: white;  
+        text-align: right;  
+    }  
+    
+    // mat-card-actions {
+    //     width: 100%;
+    //     place-content: flex-end;
+    // }
+        
+    .content-center {    
+        text-align: -webkit-center;    
+    }   
+    
+    .search-field { 
+        text-align: -webkit-center;   
+        width: 90%;
+    } 
+    
+    .search-result {
+        background-color: rgba(white, 1);
+        margin-top: -17px;
+        margin-bottom: 15px;
+        padding-left: 25px;
+        position: sticky;
+        // text-align: -webkit-center;    
+        width: 90%;
+    }
+    
+    p {
+        background-color: white;
+        padding-left: 10px;
+        border-left: 6px solid rgba(map_get($famec-app-primary, 700), 1);;
+        margin-left: 10px;
+    }
+    
+    button {
+        margin: 0px 10px;
+    }
+    
+    
 }
-
-table {
-    margin: 5px 20px;
-}
-
-td{
-    width: 100%;
-}
-    
-.done {    
-    position: relative; 
-    top: 10px;   
-    bottom: 20px;    
-    right: 20px;    
-    color: white;  
-    text-align: right;  
-}  
-    
-.content-center {    
-    text-align: -webkit-center;    
-}   
-
-.search-field { 
-    text-align: -webkit-center;   
-    width: 90%;
-} 
-
-.search-result {
-    background-color: rgba(white, 1);
-    margin-top: -17px;
-    margin-bottom: 15px;
-    padding-left: 25px;
-    position: sticky;
-    text-align: -webkit-center;    
-    width: 90%;
-}
-
-p {
-    background-color: white;
-    padding-left: 10px;
-    border-left: 6px solid royalblue;
-    margin-left: 10px;
-}
-
-button {
-    margin: 0px 10px;
-}
-
