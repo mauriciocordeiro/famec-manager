@@ -7,6 +7,8 @@ import { Familia } from 'src/app/services/familia';
 import { Router } from '@angular/router';
 import { Utils } from 'src/app/services/Utils';
 import { UsuarioService } from 'src/app/services/usuario.services';
+import { Usuario } from 'src/app/services/usuario';
+import { LocalStorage } from 'src/app/services/LocalStorage';
 
 @Component({
   selector: 'app-familia',
@@ -14,6 +16,8 @@ import { UsuarioService } from 'src/app/services/usuario.services';
   styleUrls: ['./familia.component.scss']
 })
 export class FamiliaComponent implements OnInit {
+
+  usuario:Usuario;
 
   step = 0;
 
@@ -105,24 +109,27 @@ export class FamiliaComponent implements OnInit {
     private familiaService: FamiliaService) { }
 
   ngOnInit() {
-    UsuarioService.checkAuth(this.router);
-
-    // building formGroup
-    this.formGroup = this.getFormGroup();
-    this.formGroup.value.arrayAlunos.push(this.getAlunoFormGroup());
-
+    UsuarioService.checkAuth(this.router);    
+    this.buildFormGroup();
+    this.usuario = ObjectUtils.getInstanceByString(Utils.decrypt(LocalStorage.get('famec.usuario')), Usuario);
   }
 
-  getFormGroup(): FormGroup {
+  buildFormGroup(register?) {
+    // building formGroup
+    this.formGroup = this.getFormGroup(register);
+    this.formGroup.value.arrayAlunos.push(this.getAlunoFormGroup(register));
+  }
+
+  getFormGroup(register?): FormGroup {
     return new FormGroup({
       // familia
-      cdFamilia: new FormControl(0),
-      dtCadastro: new FormControl(''),
-      cdUsuarioCadastro: new FormControl(0),
+      cdFamilia: register ? register.familia.cdFamilia : new FormControl(0),
+      dtCadastro: register ? register.familia.dtCadastro :  new FormControl(''),
+      cdUsuarioCadastro: register ? register.familia.cdUsuarioCadastro :  new FormControl(0),
 
       // responsavel
-      cdResponsavel: new FormControl(0),
-      nmResponsavel: new FormControl(''),
+      cdResponsavel: register ? register.responsavel.cdResponsavel : new FormControl(0),
+      nmResponsavel: register ? register.responsavel.nmResponsavel : new FormControl(''),
       tpParentesco: new FormControl(0),
       tpGenero: new FormControl(0),
       dtNascimento: new FormControl(''),
@@ -176,7 +183,7 @@ export class FamiliaComponent implements OnInit {
     });
   }
 
-  getAlunoFormGroup(): FormGroup {
+  getAlunoFormGroup(register?): FormGroup {
     return new FormGroup({
       cdAluno: new FormControl(0),
       cdFamilia: new FormControl(0),
@@ -259,7 +266,7 @@ export class FamiliaComponent implements OnInit {
 
     // FAMILIA
     register.cdFamilia         = this.formGroup.value.cdFamilia;
-    register.cdUsuarioCadastro = this.formGroup.value.cdUsuarioCadastro;
+    register.cdUsuarioCadastro = this.usuario.cdUsuario;
     register.dtCadastro        = new Date();
     // RESPONSAVEL
     register.cdResponsavel      = this.formGroup.value.cdResponsavel;

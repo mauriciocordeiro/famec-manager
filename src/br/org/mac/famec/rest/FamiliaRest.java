@@ -1,5 +1,6 @@
 package br.org.mac.famec.rest;
 
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -16,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import br.org.mac.famec.control.FamiliaServices;
+import br.org.mac.famec.control.UsuarioServices;
 import br.org.mac.famec.model.Aluno;
 import br.org.mac.famec.model.EnderecoResponsavel;
 import br.org.mac.famec.model.Familia;
@@ -23,6 +25,8 @@ import br.org.mac.famec.model.Habitacao;
 import br.org.mac.famec.model.PerfilSocial;
 import br.org.mac.famec.model.Responsavel;
 import br.org.mac.famec.util.Util;
+import sol.dao.ItemComparator;
+import sol.dao.ResultSetMap;
 import sol.util.Result;
 
 @Path("/familia")
@@ -148,9 +152,18 @@ public class FamiliaRest {
 	public static String search(@QueryParam("nome") String nome) {
 		try {
 			
+			// busca
+			ArrayList<ItemComparator> crt = new ArrayList<>();
+			crt.add(new ItemComparator("B.nm_aluno", nome, ItemComparator.LIKE_ANY, Types.VARCHAR));
+			ResultSetMap rsm = FamiliaServices.find(crt);
 			
+			JSONArray list = new JSONArray();
 			
-			return new JSONArray("[]").toString();
+			while(rsm.next()) {
+				
+			}
+			
+			return list.toString();
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
 			return null;

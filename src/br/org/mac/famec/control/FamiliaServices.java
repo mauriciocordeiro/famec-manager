@@ -211,7 +211,15 @@ public class FamiliaServices {
 	}
 
 	public static ResultSetMap find(ArrayList<ItemComparator> criterios, Connection connect) {
-		return Search.find("SELECT * FROM familia", criterios, connect!=null ? connect : Conexao.connect(), connect==null);
+		return Search.find(
+				  " SELECT A.*, B.*, C.*, D.*, E.*, F.* "
+				+ " FROM familia 				A"
+				+ " JOIN aluno 					B ON (A.cd_familia = B.cd_familia)"
+				+ " JOIN endereco_responsavel 	C ON (A.cd_familia = B.cd_familia)"
+				+ " JOIN habitacao 			  	D ON (A.cd_familia = D.cd_familia)"
+				+ " JOIN perfil_social 		  	E ON (A.cd_familia = B.cd_familia)"
+				+ " JOIN responsavel 			F ON (A.cd_familia = F.cd_familia)", 
+				criterios, connect!=null ? connect : Conexao.connect(), connect==null);
 	}
 
 }

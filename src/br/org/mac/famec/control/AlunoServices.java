@@ -1,15 +1,15 @@
 package br.org.mac.famec.control;
 
-import java.sql.*;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
-
-import com.tivic.manager.conexao.Conexao;
 
 import br.org.mac.famec.model.Aluno;
 import br.org.mac.famec.model.AlunoDAO;
-import sol.dao.ResultSetMap;
+import br.org.mac.famec.util.Conexao;
 import sol.dao.ItemComparator;
+import sol.dao.ResultSetMap;
 import sol.dao.Search;
 import sol.util.Result;
 
@@ -23,7 +23,7 @@ public class AlunoServices {
 		boolean isConnectionNull = connect==null;
 		try {
 			if (isConnectionNull) {
-				connect = Conexao.conectar();
+				connect = Conexao.connect();
 				connect.setAutoCommit(false);
 			}
 
@@ -54,7 +54,7 @@ public class AlunoServices {
 		}
 		finally{
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 	public static Result remove(int cdAluno){
@@ -67,7 +67,7 @@ public class AlunoServices {
 		boolean isConnectionNull = connect==null;
 		try {
 			if (isConnectionNull) {
-				connect = Conexao.conectar();
+				connect = Conexao.connect();
 				connect.setAutoCommit(false);
 			}
 			int retorno = 0;
@@ -93,7 +93,7 @@ public class AlunoServices {
 		}
 		finally{
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 	
@@ -104,7 +104,7 @@ public class AlunoServices {
 	public static ResultSetMap getAll(Connection connect) {
 		boolean isConnectionNull = connect==null;
 		if (isConnectionNull)
-			connect = Conexao.conectar();
+			connect = Conexao.connect();
 		PreparedStatement pstmt;
 		try {
 			pstmt = connect.prepareStatement("SELECT * FROM aluno");
@@ -122,7 +122,7 @@ public class AlunoServices {
 		}
 		finally {
 			if (isConnectionNull)
-				Conexao.desconectar(connect);
+				Conexao.disconnect(connect);
 		}
 	}
 
@@ -131,7 +131,31 @@ public class AlunoServices {
 	}
 
 	public static ResultSetMap find(ArrayList<ItemComparator> criterios, Connection connect) {
-		return Search.find("SELECT * FROM aluno", criterios, true, connect!=null ? connect : Conexao.conectar(), connect==null);
+		return Search.find("SELECT * FROM aluno", criterios, connect!=null ? connect : Conexao.connect(), connect==null);
+	}
+	
+
+	public static ResultSetMap quickFind(String nmAluno) {
+		return quickFind(nmAluno, null);
+	}
+
+	public static ResultSetMap quickFind(String nmAluno, Connection connect) {
+		try {
+			connect = connect==null ? Conexao.connect() : connect;
+			return new ResultSetMap(connect.prepareStatement(
+					"SELECT cd_aluno, nm_aluno, cd_familia "
+					+ " FROM aluno "
+					+ " WHERE nm_aluno iLike '%"+nmAluno+"%'")
+					.executeQuery());
+		}
+		catch(Exception e) {
+			e.printStackTrace(System.out);
+			System.err.println("Erro! AlunoServices.getAll: " + e);
+			return null;
+		}
+		finally {
+			Conexao.disconnect(connect);
+		}
 	}
 
 }

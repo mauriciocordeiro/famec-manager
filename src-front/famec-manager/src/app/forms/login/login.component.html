@@ -19,7 +19,7 @@
             <mat-form-field>
               <input #nmSenha matInput type="password" placeholder="Senha">
               <mat-icon matSuffix>lock</mat-icon>
-              <mat-hint *ngIf="!loginResult.success" style="color: red; font-weight: bold;">
+              <mat-hint *ngIf="!loginResult.success" style="color: crimson; font-weight: bold;">
                 {{loginResult.message}}
               </mat-hint>
             </mat-form-field>
@@ -28,7 +28,7 @@
         <mat-card-actions>
           <button #btnAutenticar class="button" mat-flat-button color="primary"
             (click)="onAutenticar()">Autenticar</button>
-          <button #btnCancelar class="button" mat-button color="warn" (click)=onCancelar()>Cancelar</button>
+          <!-- <button #btnCancelar class="button" mat-button color="warn" (click)=onCancelar()>Cancelar</button> -->
         </mat-card-actions>
       </mat-card>
     </div>

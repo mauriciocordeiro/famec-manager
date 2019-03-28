@@ -106,8 +106,6 @@ public class UsuarioRest {
 	public static String login(String args) {
 		try {
 			JSONObject json = new JSONObject(args);
-			//XXX:
-			System.out.println(json);
 			Result result = UsuarioServices.autenticar(json.getString("nmLogin"), json.getString("nmSenha"));
 			
 			return new JSONObject(result).toString();

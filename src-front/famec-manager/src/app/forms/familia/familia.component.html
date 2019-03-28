@@ -357,11 +357,11 @@
       </mat-expansion-panel>
     </mat-accordion>
     <mat-card-actions class="done">
-      <button mat-raised-button color="accent" type="submit">
+      <button mat-raised-button color="accent" type="submit" matTooltip="Salvar cadastro da família">
         <mat-icon>save</mat-icon>
         Salvar
       </button>
-      <button mat-raised-button color="warn" type="button" (click)="onDelete()">
+      <button mat-raised-button color="warn" type="button" (click)="onDelete()" matTooltip="Excluir cadastro da família">
         <mat-icon>clear</mat-icon>
         Excluir
       </button>
