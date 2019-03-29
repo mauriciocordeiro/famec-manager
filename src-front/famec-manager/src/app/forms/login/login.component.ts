@@ -12,10 +12,6 @@ import { Utils } from 'src/app/services/Utils';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  // snackbar message type
-  ALERT: string = 'alert';
-  ERROR: string = 'error';
-  SUCCESS: string = 'success';
 
   @ViewChild('nmLogin') nmLogin: ElementRef;
   @ViewChild('nmSenha') nmSenha: ElementRef;
@@ -35,7 +31,7 @@ export class LoginComponent implements OnInit {
   }
 
   // show messages
-  openSnackBar(message: string, action: string, type: string = this.SUCCESS) {
+  openSnackBar(message: string, action: string, type: string = Utils.SNACK_SUCCESS) {
     this.snackBar.open(message, action, {
       duration: 3000,
       panelClass: [type + '-snackbar']
@@ -48,7 +44,7 @@ export class LoginComponent implements OnInit {
     this.usuarioService.doLogin(this.nmLogin.nativeElement.value, this.nmSenha.nativeElement.value)
     .subscribe(result => {
       if (result.code <= 0) { // auth failed 
-        this.openSnackBar(result.message, null, this.ERROR);
+        this.openSnackBar(result.message, null, Utils.SNACK_ERROR);
         return;
       } else {
         var usuario: Usuario = result.objects.USUARIO as Usuario;

@@ -29,4 +29,13 @@ export class FamiliaService extends Services {
       catchError(this.handleError<Result>('Erro! saveFamilia'))
     );
   }
+
+  getFamilia(cdFamilia: number): Observable<any> {
+    return this.http.get(`${this.serviceUrl}/get?cod=${cdFamilia}`)
+      .pipe(
+        tap(_ => this.log(`found familias matching "${cdFamilia}"`)),
+        catchError(this.handleError<any[]>('getFamilias', [])
+        )
+      );
+  }
 }

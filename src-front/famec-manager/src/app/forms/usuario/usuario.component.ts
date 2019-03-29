@@ -19,11 +19,6 @@ export class UsuarioComponent implements OnInit {
   @ViewChild('searchField') searchField: ElementRef;
   @ViewChild('nmSenha2') nmSenha2: ElementRef;
 
-  // snackbar message type
-  ALERT: string = 'alert';
-  ERROR: string = 'error';
-  SUCCESS: string = 'success';
-
   // loading flags
   loading: boolean = false;
   loadingMessage: string = "";
@@ -66,7 +61,7 @@ export class UsuarioComponent implements OnInit {
   }
 
   // show messages
-  openSnackBar(message: string, action: string, type: string = this.SUCCESS) {
+  openSnackBar(message: string, action: string, type: string = Utils.SNACK_SUCCESS) {
     this.snackBar.open(message, action, {
       duration: 3000,
       panelClass: [type + '-snackbar']
@@ -83,12 +78,12 @@ export class UsuarioComponent implements OnInit {
   onSubmit() {
     //form validation
     if (!this.usuarioForm.valid || !this.nmSenha2.nativeElement.value) {
-      this.openSnackBar("Existem campos inválidos.", null, this.ALERT);
+      this.openSnackBar("Existem campos inválidos.", null, Utils.SNACK_ALERT);
       return;
     }
 
     if(this.nmSenha2.nativeElement.value !== this.usuarioForm.value.nmSenha) {
-      this.openSnackBar("As senhas não coincidem", null, this.ALERT);
+      this.openSnackBar("As senhas não coincidem", null, Utils.SNACK_ALERT);
 
       this.usuarioForm.value.nmSenha = '';
       this.nmSenha2.nativeElement.value = '';
@@ -103,7 +98,7 @@ export class UsuarioComponent implements OnInit {
     this.usuarioService.saveUsuario(this.usuarioForm.value as Usuario)
       .subscribe(result => {
         if (result.code <= 0) { // save failed 
-          this.openSnackBar(result.message, null, this.ERROR);
+          this.openSnackBar(result.message, null, Utils.SNACK_ERROR);
           return;
         }
 
@@ -140,7 +135,7 @@ export class UsuarioComponent implements OnInit {
   // delete Usuario on FormGroup
   onDelete():void {
     if(!this.usuarioForm.value.cdUsuario || this.usuarioForm.value.cdUsuario==0) {
-      this.openSnackBar('Nenhum usuário carregado.', null, this.ALERT);
+      this.openSnackBar('Nenhum usuário carregado.', null, Utils.SNACK_ALERT);
       return;
     }
 
@@ -149,7 +144,7 @@ export class UsuarioComponent implements OnInit {
     this.usuarioService.deleteUsuario(this.usuarioForm.value.cdUsuario)
       .subscribe(result => {
         if (result.code <= 0) { // delete failed 
-          this.openSnackBar(result.message, null, this.ERROR);
+          this.openSnackBar(result.message, null, Utils.SNACK_ERROR);
           return;
         }
 

@@ -13,10 +13,10 @@
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
   <mat-list class="search-result">
-    <mat-list-item *ngFor="let familia of familias">
+    <mat-list-item *ngFor="let aluno of alunos">
       <p style="padding-right: 50px;">
         {{aluno.nmAluno}}
-        <button mat-icon-button (click)="onSelectItem(user)" matTooltip="Carregue este item">
+        <button mat-icon-button (click)="onSelectItem(aluno)" matTooltip="Carregue este item">
           <mat-icon>subdirectory_arrow_left</mat-icon>
         </button>
       </p>

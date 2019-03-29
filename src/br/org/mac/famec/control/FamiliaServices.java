@@ -211,15 +211,40 @@ public class FamiliaServices {
 	}
 
 	public static ResultSetMap find(ArrayList<ItemComparator> criterios, Connection connect) {
-		return Search.find(
-				  " SELECT A.*, B.*, C.*, D.*, E.*, F.* "
-				+ " FROM familia 				A"
-				+ " JOIN aluno 					B ON (A.cd_familia = B.cd_familia)"
-				+ " JOIN endereco_responsavel 	C ON (A.cd_familia = B.cd_familia)"
-				+ " JOIN habitacao 			  	D ON (A.cd_familia = D.cd_familia)"
-				+ " JOIN perfil_social 		  	E ON (A.cd_familia = B.cd_familia)"
-				+ " JOIN responsavel 			F ON (A.cd_familia = F.cd_familia)", 
-				criterios, connect!=null ? connect : Conexao.connect(), connect==null);
+		boolean isConnectionNull = connect==null;
+		if (isConnectionNull)
+			connect = Conexao.connect();
+		PreparedStatement pstmt;
+		try {
+			
+			 ResultSetMap rsm = Search.find(
+					  " SELECT A.*, C.*, D.*, E.*, F.* "
+					+ " FROM familia 				A"
+//					+ " JOIN aluno 					B ON (A.cd_familia = B.cd_familia)"
+					+ " JOIN responsavel 			C ON (A.cd_familia = C.cd_familia)"
+					+ " JOIN habitacao 			  	D ON (A.cd_familia = D.cd_familia)"
+					+ " JOIN perfil_social 		  	E ON (A.cd_familia = E.cd_familia)"
+					+ " JOIN endereco_responsavel 	F ON (C.cd_responsavel = F.cd_responsavel)", 
+					criterios, connect!=null ? connect : Conexao.connect(), connect==null);
+			 
+			 while(rsm.next()) {
+				 ArrayList<ItemComparator> crt = new ArrayList<>();
+				 crt.add(new ItemComparator("cd_familia", Integer.toString(rsm.getInt("cd_familia")), ItemComparator.EQUAL, Types.INTEGER));
+				 rsm.setValueToField("RSM_ALUNO", AlunoServices.find(crt, connect)); 
+			 }
+			 rsm.beforeFirst();
+			 
+			 return rsm;
+		}
+		catch(Exception e) {
+			e.printStackTrace(System.out);
+			System.out.println("Erro! FamiliaServices.find: " + e);
+			return null;
+		}
+		finally {
+			if (isConnectionNull)
+				Conexao.disconnect(connect);
+		}
 	}
 
 }

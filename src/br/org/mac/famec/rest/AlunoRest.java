@@ -38,7 +38,7 @@ public class AlunoRest {
 	}
 	
 	@GET
-	@Path("/pesquisar")
+	@Path("/quick/search")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public static String search(@QueryParam("nome") String nome) {

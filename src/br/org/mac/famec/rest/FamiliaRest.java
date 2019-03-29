@@ -170,6 +170,24 @@ public class FamiliaRest {
 		}
 	}
 	
+	@GET
+	@Path("/get")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public static String get(@QueryParam("cod") int cdFamilia) {
+		try {			
+			// busca
+			ArrayList<ItemComparator> crt = new ArrayList<>();
+			crt.add(new ItemComparator("A.cd_familia", Integer.toString(cdFamilia), ItemComparator.EQUAL, Types.INTEGER));
+			ResultSetMap rsm = FamiliaServices.find(crt);
+			
+			return Util.rsmToJSON(rsm).toString();
+		} catch (Exception e) {
+			e.printStackTrace(System.out);
+			return null;
+		}
+	}
+	
 	@DELETE
 	@Path("/delete")
 	@Consumes(MediaType.APPLICATION_JSON)

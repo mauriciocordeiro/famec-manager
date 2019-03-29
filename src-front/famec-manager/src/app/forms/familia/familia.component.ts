@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { FamiliaService } from 'src/app/services/familia.service';
@@ -9,6 +9,8 @@ import { Utils } from 'src/app/services/Utils';
 import { UsuarioService } from 'src/app/services/usuario.services';
 import { Usuario } from 'src/app/services/usuario';
 import { LocalStorage } from 'src/app/services/LocalStorage';
+import { AlunoService } from 'src/app/services/aluno.services';
+import { Aluno } from 'src/app/services/aluno';
 
 @Component({
   selector: 'app-familia',
@@ -19,15 +21,13 @@ export class FamiliaComponent implements OnInit {
 
   usuario:Usuario;
 
+  alunos: Aluno[];
+  @ViewChild('searchField') searchField: ElementRef;
+
   step = 0;
 
   lgHabitacaoAluguel: boolean = false;
   lgResponsavelEstudando: boolean = false;
-
-  // snackbar message type
-  ALERT: string = 'alert';
-  ERROR: string = 'error';
-  SUCCESS: string = 'success';
 
   parentesco = [
     { id: 1, label: 'Mãe/Pai' },
@@ -106,7 +106,9 @@ export class FamiliaComponent implements OnInit {
   constructor(
     private router:Router,
     private snackBar: MatSnackBar, 
-    private familiaService: FamiliaService) { }
+    private familiaService: FamiliaService,
+    private alunoService: AlunoService
+  ) { }
 
   ngOnInit() {
     UsuarioService.checkAuth(this.router);    
@@ -117,66 +119,73 @@ export class FamiliaComponent implements OnInit {
   buildFormGroup(register?) {
     // building formGroup
     this.formGroup = this.getFormGroup(register);
-    this.formGroup.value.arrayAlunos.push(this.getAlunoFormGroup(register));
+
+    if(register) {
+      register.RSM_ALUNO.lines.forEach(regAluno => {
+        this.formGroup.value.arrayAlunos.push(this.getAlunoFormGroup(regAluno));  
+      });
+    } else {
+      this.formGroup.value.arrayAlunos.push(this.getAlunoFormGroup());
+    }
   }
 
   getFormGroup(register?): FormGroup {
     return new FormGroup({
       // familia
-      cdFamilia: register ? register.familia.cdFamilia : new FormControl(0),
-      dtCadastro: register ? register.familia.dtCadastro :  new FormControl(''),
-      cdUsuarioCadastro: register ? register.familia.cdUsuarioCadastro :  new FormControl(0),
+      cdFamilia: new FormControl(register ? register.CD_FAMILIA: 0),
+      dtCadastro: new FormControl(register ? register.DT_CADASTRO : ''),
+      cdUsuarioCadastro: new FormControl(register ? register.CD_USUARIO_CADASTRO : 0),
 
       // responsavel
-      cdResponsavel: register ? register.responsavel.cdResponsavel : new FormControl(0),
-      nmResponsavel: register ? register.responsavel.nmResponsavel : new FormControl(''),
-      tpParentesco: new FormControl(0),
-      tpGenero: new FormControl(0),
-      dtNascimento: new FormControl(''),
-      nmNaturalidade: new FormControl(''),
-      tpEstadoCivil: new FormControl(0),
-      nrTelefone1: new FormControl(''),
-      nrTelefone2: new FormControl(''),
-      nrRg: new FormControl(''),
-      nmOrgaoExpedidorRg: new FormControl(''),
-      sgUfRg: new FormControl(''),
-      nrCpf: new FormControl(''),
-      dsEscolaridade: new FormControl(''),
-      lgEstudante: new FormControl(0),
-      tpNivelEscolar: new FormControl(0),
-      tpTurno: new FormControl(0),
-      nmOcupacao: new FormControl(''),
-      vlRendaMensal: new FormControl(0),
-      nmLocalTrabalho: new FormControl(''),
-      nrTelefoneTrabalho: new FormControl(''),
+      cdResponsavel: new FormControl(register ? register.CD_RESPONSAVEL : 0),
+      nmResponsavel: new FormControl(register ? register.NM_RESPONSAVEL : ''),
+      tpParentesco: new FormControl(register ? register.TP_PARENTESCO : 0),
+      tpGenero: new FormControl(register ? register.TP_GENERO : 0),
+      dtNascimento: new FormControl(register ? register.DT_NASCIMENTO : ''),
+      nmNaturalidade: new FormControl(register ? register.NM_NATURALIDADE : ''),
+      tpEstadoCivil: new FormControl(register ? register.TP_ESTADO_CIVIL : 0),
+      nrTelefone1: new FormControl(register ? register.NR_TELEFONE_1 : ''),
+      nrTelefone2: new FormControl(register ? register.NR_TELEFONE_2 : ''),
+      nrRg: new FormControl(register ? register.NR_RG : ''),
+      nmOrgaoExpedidorRg: new FormControl(register ? register.NM_ORGAO_EXPEDIDOR_RG : ''),
+      sgUfRg: new FormControl(register ? register.SG_UF_RG : ''),
+      nrCpf: new FormControl(register ? register.NR_CPF : ''),
+      dsEscolaridade: new FormControl(register ? register.DS_ESCOLARIDADE : ''),
+      lgEstudante: new FormControl(register ? register.LG_ESTUDANTE : 0),
+      tpNivelEscolar: new FormControl(register ? register.TP_NIVEL_ESCOLAR : 0),
+      tpTurno: new FormControl(register ? register.TP_TURNO : 0),
+      nmOcupacao: new FormControl(register ? register.NM_OCUPACAO : ''),
+      vlRendaMensal: new FormControl(register ? register.VL_RENDA_MENSAL : 0),
+      nmLocalTrabalho: new FormControl(register ? register.NM_LOCAL_TRABALHO : ''),
+      nrTelefoneTrabalho: new FormControl(register ? register.NR_TELEFONE_TRABALHO : ''),
 
       // endereco
-      cdEndereco: new FormControl(0),
-      nmRua: new FormControl(''),
-      nrCasa: new FormControl(''),
-      nmComplemento: new FormControl(''),
-      nmBairro: new FormControl(''),
-      nmCidade: new FormControl(''),
-      nmEstado: new FormControl(''),
+      cdEndereco: new FormControl(register ? register.CD_ENDERECO : 0),
+      nmRua: new FormControl(register ? register.NM_RUA : ''),
+      nrCasa: new FormControl(register ? register.NR_CASA : ''),
+      nmComplemento: new FormControl(register ? register.NM_COMPLEMENTO : ''),
+      nmBairro: new FormControl(register ? register.NM_BAIRRO : ''),
+      nmCidade: new FormControl(register ? register.NM_CIDADE : ''),
+      nmEstado: new FormControl(register ? register.NM_ESTADO : ''),
 
       // habitação
-      cdHabitacao: new FormControl(0),
-      tpSituacao: new FormControl(0),
-      vlAluguel: new FormControl(0),
-      nrComodos: new FormControl(0),
-      tpAbastecimento: new FormControl(0),
-      tpTratamentoAgua: new FormControl(0),
-      tpIluminacao: new FormControl(0),
-      tpEscoamentoSanitario: new FormControl(0),
-      tpDestinoLixo: new FormControl(0),
+      cdHabitacao: new FormControl(register ? register.CD_HABITACAO : 0),
+      tpSituacao: new FormControl(register ? register.TP_SITUACAO : 0),
+      vlAluguel: new FormControl(register ? register.VL_ALUGUEL : 0),
+      nrComodos: new FormControl(register ? register.NR_COMODOS : 0),
+      tpAbastecimento: new FormControl(register ? register.TP_ABASTECIMENTO : 0),
+      tpTratamentoAgua: new FormControl(register ? register.TP_TRATAMENTO_AGUA : 0),
+      tpIluminacao: new FormControl(register ? register.TP_ILUMINACAO : 0),
+      tpEscoamentoSanitario: new FormControl(register ? register.TP_ESCOAMENTO_SANITARIO : 0),
+      tpDestinoLixo: new FormControl(register ? register.TP_DESTINO_LIXO : 0),
 
       // perfil social
-      cdPerfilSocial: new FormControl(0),
-      lgNis: new FormControl(0),
-      nrNis: new FormControl(''),
-      lgBeneficio: new FormControl(0),
-      nmBeneficio: new FormControl(''),
-      vlBeneficio: new FormControl(0),
+      cdPerfilSocial: new FormControl(register ? register.CD_PERFIL_SOCIAL : 0),
+      lgNis: new FormControl(register ? register.LG_NIS : 0),
+      nrNis: new FormControl(register ? register.NR_NIS : ''),
+      lgBeneficio: new FormControl(register ? register.LG_BENEFICIO : 0),
+      nmBeneficio: new FormControl(register ? register.NM_BENEFICIO : ''),
+      vlBeneficio: new FormControl(register ? register.VL_BENEFICIO : 0),
 
       // alunos
       arrayAlunos: new FormControl([])
@@ -185,27 +194,27 @@ export class FamiliaComponent implements OnInit {
 
   getAlunoFormGroup(register?): FormGroup {
     return new FormGroup({
-      cdAluno: new FormControl(0),
-      cdFamilia: new FormControl(0),
-      nmAluno: new FormControl(''),
-      dtNascimento: new FormControl(''),
-      tpSexo: new FormControl(0),
-      nmNaturalidade: new FormControl(''),
-      nmEscola: new FormControl(''),
-      nrNivelEscolar: new FormControl(0),
-      tpModalidadeEscolar: new FormControl(0),
-      tpHorarioEscolar: new FormControl(0),
-      tpTurnoFamec: new FormControl(0),
+      cdAluno: new FormControl(register ? register.CD_ALUNO : 0),
+      cdFamilia: new FormControl(register ? register.CD_FAMILIA : 0),
+      nmAluno: new FormControl(register ? register.NM_ALUNO : ''),
+      dtNascimento: new FormControl(register ? register.DT_NASCIMENTO : ''),
+      tpSexo: new FormControl(register ? register.TP_SEXO : 0),
+      nmNaturalidade: new FormControl(register ? register.NM_NATURALIDADE : ''),
+      nmEscola: new FormControl(register ? register.NM_ESCOLA : ''),
+      nrNivelEscolar: new FormControl(register ? register.NR_NIVEL_ESCOLAR : 0),
+      tpModalidadeEscolar: new FormControl(register ? register.TP_MODALIDADE_ESCOLAR : 0),
+      tpHorarioEscolar: new FormControl(register ? register.TP_HORARIO_ESCOLAR : 0),
+      tpTurnoFamec: new FormControl(register ? register.TP_TURNO_FAMEC : 0),
       // stAluno: new FormControl(0),
-      hrSaida: new FormControl(''),
-      lgAcompanhanteSaida: new FormControl(0),
-      nmAcompanhanteSaida: new FormControl(''),
-      lgAlmocoInstituicao: new FormControl(0),
+      hrSaida: new FormControl(register ? register.HR_SAIDA : ''),
+      lgAcompanhanteSaida: new FormControl(register ? register.LG_ACOMPANHANTE_SAIDA : 0),
+      nmAcompanhanteSaida: new FormControl(register ? register.NM_ACOMPANHANTE_SAIDA : ''),
+      lgAlmocoInstituicao: new FormControl(register ? register.LG_ALMOCO_INSTITUICAO : 0),
     });
   }
 
   // show messages
-  openSnackBar(message: string, action: string, type: string = this.SUCCESS) {
+  openSnackBar(message: string, action: string, type: string = Utils.SNACK_SUCCESS) {
     this.snackBar.open(message, action, {
       duration: 3000,
       panelClass: [type + '-snackbar']
@@ -216,14 +225,14 @@ export class FamiliaComponent implements OnInit {
   onSubmit() {
     //form validation
     if (!this.formGroup.valid) {
-      this.openSnackBar("Existem campos inválidos.", null, this.ALERT);
+      this.openSnackBar("Existem campos inválidos.", null, Utils.SNACK_ALERT);
       return;
     }
 
     this.familiaService.saveFamilia(this.mapRegister())
       .subscribe(result => {
         if (result.code <= 0) { // save failed 
-          this.openSnackBar(result.message, null, this.ERROR);
+          this.openSnackBar(result.message, null, Utils.SNACK_ERROR);
           return;
         }
 
@@ -319,7 +328,7 @@ export class FamiliaComponent implements OnInit {
     var arrayAlunos: Array<any> = [];
     this.formGroup.value.arrayAlunos.forEach(fgAluno => {
       if (!fgAluno.valid) {
-        this.openSnackBar("Existem campos inválidos.", null, this.ALERT);
+        this.openSnackBar("Existem campos inválidos.", null, Utils.SNACK_ALERT);
         return;
       }
 
@@ -333,4 +342,29 @@ export class FamiliaComponent implements OnInit {
     return register;
   }
 
+  // search
+  onSearch(term: string): void {
+    if (!term.trim())
+			return;
+		if (term.length < 3)
+      return;
+    this.alunoService.quickSearch(term)
+      .subscribe(list => {
+        this.alunos = list;
+      });
+  }
+  // fill formControl with a selected item (from search)
+  onSelectItem(arg: Aluno): void {
+    if (!arg)
+      return;
+
+    this.familiaService.getFamilia(arg.cdFamilia)
+      .subscribe(item => {
+        let reg = (<Array<any>>item.lines).pop();
+        this.buildFormGroup(reg);
+        // this.formGroup.setValue((<Array<any>>item.lines).pop());
+        this.alunos = [];      
+        this.searchField.nativeElement.value = "";
+      });
+  }
 }

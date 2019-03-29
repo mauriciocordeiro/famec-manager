@@ -1,8 +1,15 @@
 import { LocalStorage } from './LocalStorage';
 import { Router } from '@angular/router';
 import SimpleCrypto from "simple-crypto-js";
+import { MatSnackBar } from '@angular/material';
 
 export class Utils {
+
+  
+  // snackbar message type
+  static SNACK_ALERT: string = 'alert';
+  static SNACK_ERROR: string = 'error';
+  static SNACK_SUCCESS: string = 'success';
 
   static CYPHER:string = 'famec-manager';
 

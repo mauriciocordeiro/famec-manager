@@ -1,6 +1,8 @@
+@import '~@angular/material/theming';
+@import '../../../theme.scss';
+
 :host {
     overflow: scroll;
-    
     .mat-card {    
         text-align: -webkit-center;    
     }    
@@ -118,7 +120,7 @@
     p {
         background-color: white;
         padding-left: 10px;
-        border-left: 6px solid royalblue;
+        border-left: 6px solid rgba(map_get($famec-app-primary, 700), 1);
         margin-left: 10px;
     }
     
