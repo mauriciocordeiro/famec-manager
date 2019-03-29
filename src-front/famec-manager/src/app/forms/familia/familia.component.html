@@ -54,8 +54,8 @@
           </mat-form-field>
           <mat-radio-group class="radio-group" style="width: 300px;" formControlName="tpGenero" color="primary">
             <mat-label style="margin-top: -5px;">Sexo</mat-label>
-            <mat-radio-button class="radio-button" value="1" color="primary">Masculino</mat-radio-button>
-            <mat-radio-button class="radio-button" value="2" color="primary">Feminino</mat-radio-button>
+            <mat-radio-button class="radio-button" [value]="1" color="primary">Masculino</mat-radio-button>
+            <mat-radio-button class="radio-button" [value]="2" color="primary">Feminino</mat-radio-button>
           </mat-radio-group>
         </div>
 
@@ -346,8 +346,8 @@
         <div *ngFor="let form of formGroup.value.arrayAlunos">
           <app-aluno [formAluno]="form"></app-aluno>
         </div>
-        <button type="button" mat-mini-fab style="margin-top: 10px; margin-right: 0px;" type="button" matTooltip="Adicionar outro aluno"
-          (click)=onClickAddAluno() color="primary">
+        <button type="button" mat-mini-fab type="button" matTooltip="Adicionar outro aluno"
+          (click)="onClickAddAluno()" color="primary">
           <mat-icon>add</mat-icon>
         </button>
         <mat-action-row>

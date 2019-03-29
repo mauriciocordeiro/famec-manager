@@ -117,7 +117,8 @@ export class FamiliaComponent implements OnInit {
   }
 
   buildFormGroup(register?) {
-    // building formGroup
+    console.log(register);
+
     this.formGroup = this.getFormGroup(register);
 
     if(register) {
@@ -151,7 +152,7 @@ export class FamiliaComponent implements OnInit {
       sgUfRg: new FormControl(register ? register.SG_UF_RG : ''),
       nrCpf: new FormControl(register ? register.NR_CPF : ''),
       dsEscolaridade: new FormControl(register ? register.DS_ESCOLARIDADE : ''),
-      lgEstudante: new FormControl(register ? register.LG_ESTUDANTE : 0),
+      lgEstudante: new FormControl(register ? register.LG_ESTUDANTE==1 : 0),
       tpNivelEscolar: new FormControl(register ? register.TP_NIVEL_ESCOLAR : 0),
       tpTurno: new FormControl(register ? register.TP_TURNO : 0),
       nmOcupacao: new FormControl(register ? register.NM_OCUPACAO : ''),
@@ -181,9 +182,9 @@ export class FamiliaComponent implements OnInit {
 
       // perfil social
       cdPerfilSocial: new FormControl(register ? register.CD_PERFIL_SOCIAL : 0),
-      lgNis: new FormControl(register ? register.LG_NIS : 0),
+      lgNis: new FormControl(register ? (register.LG_NIS==1) : 0),
       nrNis: new FormControl(register ? register.NR_NIS : ''),
-      lgBeneficio: new FormControl(register ? register.LG_BENEFICIO : 0),
+      lgBeneficio: new FormControl(register ? register.LG_BENEFICIO==1 : 0),
       nmBeneficio: new FormControl(register ? register.NM_BENEFICIO : ''),
       vlBeneficio: new FormControl(register ? register.VL_BENEFICIO : 0),
 
@@ -207,9 +208,9 @@ export class FamiliaComponent implements OnInit {
       tpTurnoFamec: new FormControl(register ? register.TP_TURNO_FAMEC : 0),
       // stAluno: new FormControl(0),
       hrSaida: new FormControl(register ? register.HR_SAIDA : ''),
-      lgAcompanhanteSaida: new FormControl(register ? register.LG_ACOMPANHANTE_SAIDA : 0),
+      lgAcompanhanteSaida: new FormControl(register ? register.LG_ACOMPANHANTE_SAIDA==1 : 0),
       nmAcompanhanteSaida: new FormControl(register ? register.NM_ACOMPANHANTE_SAIDA : ''),
-      lgAlmocoInstituicao: new FormControl(register ? register.LG_ALMOCO_INSTITUICAO : 0),
+      lgAlmocoInstituicao: new FormControl(register ? register.LG_ALMOCO_INSTITUICAO==1 : 0),
     });
   }
 

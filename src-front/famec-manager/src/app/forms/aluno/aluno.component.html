@@ -81,11 +81,11 @@
     </mat-checkbox>
     <mat-form-field class="form-field-inline" style="width: 110px;" appearance="outline">
       <mat-label>Saída da FAMEC</mat-label>
-      <input matInput type="time" formControlName="hrSaida">
+      <input matInput type="text" formControlName="hrSaida">
     </mat-form-field>
     <mat-radio-group class="radio-group" formControlName="lgAcompanhanteSaida">
-      <mat-radio-button class="radio-button" value="1" color="primary">Sozinho</mat-radio-button>
-      <mat-radio-button class="radio-button" value="2" color="primary">Acompanhado</mat-radio-button>
+      <mat-radio-button class="radio-button" [value]="1" color="primary">Sozinho</mat-radio-button>
+      <mat-radio-button class="radio-button" [value]="2" color="primary">Acompanhado</mat-radio-button>
     </mat-radio-group>
     <mat-form-field class="form-field-inline" appearance="outline">
       <mat-label>Acompanhante</mat-label>
