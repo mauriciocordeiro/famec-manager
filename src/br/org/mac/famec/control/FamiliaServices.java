@@ -3,6 +3,7 @@ package br.org.mac.famec.control;
 import java.sql.*;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import sol.dao.ResultSetMap;
 import sol.dao.ItemComparator;
@@ -17,6 +18,7 @@ import br.org.mac.famec.model.Habitacao;
 import br.org.mac.famec.model.PerfilSocial;
 import br.org.mac.famec.model.Responsavel;
 import br.org.mac.famec.util.Conexao;
+import br.org.mac.famec.util.ReportUtils;
 
 public class FamiliaServices {
 
@@ -244,6 +246,27 @@ public class FamiliaServices {
 		finally {
 			if (isConnectionNull)
 				Conexao.disconnect(connect);
+		}
+	}
+	
+	public static Result generateFormulario(int cdFamilia) {		
+		try {
+			
+			ArrayList<ItemComparator> crt = new ArrayList<>();
+			crt.add(new ItemComparator("A.cd_familia", Integer.toString(cdFamilia), ItemComparator.EQUAL, Types.INTEGER));	
+			ResultSetMap rsm = find(crt);
+			
+			HashMap<String, Object> parameters = new HashMap<>();
+			
+			Result result = ReportUtils.generate("cadastro_familia", parameters, rsm);
+			
+			
+			return result;
+		}
+		catch(Exception e) {
+			e.printStackTrace(System.out);
+			System.out.println("Erro! FamiliaServices.generateFormulario: " + e);
+			return null;
 		}
 	}
 

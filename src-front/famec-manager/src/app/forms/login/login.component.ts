@@ -42,17 +42,17 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     
     this.usuarioService.doLogin(this.nmLogin.nativeElement.value, this.nmSenha.nativeElement.value)
-    .subscribe(result => {
-      if (result.code <= 0) { // auth failed 
-        this.openSnackBar(result.message, null, Utils.SNACK_ERROR);
-        return;
-      } else {
-        var usuario: Usuario = result.objects.USUARIO as Usuario;
-        this.openSnackBar(result.message, null);
-        LocalStorage.put('famec.usuario', Utils.encrypt(JSON.stringify(usuario)));
-        this._router.navigate(["/"]);
-      }      
-    });
+      .subscribe(result => {
+        if (result !=null && result.code > 0) { 
+          var usuario: Usuario = result.objects.USUARIO as Usuario;
+          this.openSnackBar(result.message, null);
+          LocalStorage.put('famec.usuario', Utils.encrypt(JSON.stringify(usuario)));
+          this._router.navigate(["/"]);
+        } else {// auth failed 
+          this.openSnackBar(result.message, null, Utils.SNACK_ERROR);
+          return;
+        }
+      });
 
     this.loading = false;
   }
