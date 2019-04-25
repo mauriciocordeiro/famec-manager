@@ -19,6 +19,8 @@ import { Aluno } from 'src/app/services/aluno';
 })
 export class FamiliaComponent implements OnInit {
 
+  loading = false;
+
   usuario:Usuario;
 
   alunos: Aluno[];

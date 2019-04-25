@@ -49,7 +49,7 @@ CREATE TABLE responsavel (
 ALTER TABLE responsavel ADD FOREIGN KEY (cd_familia) REFERENCES familia(cd_familia);
 
 CREATE TABLE endereco_responsavel (
-	cd_endereco INTEGER NOT NULL,
+	cd_endereco_responsavel INTEGER NOT NULL,
 	cd_responsavel INTEGER NOT NULL,
 	nm_rua VARCHAR(128),
 	nr_casa INTEGER,
