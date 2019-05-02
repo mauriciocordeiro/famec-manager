@@ -6,7 +6,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { Services } from './services';
 import { Result } from './result';
 import { Router } from '@angular/router';
-import { LocalStorage } from './LocalStorage';
+import { SessionStorage } from './SessionStorage';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -64,7 +64,7 @@ export class UsuarioService extends Services {
   }
 
   static checkAuth(router:Router) {
-    if(LocalStorage.get('famec.usuario') === null) {
+    if(SessionStorage.get('famec.usuario') === null) {
       router.navigate(['login']);
     }
   }

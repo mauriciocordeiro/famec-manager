@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.services';
 import { MatSnackBar } from '@angular/material';
 import { Usuario } from 'src/app/services/usuario';
-import { LocalStorage } from 'src/app/services/LocalStorage';
 import { Utils } from 'src/app/services/Utils';
+import { SessionStorage } from 'src/app/services/SessionStorage';
 
 @Component({
   selector: 'app-login',
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
         if (result !=null && result.code > 0) { 
           var usuario: Usuario = result.objects.USUARIO as Usuario;
           this.openSnackBar(result.message, null);
-          LocalStorage.put('famec.usuario', Utils.encrypt(JSON.stringify(usuario)));
+          SessionStorage.put('famec.usuario', Utils.encrypt(JSON.stringify(usuario)));
           this._router.navigate(["/"]);
         } else {// auth failed 
           this.openSnackBar(result.message, null, Utils.SNACK_ERROR);

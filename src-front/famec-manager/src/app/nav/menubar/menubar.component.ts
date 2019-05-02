@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.services';
-import { LocalStorage } from 'src/app/services/LocalStorage';
+import { SessionStorage } from 'src/app/services/SessionStorage';
 
 @Component({
   selector: 'app-menubar',
@@ -20,7 +20,7 @@ export class MenubarComponent implements OnInit {
   }
 
   logout() {
-    LocalStorage.remove('famec.usuario');
+    SessionStorage.remove('famec.usuario');
     UsuarioService.checkAuth(this.router);
   }
 
