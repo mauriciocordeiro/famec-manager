@@ -44,7 +44,8 @@ public class FamiliaRest {
 			Familia familia = new Familia(
 					json.getInt("cdFamilia"), 
 					Util.angularDateToCalendar(json.getString("dtCadastro")), 
-					json.getInt("cdUsuarioCadastro")
+					json.getInt("cdUsuarioCadastro"),
+					json.getString("nrProntuario")
 				);
 			
 			// responsavel
@@ -75,7 +76,7 @@ public class FamiliaRest {
 			
 			// endereco
 			EnderecoResponsavel endereco = new EnderecoResponsavel(
-					json.getInt("cdEndereco"), 
+					json.getInt("cdEnderecoResponsavel"), 
 					json.getInt("cdResponsavel"), 
 					json.getString("nmRua"), 
 					json.getInt("nrCasa"), 

@@ -11,6 +11,7 @@ import { Usuario } from 'src/app/services/usuario';
 import { LocalStorage } from 'src/app/services/LocalStorage';
 import { AlunoService } from 'src/app/services/aluno.services';
 import { Aluno } from 'src/app/services/aluno';
+import { SessionStorage } from 'src/app/services/SessionStorage';
 
 @Component({
   selector: 'app-familia',
@@ -115,7 +116,7 @@ export class FamiliaComponent implements OnInit {
   ngOnInit() {
     UsuarioService.checkAuth(this.router);    
     this.buildFormGroup();
-    this.usuario = ObjectUtils.getInstanceByString(Utils.decrypt(LocalStorage.get('famec.usuario')), Usuario);
+    this.usuario = ObjectUtils.getInstanceByString(Utils.decrypt(SessionStorage.get('famec.usuario')), Usuario);
   }
 
   buildFormGroup(register?) {
@@ -136,15 +137,16 @@ export class FamiliaComponent implements OnInit {
     return new FormGroup({
       // familia
       cdFamilia: new FormControl(register ? register.CD_FAMILIA: 0),
-      dtCadastro: new FormControl(register ? register.DT_CADASTRO : ''),
+      dtCadastro: new FormControl(register ? new Date(register.DT_CADASTRO) : ''),
       cdUsuarioCadastro: new FormControl(register ? register.CD_USUARIO_CADASTRO : 0),
+      nrProntuario: new FormControl(register ? register.NR_PRONTUARIO : ''),
 
       // responsavel
       cdResponsavel: new FormControl(register ? register.CD_RESPONSAVEL : 0),
       nmResponsavel: new FormControl(register ? register.NM_RESPONSAVEL : ''),
       tpParentesco: new FormControl(register ? register.TP_PARENTESCO : 0),
       tpGenero: new FormControl(register ? register.TP_GENERO : 0),
-      dtNascimento: new FormControl(register ? register.DT_NASCIMENTO : ''),
+      dtNascimento: new FormControl(register ? new Date(register.DT_NASCIMENTO) : ''),
       nmNaturalidade: new FormControl(register ? register.NM_NATURALIDADE : ''),
       tpEstadoCivil: new FormControl(register ? register.TP_ESTADO_CIVIL : 0),
       nrTelefone1: new FormControl(register ? register.NR_TELEFONE_1 : ''),
@@ -163,7 +165,7 @@ export class FamiliaComponent implements OnInit {
       nrTelefoneTrabalho: new FormControl(register ? register.NR_TELEFONE_TRABALHO : ''),
 
       // endereco
-      cdEndereco: new FormControl(register ? register.CD_ENDERECO : 0),
+      cdEnderecoResponsavel: new FormControl(register ? register.CD_ENDERECO_RESPONSAVEL : 0),
       nmRua: new FormControl(register ? register.NM_RUA : ''),
       nrCasa: new FormControl(register ? register.NR_CASA : ''),
       nmComplemento: new FormControl(register ? register.NM_COMPLEMENTO : ''),
@@ -200,7 +202,7 @@ export class FamiliaComponent implements OnInit {
       cdAluno: new FormControl(register ? register.CD_ALUNO : 0),
       cdFamilia: new FormControl(register ? register.CD_FAMILIA : 0),
       nmAluno: new FormControl(register ? register.NM_ALUNO : ''),
-      dtNascimento: new FormControl(register ? register.DT_NASCIMENTO : ''),
+      dtNascimento: new FormControl(register ? new Date(register.DT_NASCIMENTO) : ''),
       tpSexo: new FormControl(register ? register.TP_SEXO : 0),
       nmNaturalidade: new FormControl(register ? register.NM_NATURALIDADE : ''),
       nmEscola: new FormControl(register ? register.NM_ESCOLA : ''),
@@ -240,7 +242,6 @@ export class FamiliaComponent implements OnInit {
         }
 
         this.openSnackBar(result.message, null);
-        debugger;
       });
 
   }
@@ -277,12 +278,13 @@ export class FamiliaComponent implements OnInit {
     var register: any = {};
 
     // FAMILIA
-    register.cdFamilia         = this.formGroup.value.cdFamilia;
+    register.cdFamilia         = this.formGroup.get('cdFamilia').value;
     register.cdUsuarioCadastro = this.usuario.cdUsuario;
     register.dtCadastro        = new Date();
+    register.nrProntuario      = this.formGroup.get('nrProntuario').value;
     // RESPONSAVEL
     register.cdResponsavel      = this.formGroup.value.cdResponsavel;
-    register.nmResponsavel      = this.formGroup.value.nmResponsavel;
+    register.nmResponsavel      = this.formGroup.get('nmResponsavel').value;
     register.tpParentesco       = this.formGroup.value.tpParentesco;
     register.tpGenero           = this.formGroup.value.tpGenero ? 1 : 0;
     register.dtNascimento       = this.formGroup.value.dtNascimento;
@@ -303,13 +305,13 @@ export class FamiliaComponent implements OnInit {
     register.nmLocalTrabalho    = this.formGroup.value.nmLocalTrabalho;
     register.nrTelefoneTrabalho = this.formGroup.value.nrTelefoneTrabalho;
     // ENDERECO
-    register.cdEndereco    = this.formGroup.value.cdEndereco;
-    register.nmRua         = this.formGroup.value.nmRua;
-    register.nrCasa        = this.formGroup.value.nrCasa;
-    register.nmComplemento = this.formGroup.value.nmComplemento;
-    register.nmBairro      = this.formGroup.value.nmBairro;
-    register.nmCidade      = this.formGroup.value.nmCidade;
-    register.nmEstado      = this.formGroup.value.nmEstado;
+    register.cdEnderecoResponsavel = this.formGroup.value.cdEnderecoResponsavel;
+    register.nmRua                 = this.formGroup.value.nmRua;
+    register.nrCasa                = this.formGroup.value.nrCasa;
+    register.nmComplemento         = this.formGroup.value.nmComplemento;
+    register.nmBairro              = this.formGroup.value.nmBairro;
+    register.nmCidade              = this.formGroup.value.nmCidade;
+    register.nmEstado              = this.formGroup.value.nmEstado;
     // HABITACAO
     register.cdHabitacao           = this.formGroup.value.cdHabitacao;
     register.tpSituacao            = this.formGroup.value.tpSituacao;
@@ -341,7 +343,8 @@ export class FamiliaComponent implements OnInit {
       arrayAlunos.push(fgAluno.value);
     });
     register.arrayAlunos = arrayAlunos;
-    debugger;
+    // debugger;
+    console.log("mapped: ", register);
     return register;
   }
 

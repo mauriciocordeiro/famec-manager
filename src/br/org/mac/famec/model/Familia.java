@@ -7,15 +7,18 @@ public class Familia {
 	private int cdFamilia;
 	private GregorianCalendar dtCadastro;
 	private int cdUsuarioCadastro;
+	private String nrProntuario;
 
 	public Familia(){ }
 
 	public Familia(int cdFamilia,
 			GregorianCalendar dtCadastro,
-			int cdUsuarioCadastro){
+			int cdUsuarioCadastro,
+			String nrProntuario){
 		setCdFamilia(cdFamilia);
 		setDtCadastro(dtCadastro);
 		setCdUsuarioCadastro(cdUsuarioCadastro);
+		setNrProntuario(nrProntuario);
 	}
 	public void setCdFamilia(int cdFamilia){
 		this.cdFamilia=cdFamilia;
@@ -35,6 +38,13 @@ public class Familia {
 	public int getCdUsuarioCadastro(){
 		return this.cdUsuarioCadastro;
 	}
+	public void setNrProntuario(String nrProntuario){
+		this.nrProntuario=nrProntuario;
+	}
+	public String getNrProntuario(){
+		return this.nrProntuario;
+	}
+	
 	public String toString() {
 		String valueToString = "";
 		valueToString += "cdFamilia: " +  getCdFamilia();
@@ -46,7 +56,8 @@ public class Familia {
 	public Object clone() {
 		return new Familia(getCdFamilia(),
 			getDtCadastro()==null ? null : (GregorianCalendar)getDtCadastro().clone(),
-			getCdUsuarioCadastro());
+			getCdUsuarioCadastro(),
+			getNrProntuario());
 	}
 
 }

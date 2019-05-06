@@ -34,17 +34,19 @@ public class FamiliaDAO{
 			}
 			objeto.setCdFamilia(code);
 			PreparedStatement pstmt = connect.prepareStatement("INSERT INTO familia (cd_familia,"+
-			                                  "dt_cadastro,"+
-			                                  "cd_usuario_cadastro) VALUES (?, ?, ?)");
+                    "dt_cadastro,"+
+                    "cd_usuario_cadastro,"+
+                    "nr_prontuario) VALUES (?, ?, ?, ?)");
 			pstmt.setInt(1, code);
 			if(objeto.getDtCadastro()==null)
-				pstmt.setNull(2, Types.TIMESTAMP);
+			pstmt.setNull(2, Types.TIMESTAMP);
 			else
-				pstmt.setTimestamp(2,new Timestamp(objeto.getDtCadastro().getTimeInMillis()));
+			pstmt.setTimestamp(2,new Timestamp(objeto.getDtCadastro().getTimeInMillis()));
 			if(objeto.getCdUsuarioCadastro()==0)
-				pstmt.setNull(3, Types.INTEGER);
+			pstmt.setNull(3, Types.INTEGER);
 			else
-				pstmt.setInt(3,objeto.getCdUsuarioCadastro());
+			pstmt.setInt(3,objeto.getCdUsuarioCadastro());
+			pstmt.setString(4,objeto.getNrProntuario());
 			pstmt.executeUpdate();
 			return code;
 		}
@@ -82,18 +84,20 @@ public class FamiliaDAO{
 			if (isConnectionNull)
 				connect = Conexao.connect();
 			PreparedStatement pstmt = connect.prepareStatement("UPDATE familia SET cd_familia=?,"+
-												      		   "dt_cadastro=?,"+
-												      		   "cd_usuario_cadastro=? WHERE cd_familia=?");
+		      		   "dt_cadastro=?,"+
+		      		   "cd_usuario_cadastro=?,"+
+		      		   "nr_prontuario=? WHERE cd_familia=?");
 			pstmt.setInt(1,objeto.getCdFamilia());
 			if(objeto.getDtCadastro()==null)
-				pstmt.setNull(2, Types.TIMESTAMP);
+			pstmt.setNull(2, Types.TIMESTAMP);
 			else
-				pstmt.setTimestamp(2,new Timestamp(objeto.getDtCadastro().getTimeInMillis()));
+			pstmt.setTimestamp(2,new Timestamp(objeto.getDtCadastro().getTimeInMillis()));
 			if(objeto.getCdUsuarioCadastro()==0)
-				pstmt.setNull(3, Types.INTEGER);
+			pstmt.setNull(3, Types.INTEGER);
 			else
-				pstmt.setInt(3,objeto.getCdUsuarioCadastro());
-			pstmt.setInt(4, cdFamiliaOld!=0 ? cdFamiliaOld : objeto.getCdFamilia());
+			pstmt.setInt(3,objeto.getCdUsuarioCadastro());
+			pstmt.setString(4,objeto.getNrProntuario());
+			pstmt.setInt(5, cdFamiliaOld!=0 ? cdFamiliaOld : objeto.getCdFamilia());
 			pstmt.executeUpdate();
 			return 1;
 		}
@@ -160,7 +164,8 @@ public class FamiliaDAO{
 			if(rs.next()){
 				return new Familia(rs.getInt("cd_familia"),
 						(rs.getTimestamp("dt_cadastro")==null)?null:Util.longToCalendar(rs.getTimestamp("dt_cadastro").getTime()),
-						rs.getInt("cd_usuario_cadastro"));
+						rs.getInt("cd_usuario_cadastro"),
+						rs.getString("nr_prontuario"));
 			}
 			else{
 				return null;
@@ -244,7 +249,7 @@ public class FamiliaDAO{
 	}
 
 	public static ResultSetMap find(ArrayList<ItemComparator> criterios, Connection connect) {
-		return Search.find("SELECT * FROM familia", criterios, true, connect!=null ? connect : Conexao.connect(), connect==null);
+		return Search.find("SELECT * FROM familia", criterios, connect!=null ? connect : Conexao.connect(), connect==null);
 	}
 
 }

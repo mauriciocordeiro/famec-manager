@@ -1,6 +1,6 @@
 export class EnderecoResponsavel {
 
-    cdEndereco:number;
+    cdEnderecoResponsavel:number;
     cdResponsavel:number;
     nmRua:string;
     nrCasa:string;
