@@ -278,13 +278,13 @@ export class FamiliaComponent implements OnInit {
     var register: any = {};
 
     // FAMILIA
-    register.cdFamilia         = this.formGroup.get('cdFamilia').value;
+    register.cdFamilia         = this.formGroup.value.cdFamilia;
     register.cdUsuarioCadastro = this.usuario.cdUsuario;
     register.dtCadastro        = new Date();
-    register.nrProntuario      = this.formGroup.get('nrProntuario').value;
+    register.nrProntuario      = this.formGroup.value.nrProntuario;
     // RESPONSAVEL
     register.cdResponsavel      = this.formGroup.value.cdResponsavel;
-    register.nmResponsavel      = this.formGroup.get('nmResponsavel').value;
+    register.nmResponsavel      = this.formGroup.value.nmResponsavel;
     register.tpParentesco       = this.formGroup.value.tpParentesco;
     register.tpGenero           = this.formGroup.value.tpGenero ? 1 : 0;
     register.dtNascimento       = this.formGroup.value.dtNascimento;

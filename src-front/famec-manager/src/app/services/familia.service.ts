@@ -24,6 +24,7 @@ export class FamiliaService extends Services {
   }
 
   saveFamilia(familia: any): Observable<Result> {
+    console.log('familia: ', familia)
     return this.http.put(this.serviceUrl + "/save", JSON.stringify(familia, null, 2), httpOptions).pipe(
       tap((result: Result) => this.log(result.message)),
       catchError(this.handleError<Result>('Erro! saveFamilia'))
