@@ -204,6 +204,16 @@ export class Utils {
     }
   }  
 
+  static getAge(date:Date):any {
+    try {
+      let timeDiff = Math.abs(Date.now() - date.getTime());
+      let age = Math.floor((timeDiff / (1000 * 3600 * 24))/365.25);
+      return age;
+    } catch(e) {
+      return 0;
+    }
+  }
+
   /** ============================================================
    * SimpleCrypto
    * 

@@ -91,13 +91,14 @@
         <div class="form-line">
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Data de nascimento</mat-label>
-            <input matInput formControlName="dtNascimento" [matDatepicker]="dtNascPicker" placeholder="Data de nascimento" required>
+            <input matInput formControlName="dtNascimento" [matDatepicker]="dtNascPicker" placeholder="Data de nascimento" required  
+              (dateChange)="onDtNascChange($event)">
             <mat-datepicker-toggle matSuffix [for]="dtNascPicker"></mat-datepicker-toggle>
             <mat-datepicker #dtNascPicker></mat-datepicker>
           </mat-form-field>
           <mat-form-field class="form-field-inline" style="width: 80px;" appearance="outline">
             <mat-label>Idade</mat-label>
-            <input matInput type="number">
+            <input matInput type="number" #nrIdade>
           </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Naturalidade</mat-label>
@@ -245,7 +246,7 @@
           </mat-form-field>
           <mat-form-field class="form-field-inline" style="width: 120px;" appearance="outline">
             <mat-label>Valor</mat-label>
-            <input matInput formControlName="vlBeneficio">
+            <input matInput type="number" formControlName="vlBeneficio">
           </mat-form-field>
         </div>
 
@@ -347,10 +348,11 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <div *ngFor="let form of formGroup.value.arrayAlunos">
+        <div *ngFor="let form of formGroup.value.arrayAlunos" style="flex-direction: column;">
           <app-aluno [formAluno]="form"></app-aluno>
+          <mat-divider [inset]="true"></mat-divider>
         </div>
-        <button type="button" mat-mini-fab type="button" matTooltip="Adicionar outro aluno"
+        <button mat-mini-fab type="button" matTooltip="Adicionar outro aluno" style="top: 10px;"
           (click)="onClickAddAluno()" color="primary">
           <mat-icon>add</mat-icon>
         </button>
@@ -365,10 +367,10 @@
         <mat-icon>save</mat-icon>
         Salvar
       </button>
-      <button mat-raised-button color="warn" type="button" (click)="onDelete()" matTooltip="Excluir cadastro da família">
+      <!-- <button mat-raised-button color="warn" type="button" (click)="onDelete()" matTooltip="Excluir cadastro da família">
         <mat-icon>clear</mat-icon>
         Excluir
-      </button>
+      </button> -->
     </mat-card-actions>
   </form>
 </mat-card>

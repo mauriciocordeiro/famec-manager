@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Utils } from 'src/app/services/Utils';
@@ -11,7 +11,8 @@ import { UsuarioService } from 'src/app/services/usuario.services';
 })
 export class AlunoComponent implements OnInit {
 
-  @Input('formAluno') formAluno:FormGroup;
+  @Input('formAluno') formAluno:FormGroup;  
+  @ViewChild('nrIdade') nrIdade: ElementRef;
 
   nivelEscolar = [
     { id: 1, label: '1º' }, { id: 2, label: '2º' }, { id: 3, label: '3º' },
@@ -43,5 +44,9 @@ export class AlunoComponent implements OnInit {
 
   ngOnInit() {
     UsuarioService.checkAuth(this.router);
+  }
+  
+  onDtNascChange(event) {
+    this.nrIdade.nativeElement.value = Utils.getAge(event.value);
   }
 }

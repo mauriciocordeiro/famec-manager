@@ -27,6 +27,8 @@ export class FamiliaComponent implements OnInit {
   alunos: Aluno[];
   @ViewChild('searchField') searchField: ElementRef;
 
+  @ViewChild('nrIdade') nrIdade: ElementRef;
+
   step = 0;
 
   lgHabitacaoAluguel: boolean = false;
@@ -128,6 +130,7 @@ export class FamiliaComponent implements OnInit {
       register.RSM_ALUNO.lines.forEach(regAluno => {
         this.formGroup.value.arrayAlunos.push(this.getAlunoFormGroup(regAluno));  
       });
+      this.nrIdade.nativeElement.value = Utils.getAge(this.formGroup.value.dtNascimento);
     } else {
       this.formGroup.value.arrayAlunos.push(this.getAlunoFormGroup());
     }
@@ -203,6 +206,7 @@ export class FamiliaComponent implements OnInit {
       cdFamilia: new FormControl(register ? register.CD_FAMILIA : 0),
       nmAluno: new FormControl(register ? register.NM_ALUNO : ''),
       dtNascimento: new FormControl(register ? new Date(register.DT_NASCIMENTO) : ''),
+      nrIdade: new FormControl(register ? Utils.getAge(new Date(register.DT_NASCIMENTO)) : ''),
       tpSexo: new FormControl(register ? register.TP_SEXO : 0),
       nmNaturalidade: new FormControl(register ? register.NM_NATURALIDADE : ''),
       nmEscola: new FormControl(register ? register.NM_ESCOLA : ''),
@@ -214,7 +218,7 @@ export class FamiliaComponent implements OnInit {
       hrSaida: new FormControl(register ? register.HR_SAIDA : ''),
       lgAcompanhanteSaida: new FormControl(register ? register.LG_ACOMPANHANTE_SAIDA==1 : 0),
       nmAcompanhanteSaida: new FormControl(register ? register.NM_ACOMPANHANTE_SAIDA : ''),
-      lgAlmocoInstituicao: new FormControl(register ? register.LG_ALMOCO_INSTITUICAO==1 : 0),
+      lgAlmocoInstituicao: new FormControl(register ? register.LG_ALMOCO_INSTITUICAO==1 : 0)
     });
   }
 
@@ -301,7 +305,7 @@ export class FamiliaComponent implements OnInit {
     register.tpNivelEscolar     = this.formGroup.value.tpNivelEscolar;
     register.tpTurno            = this.formGroup.value.tpTurno;
     register.nmOcupacao         = this.formGroup.value.nmOcupacao;
-    register.vlRendaMensal      = this.formGroup.value.vlRendaMensal;
+    register.vlRendaMensal      = new Number(this.formGroup.value.vlRendaMensal);
     register.nmLocalTrabalho    = this.formGroup.value.nmLocalTrabalho;
     register.nrTelefoneTrabalho = this.formGroup.value.nrTelefoneTrabalho;
     // ENDERECO
@@ -315,7 +319,7 @@ export class FamiliaComponent implements OnInit {
     // HABITACAO
     register.cdHabitacao           = this.formGroup.value.cdHabitacao;
     register.tpSituacao            = this.formGroup.value.tpSituacao;
-    register.vlAluguel             = this.formGroup.value.vlAluguel;
+    register.vlAluguel             = new Number(this.formGroup.value.vlAluguel);
     register.nrComodos             = this.formGroup.value.nrComodos;
     register.tpAbastecimento       = this.formGroup.value.tpAbastecimento;
     register.tpTratamentoAgua      = this.formGroup.value.tpTratamentoAgua;
@@ -328,7 +332,7 @@ export class FamiliaComponent implements OnInit {
     register.nrNis          = this.formGroup.value.nrNis;
     register.lgBeneficio    = this.formGroup.value.lgBeneficio ? 1 : 0;
     register.nmBeneficio    = this.formGroup.value.nmBeneficio;
-    register.vlBeneficio    = this.formGroup.value.vlBeneficio;
+    register.vlBeneficio    = new Number(this.formGroup.value.vlBeneficio);
     // ALUNOS
     var arrayAlunos: Array<any> = [];
     this.formGroup.value.arrayAlunos.forEach(fgAluno => {
@@ -343,8 +347,6 @@ export class FamiliaComponent implements OnInit {
       arrayAlunos.push(fgAluno.value);
     });
     register.arrayAlunos = arrayAlunos;
-    // debugger;
-    console.log("mapped: ", register);
     return register;
   }
 
@@ -372,5 +374,9 @@ export class FamiliaComponent implements OnInit {
         this.alunos = [];      
         this.searchField.nativeElement.value = "";
       });
+  }
+
+  onDtNascChange(event) {
+    this.nrIdade.nativeElement.value = Utils.getAge(event.value);
   }
 }

@@ -12,18 +12,18 @@
     <mat-form-field class="form-field-inline" appearance="outline">
       <mat-label>Data de nascimento</mat-label>
       <input matInput formControlName="dtNascimento" [matDatepicker]="dtNascPicker" placeholder="Data de nascimento"
-        required>
+        required (dateChange)="onDtNascChange($event)">
       <mat-datepicker-toggle matSuffix [for]="dtNascPicker"></mat-datepicker-toggle>
       <mat-datepicker #dtNascPicker></mat-datepicker>
     </mat-form-field>
     <mat-form-field class="form-field-inline" style="width: 80px;" appearance="outline">
       <mat-label>Idade</mat-label>
-      <input matInput type="number">
+      <input matInput #nrIdade type="number" formControlName="nrIdade">
     </mat-form-field>
     <mat-radio-group class="radio-group" formControlName="tpSexo">
       <mat-label style="margin-top: -5px; margin-left: 10px" >Sexo</mat-label>
-      <mat-radio-button class="radio-button" value="1" color="primary">Masculino</mat-radio-button>
-      <mat-radio-button class="radio-button" value="2" color="primary">Feminino</mat-radio-button>
+      <mat-radio-button class="radio-button" [value]="1" color="primary">Masculino</mat-radio-button>
+      <mat-radio-button class="radio-button" [value]="2" color="primary">Feminino</mat-radio-button>
     </mat-radio-group>
     <mat-form-field class="form-field-inline" appearance="outline">
       <mat-label>Naturalidade</mat-label>
@@ -81,12 +81,15 @@
     </mat-checkbox>
     <mat-form-field class="form-field-inline" style="width: 110px;" appearance="outline">
       <mat-label>Saída da FAMEC</mat-label>
-      <input matInput type="text" formControlName="hrSaida">
+      <input matInput type="text" formControlName="hrSaida" placeholder="--:--">
     </mat-form-field>
-    <mat-radio-group class="radio-group" formControlName="lgAcompanhanteSaida">
-      <mat-radio-button class="radio-button" [value]="1" color="primary">Sozinho</mat-radio-button>
-      <mat-radio-button class="radio-button" [value]="2" color="primary">Acompanhado</mat-radio-button>
-    </mat-radio-group>
+    <!-- <mat-radio-group class="radio-group" formControlName="lgAcompanhanteSaida">
+      <mat-radio-button class="radio-button" [value]="0" color="primary">Sozinho</mat-radio-button>
+      <mat-radio-button class="radio-button" [value]="1" color="primary">Acompanhado</mat-radio-button>
+    </mat-radio-group> -->
+    <mat-checkbox style="margin-right: 10px; margin-left: 10px; padding-top: 20px;" formControlName="lgAcompanhanteSaida" color="primary">
+      Acompanhado
+    </mat-checkbox>
     <mat-form-field class="form-field-inline" appearance="outline">
       <mat-label>Acompanhante</mat-label>
       <input matInput formControlName="nmAcompanhanteSaida">

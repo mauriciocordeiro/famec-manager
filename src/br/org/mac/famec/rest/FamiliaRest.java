@@ -116,12 +116,15 @@ public class FamiliaRest {
 			JSONArray arrayAlunos = json.getJSONArray("arrayAlunos");
 			for (int i = 0; i < arrayAlunos.length(); i++) {
 				JSONObject jsonAluno = arrayAlunos.getJSONObject(i);
-								
+				
+				String strHrSaida[] = jsonAluno.getString("hrSaida").split(":");
+				GregorianCalendar hrSaida = new GregorianCalendar(2000, 1, 1, Integer.parseInt(strHrSaida[0]), Integer.parseInt(strHrSaida[1]));
+				
 				lstAlunos.add(new Aluno(
 						jsonAluno.getInt("cdAluno"), 
 						jsonAluno.getInt("cdFamilia"), 
 						jsonAluno.getString("nmAluno"), 
-						Util.angularDateToCalendar(json.getString("dtNascimento")), 
+						Util.angularDateToCalendar(jsonAluno.getString("dtNascimento")), 
 						jsonAluno.getInt("tpSexo"), 
 						jsonAluno.getString("nmNaturalidade"), 
 						jsonAluno.getString("nmEscola"), 
@@ -130,7 +133,7 @@ public class FamiliaRest {
 						jsonAluno.getInt("tpHorarioEscolar"), 
 						jsonAluno.getInt("tpTurnoFamec"), 
 						1, //jsonAluno.getInt("stAluno"), 
-						null, //(GregorianCalendar)jsonAluno.get("hrSaida"), 
+						hrSaida, //(GregorianCalendar)jsonAluno.get("hrSaida"), 
 						jsonAluno.getInt("lgAcompanhanteSaida"), 
 						jsonAluno.getString("nmAcompanhanteSaida"), 
 						jsonAluno.getInt("lgAlmocoInstituicao"))

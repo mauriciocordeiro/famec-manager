@@ -4,10 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import br.org.mac.famec.model.Aluno;
 import br.org.mac.famec.model.AlunoDAO;
 import br.org.mac.famec.util.Conexao;
+import br.org.mac.famec.util.Util;
 import sol.dao.ItemComparator;
 import sol.dao.ResultSetMap;
 import sol.dao.Search;
@@ -131,7 +134,18 @@ public class AlunoServices {
 	}
 
 	public static ResultSetMap find(ArrayList<ItemComparator> criterios, Connection connect) {
-		return Search.find("SELECT * FROM aluno", criterios, connect!=null ? connect : Conexao.connect(), connect==null);
+		ResultSetMap rsm = Search.find("SELECT * FROM aluno", criterios, connect!=null ? connect : Conexao.connect(), connect==null);
+		while(rsm.next()) {
+			if(rsm.getObject("hr_saida")!=null) {
+				GregorianCalendar d = rsm.getGregorianCalendar("hr_saida");
+				int hh = d.get(Calendar.HOUR_OF_DAY);
+				int mm = d.get(Calendar.MINUTE);
+				
+				rsm.setValueToField("hr_saida", (hh<10 ? "0"+hh : hh)+":"+(mm<10 ? "0"+mm : mm));
+			}
+		}
+		rsm.beforeFirst();
+		return rsm;
 	}
 	
 
