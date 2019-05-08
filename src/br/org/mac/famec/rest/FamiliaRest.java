@@ -118,7 +118,9 @@ public class FamiliaRest {
 				JSONObject jsonAluno = arrayAlunos.getJSONObject(i);
 				
 				String strHrSaida[] = jsonAluno.getString("hrSaida").split(":");
-				GregorianCalendar hrSaida = new GregorianCalendar(2000, 1, 1, Integer.parseInt(strHrSaida[0]), Integer.parseInt(strHrSaida[1]));
+				GregorianCalendar hrSaida = null;
+				if(strHrSaida.length == 2)
+					hrSaida = new GregorianCalendar(2000, 1, 1, Integer.parseInt(strHrSaida[0]), Integer.parseInt(strHrSaida[1]));
 				
 				lstAlunos.add(new Aluno(
 						jsonAluno.getInt("cdAluno"), 
