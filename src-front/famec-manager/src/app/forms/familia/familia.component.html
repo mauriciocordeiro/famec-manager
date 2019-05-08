@@ -193,7 +193,7 @@
           </mat-form-field>
           <mat-form-field class="form-field-inline" style="width: 120px;" appearance="outline">
             <mat-label>Renda mensal</mat-label>
-            <input matInput formControlName="vlRendaMensal">
+            <input matInput type="number" formControlName="vlRendaMensal">
           </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Local de trabalho</mat-label>
@@ -279,7 +279,7 @@
           </mat-form-field>
           <mat-form-field class="form-field-inline" style="width: 180px;" appearance="outline" *ngIf="lgHabitacaoAluguel">
             <mat-label>Valor</mat-label>
-            <input matInput formControlName="vlAluguel">
+            <input matInput type="number" formControlName="vlAluguel">
           </mat-form-field>
           <mat-form-field class="form-field-inline" style="width: 180px;" appearance="outline">
             <mat-label>Nº de Cômodos</mat-label>
@@ -367,10 +367,10 @@
         <mat-icon>save</mat-icon>
         Salvar
       </button>
-      <!-- <button mat-raised-button color="warn" type="button" (click)="onDelete()" matTooltip="Excluir cadastro da família">
-        <mat-icon>clear</mat-icon>
-        Excluir
-      </button> -->
+      <button mat-raised-button color="primary" type="button" (click)="buildFormGroup()" matTooltip="Novo cadastro da família">
+        <mat-icon>add_circle_outline</mat-icon>
+        Novo
+      </button>
     </mat-card-actions>
   </form>
 </mat-card>

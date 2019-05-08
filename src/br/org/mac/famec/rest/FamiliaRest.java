@@ -117,9 +117,12 @@ public class FamiliaRest {
 			for (int i = 0; i < arrayAlunos.length(); i++) {
 				JSONObject jsonAluno = arrayAlunos.getJSONObject(i);
 				
-				String strHrSaida[] = jsonAluno.getString("hrSaida").split(":");
+				String strHrSaida[] = null;
+				try {
+					strHrSaida = jsonAluno.getString("hrSaida").split(":");
+				} catch(Exception e) {}
 				GregorianCalendar hrSaida = null;
-				if(strHrSaida.length == 2)
+				if(strHrSaida!=null && strHrSaida.length == 2)
 					hrSaida = new GregorianCalendar(2000, 1, 1, Integer.parseInt(strHrSaida[0]), Integer.parseInt(strHrSaida[1]));
 				
 				lstAlunos.add(new Aluno(
@@ -147,7 +150,7 @@ public class FamiliaRest {
 			return new JSONObject(result).toString();
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
-			return null;
+			return new JSONObject(new Result(-1, "O servidor não conseguiu processar a requisição!")).toString();
 		}
 	}
 	
