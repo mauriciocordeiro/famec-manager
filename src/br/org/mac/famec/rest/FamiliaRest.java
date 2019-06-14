@@ -16,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import br.org.mac.famec.control.AlunoServices;
 import br.org.mac.famec.control.FamiliaServices;
 import br.org.mac.famec.control.UsuarioServices;
 import br.org.mac.famec.model.Aluno;
@@ -206,6 +207,30 @@ public class FamiliaRest {
 			
 						
 			return new JSONObject("{}").toString();
+		} catch (Exception e) {
+			e.printStackTrace(System.out);
+			return null;
+		}
+	}
+	
+	@GET
+	@Path("/quick/search")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public static String quickSearch(@QueryParam("term") String term) {
+		try {			
+			// busca
+			ResultSetMap rsm = FamiliaServices.quickFind(term);
+			
+			Aluno[] list = new Aluno[rsm.size()];
+			while(rsm.next()) {
+				list[rsm.getPointer()] = new Aluno();
+				list[rsm.getPointer()].setCdAluno(rsm.getInt("cd_aluno"));
+				list[rsm.getPointer()].setNmAluno(rsm.getString("nm_aluno"));
+				list[rsm.getPointer()].setCdFamilia(rsm.getInt("cd_familia"));
+			}
+			
+			return new JSONArray(list).toString();
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
 			return null;

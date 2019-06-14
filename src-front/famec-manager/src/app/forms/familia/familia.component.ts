@@ -356,7 +356,7 @@ export class FamiliaComponent implements OnInit {
 			return;
 		if (term.length < 3)
       return;
-    this.alunoService.quickSearch(term)
+    this.familiaService.quickSearch(term)
       .subscribe(list => {
         this.alunos = list;
       });

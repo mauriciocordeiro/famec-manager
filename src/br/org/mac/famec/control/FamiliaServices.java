@@ -1,7 +1,6 @@
 package br.org.mac.famec.control;
 
 import java.sql.*;
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,7 +17,6 @@ import br.org.mac.famec.model.Habitacao;
 import br.org.mac.famec.model.PerfilSocial;
 import br.org.mac.famec.model.Responsavel;
 import br.org.mac.famec.util.Conexao;
-import br.org.mac.famec.util.ReportUtils;
 
 public class FamiliaServices {
 
@@ -207,6 +205,34 @@ public class FamiliaServices {
 				Conexao.disconnect(connect);
 		}
 	}
+	
+	public static ResultSetMap quickFind(String term) {
+		return quickFind(term, null);
+	}
+
+	@SuppressWarnings("resource")
+	public static ResultSetMap quickFind(String term, Connection connect) {
+		try {
+			connect = connect==null ? Conexao.connect() : connect;
+			return new ResultSetMap(connect.prepareStatement(
+					"SELECT A.cd_aluno, A.nm_aluno, A.cd_familia "
+					+ " FROM aluno A"
+					+ " JOIN familia B ON (A.cd_familia = B.cd_familia)"
+					+ " JOIN responsavel C ON (A.cd_familia = C.cd_familia)"
+					+ " WHERE A.nm_aluno iLike '%"+term+"%'"
+					+ " OR B.nr_prontuario iLike '%"+term+"%'"
+					+ " OR C.nm_responsavel iLike '%"+term+"%'")
+					.executeQuery());
+		}
+		catch(Exception e) {
+			e.printStackTrace(System.out);
+			System.err.println("Erro! FamiliaServices.quickFind: " + e);
+			return null;
+		}
+		finally {
+			Conexao.disconnect(connect);
+		}
+	}
 
 	public static ResultSetMap find(ArrayList<ItemComparator> criterios) {
 		return find(criterios, null);
@@ -258,10 +284,10 @@ public class FamiliaServices {
 			
 			HashMap<String, Object> parameters = new HashMap<>();
 			
-			Result result = ReportUtils.generate("cadastro_familia", parameters, rsm);
+			//Result result = ReportUtils.generate("cadastro_familia", parameters, rsm);
 			
 			
-			return result;
+			return null;
 		}
 		catch(Exception e) {
 			e.printStackTrace(System.out);

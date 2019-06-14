@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { Services } from './services';
 import { Result } from './result';
+import { Aluno } from './aluno';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -37,6 +38,14 @@ export class FamiliaService extends Services {
         tap(_ => this.log(`found familias matching "${cdFamilia}"`)),
         catchError(this.handleError<any[]>('getFamilias', [])
         )
+      );
+  }
+
+  quickSearch(term: string): Observable<any> {
+    return this.http.get(`${this.serviceUrl}/quick/search?term=${term}`)
+      .pipe(
+        tap(_ => this.log(`found aluno matching "${term}"`)),
+        catchError(this.handleError<Aluno[]>('quickSearch', []))
       );
   }
 }
