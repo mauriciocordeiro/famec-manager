@@ -134,18 +134,40 @@ public class AlunoServices {
 	}
 
 	public static ResultSetMap find(ArrayList<ItemComparator> criterios, Connection connect) {
-		ResultSetMap rsm = Search.find("SELECT * FROM aluno", criterios, connect!=null ? connect : Conexao.connect(), connect==null);
-		while(rsm.next()) {
-			if(rsm.getObject("hr_saida")!=null) {
-				GregorianCalendar d = rsm.getGregorianCalendar("hr_saida");
-				int hh = d.get(Calendar.HOUR_OF_DAY);
-				int mm = d.get(Calendar.MINUTE);
-				
-				rsm.setValueToField("hr_saida", (hh<10 ? "0"+hh : hh)+":"+(mm<10 ? "0"+mm : mm));
+		boolean isConnectionNull = connect==null;
+		if (isConnectionNull)
+			connect = Conexao.connect();
+		try {
+			ResultSetMap rsm = Search.find(
+					" SELECT A.*,"
+					+ " B.nr_prontuario, B.dt_cadastro,"
+					+ " C.nm_responsavel, C.tp_parentesco, C.nr_telefone_1, C.nr_telefone_2 "
+					+ " FROM 			aluno 		A"
+					+ " JOIN 			familia 	B ON (A.cd_familia = B.cd_familia)"
+					+ " LEFT OUTER JOIN responsavel C ON (B.cd_familia = C.cd_familia)"
+					+ " LEFT OUTER JOIN usuario 	D ON (B.cd_usuario_cadastro = D.cd_usuario)", 
+					criterios, connect, false);
+			
+			while(rsm.next()) {
+				if(rsm.getObject("hr_saida")!=null) {
+					GregorianCalendar d = rsm.getGregorianCalendar("hr_saida");
+					int hh = d.get(Calendar.HOUR_OF_DAY);
+					int mm = d.get(Calendar.MINUTE);
+					
+					rsm.setValueToField("hr_saida", (hh<10 ? "0"+hh : hh)+":"+(mm<10 ? "0"+mm : mm));
+				}
 			}
+			rsm.beforeFirst();
+			return rsm;
+		} catch(Exception e) {
+			e.printStackTrace(System.out);
+			System.err.println("Erro! AlunoServices.find: " + e);
+			return null;
 		}
-		rsm.beforeFirst();
-		return rsm;
+		finally {
+			if (isConnectionNull)
+				Conexao.disconnect(connect);
+		}
 	}
 	
 
