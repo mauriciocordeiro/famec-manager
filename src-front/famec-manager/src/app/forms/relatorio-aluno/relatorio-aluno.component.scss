@@ -1,0 +1,62 @@
+@import '~@angular/material/theming';
+@import '../../../theme.scss';
+
+:host {
+    overflow: auto;
+
+    table {
+        // margin-top: 15px;
+        text-align: left;
+        width: 100%;
+        td {
+            font-size: 12px;
+        }
+    }   
+
+    .mat-card {    
+        text-align: -webkit-center;    
+    }    
+        
+    .demo-toolbar {    
+        display: flex;    
+        align-items: center;    
+        width: 100%;    
+    }    
+        
+    .demo-form { 
+        align-content: center;    
+        min-width: 150px;    
+        max-width: 500px;    
+        width: 100%;    
+    }    
+        
+    .demo-full-width {    
+        width: 100%;    
+    }   
+        
+    mat-card {    
+        min-height: 100vh;
+        max-width: 90%;   
+        margin: 2em auto;    
+        text-align: center;    
+    }  
+    
+    mat-card-content {
+        display: inline-flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    div.filter {
+        display: inline-flex;
+        flex-direction: row;
+        min-width: 50%;
+        max-width: 75%;
+        align-self: center;
+
+        mat-form-field {
+            width: 100%;
+        }
+    }
+      
+}

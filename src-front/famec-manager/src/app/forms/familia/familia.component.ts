@@ -111,8 +111,7 @@ export class FamiliaComponent implements OnInit {
   constructor(
     private router:Router,
     private snackBar: MatSnackBar, 
-    private familiaService: FamiliaService,
-    private alunoService: AlunoService
+    private familiaService: FamiliaService
   ) { }
 
   ngOnInit() {

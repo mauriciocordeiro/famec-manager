@@ -11,6 +11,9 @@ const httpOptions = {
 
 @Injectable({ providedIn: 'root' })
 export class AlunoService extends Services {
+  static find() {
+    throw new Error("Method not implemented.");
+  }
 
   /**
    * manage back-end request/response
@@ -28,6 +31,14 @@ export class AlunoService extends Services {
       .pipe(
         tap(_ => this.log(`found aluno matching "${term}"`)),
         catchError(this.handleError<Aluno[]>('quickSearch', []))
+      );
+  }
+
+  find(): Observable<any> {
+    return this.http.post(`${this.serviceUrl}/find`, {}, {})
+      .pipe(
+        tap(_ => this.log(`found aluno matching`)),
+        catchError(this.handleError<JSON[]>('find', []))
       );
   }
 }

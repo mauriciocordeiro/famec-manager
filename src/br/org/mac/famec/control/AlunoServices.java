@@ -3,6 +3,8 @@ package br.org.mac.famec.control;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -11,12 +13,15 @@ import br.org.mac.famec.model.Aluno;
 import br.org.mac.famec.model.AlunoDAO;
 import br.org.mac.famec.util.Conexao;
 import br.org.mac.famec.util.Util;
+import br.org.mac.midgard.util.Date;
 import sol.dao.ItemComparator;
 import sol.dao.ResultSetMap;
 import sol.dao.Search;
 import sol.util.Result;
 
 public class AlunoServices {
+	
+	public static final String[] turnoInstituicao = {"", "Matutino", "Vespertino", "Noturno", "Diurno"};
 
 	public static Result save(Aluno aluno){
 		return save(aluno, null);
@@ -141,12 +146,14 @@ public class AlunoServices {
 			ResultSetMap rsm = Search.find(
 					" SELECT A.*,"
 					+ " B.nr_prontuario, B.dt_cadastro,"
-					+ " C.nm_responsavel, C.tp_parentesco, C.nr_telefone_1, C.nr_telefone_2 "
-					+ " FROM 			aluno 		A"
-					+ " JOIN 			familia 	B ON (A.cd_familia = B.cd_familia)"
-					+ " LEFT OUTER JOIN responsavel C ON (B.cd_familia = C.cd_familia)"
-					+ " LEFT OUTER JOIN usuario 	D ON (B.cd_usuario_cadastro = D.cd_usuario)", 
-					criterios, connect, false);
+					+ " C.nm_responsavel, C.tp_parentesco, C.nr_telefone_1, C.nr_telefone_2,"
+					+ " E.* "
+					+ " FROM 			aluno 				 A"
+					+ " JOIN 			familia 			 B ON (A.cd_familia = B.cd_familia)"
+					+ " LEFT OUTER JOIN responsavel 		 C ON (B.cd_familia = C.cd_familia)"
+					+ " LEFT OUTER JOIN usuario 			 D ON (B.cd_usuario_cadastro = D.cd_usuario)"
+					+ " LEFT OUTER JOIN endereco_responsavel E ON (C.cd_responsavel = E.cd_responsavel)", 
+					" ORDER BY B.nr_prontuario ", criterios, connect, false);
 			
 			while(rsm.next()) {
 				if(rsm.getObject("hr_saida")!=null) {
@@ -156,6 +163,16 @@ public class AlunoServices {
 					
 					rsm.setValueToField("hr_saida", (hh<10 ? "0"+hh : hh)+":"+(mm<10 ? "0"+mm : mm));
 				}
+				
+				rsm.setValueToField("ds_dt_nascimento", Date.formatDateTime(rsm.getGregorianCalendar("dt_nascimento"), "dd/MM/yyyy"));
+				
+				GregorianCalendar dt = rsm.getGregorianCalendar("dt_nascimento");
+				rsm.setValueToField("nr_idade", Period.between(LocalDate.of(dt.get(Calendar.YEAR), dt.get(Calendar.MONTH)+1, dt.get(Calendar.DAY_OF_MONTH)), LocalDate.now()).getYears());
+				
+				rsm.setValueToField("nm_bairro", rsm.getString("nm_bairro"));
+				rsm.setValueToField("ds_endereco", rsm.getString("nm_rua") + ", " + rsm.getString("nr_casa") + ", " + rsm.getString("nm_complemento"));
+				
+				rsm.setValueToField("nm_turno_famec", turnoInstituicao[rsm.getInt("tp_turno_famec")]);
 			}
 			rsm.beforeFirst();
 			return rsm;

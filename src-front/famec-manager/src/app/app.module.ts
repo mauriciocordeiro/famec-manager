@@ -18,6 +18,8 @@ import { LoadingComponent } from './nav/loading/loading.component';
 import { FamiliaComponent } from './forms/familia/familia.component';
 import { AlunoComponent } from './forms/aluno/aluno.component';
 import { LoginComponent } from './forms/login/login.component';
+import { RelatorioAlunoComponent } from './forms/relatorio-aluno/relatorio-aluno.component';
+import { MatSortModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -29,12 +31,14 @@ import { LoginComponent } from './forms/login/login.component';
     LoadingComponent,
     FamiliaComponent,
     AlunoComponent,
-    LoginComponent
+    LoginComponent,
+    RelatorioAlunoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
 
+    MatSortModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
