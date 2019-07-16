@@ -4,6 +4,8 @@ import { Utils } from 'src/app/services/Utils';
 import { Router } from '@angular/router';
 import { MatSnackBar, MatSort, MatTableDataSource } from '@angular/material';
 
+import * as jsPDF from 'jspdf';
+
 export interface Register {
   nr_prontuario: number;
   nm_aluno: string;
@@ -24,12 +26,14 @@ export interface Register {
 })
 export class RelatorioAlunoComponent implements OnInit {
 
+  printMode = false;
+
   dataSource = new MatTableDataSource([]);
 
   displayedColumns: string[] = [
-    'nr_prontuario', 'nm_aluno', 'dt_nascimento', 
-    'nr_idade', 'nm_bairro', 'ds_endereco', 
-    'nm_escola', 'nm_turno_famec', 'nm_responsavel', 
+    'nr_prontuario', 'nm_aluno', 'dt_nascimento',
+    'nr_idade', 'nm_bairro', 'ds_endereco',
+    'nm_escola', 'nm_turno_famec', 'nm_responsavel',
     'nr_telefone_1'
   ];
 
@@ -58,7 +62,7 @@ export class RelatorioAlunoComponent implements OnInit {
   onSearch() {
     this.alunoService.find()
       .subscribe(result => {
-        let data:Array<Register> = new Array();
+        let data: Array<Register> = new Array();
         result.forEach(element => {
           data.push({
             nr_prontuario: <number>element.NR_PRONTUARIO,
@@ -80,6 +84,23 @@ export class RelatorioAlunoComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  onPrint() {
+    this.printMode = true;
+    const elementToPrint = document.getElementById('table'); //The html element to become a pdf
+    const pdf = new jsPDF({
+      orientation: 'landscape',
+      unit: 'mm',
+      format: 'A4'
+    });
+    pdf.setFontSize(10);
+    pdf.addHTML(elementToPrint, () => {
+      pdf.save(new Date().toLocaleTimeString()+'alunos.pdf');
+    });
+
+    
+    this.printMode = false;
   }
 
 }

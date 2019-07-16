@@ -36,7 +36,7 @@
         
     mat-card {    
         min-height: 100vh;
-        max-width: 90%;   
+        max-width: 80%;   
         margin: 2em auto;    
         text-align: center;    
     }  
@@ -51,7 +51,7 @@
         display: inline-flex;
         flex-direction: row;
         min-width: 50%;
-        max-width: 75%;
+        max-width: 80%;
         align-self: center;
 
         mat-form-field {
