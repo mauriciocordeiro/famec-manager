@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { Services } from './services';
 import { Result } from './result';
@@ -47,5 +47,12 @@ export class FamiliaService extends Services {
         tap(_ => this.log(`found aluno matching "${term}"`)),
         catchError(this.handleError<Aluno[]>('quickSearch', []))
       );
+  }
+
+  deleteFamilia(cdFamilia: any): Observable<Result> {
+    return this.http.delete(`${this.serviceUrl}/delete?codigo=${cdFamilia}`, httpOptions).pipe(
+      tap((result: Result) => this.log(result.message)),
+      catchError(this.handleError<Result>('Erro! deleteFamilia'))
+    );
   }
 }

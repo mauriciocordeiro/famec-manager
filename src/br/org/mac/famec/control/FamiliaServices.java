@@ -153,6 +153,12 @@ public class FamiliaServices {
 			int retorno = 0;
 			if(cascade){
 				/** SE HOUVER, REMOVER TABELAS ASSOCIADAS **/
+				connect.prepareStatement("DELETE FROM aluno WHERE cd_familia = "+cdFamilia).executeUpdate();
+				connect.prepareStatement("DELETE FROM endereco_responsavel WHERE cd_responsavel = (SELECT cd_responsavel FROM responsavel WHERE cd_familia = "+cdFamilia+")").executeUpdate();	
+				connect.prepareStatement("DELETE FROM responsavel WHERE cd_familia = "+cdFamilia).executeUpdate();
+				connect.prepareStatement("DELETE FROM habitacao WHERE cd_familia = "+cdFamilia).executeUpdate();
+				connect.prepareStatement("DELETE FROM perfil_social WHERE cd_familia = "+cdFamilia).executeUpdate();
+				
 				retorno = 1;
 			}
 			if(!cascade || retorno>0)
@@ -257,7 +263,7 @@ public class FamiliaServices {
 			 
 			 while(rsm.next()) {
 				 ArrayList<ItemComparator> crt = new ArrayList<>();
-				 crt.add(new ItemComparator("cd_familia", Integer.toString(rsm.getInt("cd_familia")), ItemComparator.EQUAL, Types.INTEGER));
+				 crt.add(new ItemComparator("A.cd_familia", Integer.toString(rsm.getInt("cd_familia")), ItemComparator.EQUAL, Types.INTEGER));
 				 rsm.setValueToField("RSM_ALUNO", AlunoServices.find(crt, connect)); 
 			 }
 			 rsm.beforeFirst();

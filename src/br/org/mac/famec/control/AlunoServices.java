@@ -198,7 +198,8 @@ public class AlunoServices {
 			return new ResultSetMap(connect.prepareStatement(
 					"SELECT cd_aluno, nm_aluno, cd_familia "
 					+ " FROM aluno "
-					+ " WHERE nm_aluno iLike '%"+nmAluno+"%'")
+					+ " WHERE nm_aluno iLike '%"+nmAluno+"%'"
+					+ " ORDER BY nm_aluno")
 					.executeQuery());
 		}
 		catch(Exception e) {

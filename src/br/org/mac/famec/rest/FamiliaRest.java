@@ -203,10 +203,10 @@ public class FamiliaRest {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public static String delete(@QueryParam("codigo") String codigo) {
-		try {
-			
+		try {			
+			Result result = FamiliaServices.remove(Integer.parseInt(codigo), true);
 						
-			return new JSONObject("{}").toString();
+			return new JSONObject(result).toString();
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
 			return null;

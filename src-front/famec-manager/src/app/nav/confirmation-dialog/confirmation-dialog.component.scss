@@ -1,0 +1,12 @@
+:host {
+    .message {  
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        font-size: 14px;
+    }
+
+    .buttons {
+        width: 100%;
+        place-content: flex-end;
+    }
+
+}

@@ -20,6 +20,7 @@ import { AlunoComponent } from './forms/aluno/aluno.component';
 import { LoginComponent } from './forms/login/login.component';
 import { RelatorioAlunoComponent } from './forms/relatorio-aluno/relatorio-aluno.component';
 import { MatSortModule } from '@angular/material';
+import { ConfirmationDialogComponent } from './nav/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { MatSortModule } from '@angular/material';
     FamiliaComponent,
     AlunoComponent,
     LoginComponent,
-    RelatorioAlunoComponent
+    RelatorioAlunoComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +46,9 @@ import { MatSortModule } from '@angular/material';
     HttpClientModule,
     MATERIAL_MODULES,
     BrowserAnimationsModule
+  ],
+  entryComponents: [
+    ConfirmationDialogComponent
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt' }
