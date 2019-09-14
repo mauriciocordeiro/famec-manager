@@ -72,13 +72,13 @@
         </tr>
       </table>
       <mat-card-actions class="done">
+        <button *ngIf="usuarioForm.value.cdUsuario" mat-button color="accent" type="button" 
+          (click)="onDelete()">
+          Excluir
+        </button>
         <button mat-raised-button color="accent" type="submit">
           <mat-icon>save</mat-icon>
           Salvar
-        </button>
-        <button *ngIf="usuarioForm.value.cdUsuario" mat-raised-button color="warn" type="button" (click)="onDelete()">
-          <mat-icon>clear</mat-icon>
-          Excluir
         </button>
       </mat-card-actions>
     </form>
