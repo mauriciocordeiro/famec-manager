@@ -396,4 +396,16 @@ export class FamiliaComponent implements OnInit {
   onDtNascChange(event) {
     this.nrIdade.nativeElement.value = Utils.getAge(event.value);
   }
+
+  print() {
+    this.familiaService.printComprovante(this.formGroup.value.cdFamilia)
+      .subscribe(item => {
+        console.log(item);
+        let file = new Blob([item.objects.PDF_BYTES], { type: 'application/pdf' });    
+
+        let url = URL.createObjectURL(file);
+        let w = window.open(url);
+
+      });
+  }
 }

@@ -55,4 +55,11 @@ export class FamiliaService extends Services {
       catchError(this.handleError<Result>('Erro! deleteFamilia'))
     );
   }
+
+  printComprovante(cdFamilia: any): Observable<Result> {
+    return this.http.get(`${this.serviceUrl}/report/comprovante?codigo=${cdFamilia}`, httpOptions).pipe(
+      tap((result: Result) => this.log(result.message)),
+      catchError(this.handleError<Result>('Erro! reportComprovante'))
+    );
+  }
 }

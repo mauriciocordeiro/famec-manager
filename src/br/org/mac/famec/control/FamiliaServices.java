@@ -17,6 +17,7 @@ import br.org.mac.famec.model.Habitacao;
 import br.org.mac.famec.model.PerfilSocial;
 import br.org.mac.famec.model.Responsavel;
 import br.org.mac.famec.util.Conexao;
+import br.org.mac.famec.util.ReportUtils;
 
 public class FamiliaServices {
 
@@ -290,10 +291,10 @@ public class FamiliaServices {
 			
 			HashMap<String, Object> parameters = new HashMap<>();
 			
-			//Result result = ReportUtils.generate("cadastro_familia", parameters, rsm);
+			Result result = ReportUtils.generate("cadastro_familia", parameters, rsm);
 			
 			
-			return null;
+			return result;
 		}
 		catch(Exception e) {
 			e.printStackTrace(System.out);
