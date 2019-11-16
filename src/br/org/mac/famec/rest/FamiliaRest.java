@@ -247,7 +247,7 @@ public class FamiliaRest {
 		try {			
 			Result result = FamiliaServices.generateFormulario(cdFamilia);
 			
-			 return Response.ok((byte[])result.getObjects().get("PDF_BYTES")).build();
+			return Response.ok((byte[])result.getObjects().get("PDF_BYTES")).build();
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
 			return null;
