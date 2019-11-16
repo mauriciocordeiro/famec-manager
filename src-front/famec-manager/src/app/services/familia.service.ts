@@ -56,10 +56,15 @@ export class FamiliaService extends Services {
     );
   }
 
-  printComprovante(cdFamilia: any): Observable<Result> {
-    return this.http.get(`${this.serviceUrl}/report/comprovante?codigo=${cdFamilia}`, httpOptions).pipe(
-      tap((result: Result) => this.log(result.message)),
-      catchError(this.handleError<Result>('Erro! reportComprovante'))
+  printComprovante(cdFamilia: any): Observable<any> {
+    
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    
+    return this.http.get(`${this.serviceUrl}/report/comprovante?codigo=${cdFamilia}`, 
+      {headers, responseType: 'blob'})
+        .pipe(
+          tap((result:any) => this.log("Erro ao gerar relatório")),
+          catchError(this.handleError<any>('Erro! reportComprovante'))
     );
   }
 }

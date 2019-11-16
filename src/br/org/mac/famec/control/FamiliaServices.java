@@ -1,5 +1,8 @@
 package br.org.mac.famec.control;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -293,6 +296,11 @@ public class FamiliaServices {
 			
 			Result result = ReportUtils.generate("cadastro_familia", parameters, rsm);
 			
+			OutputStream os = new FileOutputStream("C:/test.pdf");
+			os.write((byte[])result.getObjects().get("PDF_BYTES"));
+			
+			os.flush();
+			os.close();
 			
 			return result;
 		}

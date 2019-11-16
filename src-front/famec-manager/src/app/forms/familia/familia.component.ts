@@ -401,10 +401,10 @@ export class FamiliaComponent implements OnInit {
     this.familiaService.printComprovante(this.formGroup.value.cdFamilia)
       .subscribe(item => {
         console.log(item);
-        let file = new Blob([item.objects.PDF_BYTES], { type: 'application/pdf' });    
+        let file = new Blob([item], { type: 'application/pdf' });    
 
         let url = URL.createObjectURL(file);
-        let w = window.open(url);
+        window.open(url);
 
       });
   }
