@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comprovante_matricula" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="14a516da-494c-432f-a351-38baf9d80dc0">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="284" splitType="Stretch">
+			<staticText>
+				<reportElement x="80" y="0" width="400" height="31" uuid="85044b3a-521f-45c2-ab81-ca7da2b71fcb"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fundação de Assistência e Desenvolvimento Humano para Crianças, Adolescentes e seus Familiares de Vitória da Conquista - BA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="31" width="400" height="15" uuid="cb798fbc-f8a8-486f-82a7-ea0a704753f2"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Utilidade Pública Municipal - Lei nº 305/84 - Utilidade Pública Estadual - Lei 10.198/2006]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="46" width="400" height="15" uuid="7550edad-d59e-437c-b567-57f23fa7da90"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Utilidade Pública Federal - Portaria nº 3.935/2004	CNPJ: 13.245.121/0001-45]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="61" width="400" height="15" uuid="c875fa0b-d50b-4a9a-9fa9-1f84ad23c552"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Reg. CNAS - Resolução nº 135, em 11/08/2005	D.O.U. 16/08/2005]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="10" y="90" width="535" height="30" uuid="af56287f-c969-4e7f-8e5b-be83115d72e4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["COMPROVANTE DE MATRÍCULA"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="76" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="89" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement x="80" y="0" width="400" height="15" uuid="1c1ef5de-8358-4f23-97b2-9e3469ae4ce2"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Av. Ivo Freire de Aguiar S/N - Candeias - Vitória da Conquista - BA CEP: 45.050-460]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="15" width="400" height="15" uuid="f32629a6-db0d-4be4-b481-ce0a3449eb65"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[(0**77) FAX: 3424-4709 - TEL: 3424-2301]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="30" width="400" height="15" uuid="8bd91b10-2a1f-4c0d-b907-e55ae4afc8e5"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-mail: famec.vc@outlook.com]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>
