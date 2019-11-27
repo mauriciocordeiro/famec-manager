@@ -10,6 +10,17 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="NR_PRONTUARIO" class="java.lang.String"/>
+	<parameter name="NM_ALUNO" class="java.lang.String"/>
+	<parameter name="DS_DT_NASCIMENTO" class="java.lang.Integer"/>
+	<parameter name="NR_IDADE" class="java.lang.String"/>
+	<parameter name="TP_SEXO" class="java.lang.Integer"/>
+	<parameter name="NR_TELEFONE" class="java.lang.Integer"/>
+	<parameter name="TP_TURNO_FAMEC" class="java.lang.Integer"/>
+	<parameter name="NM_ESCOLA" class="java.lang.String"/>
+	<parameter name="DS_ACOMPANHANTE" class="java.lang.String"/>
+	<parameter name="DS_HR_SAIDA" class="java.lang.String"/>
+	<parameter name="NM_USUARIO" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -60,6 +71,19 @@
 				</textElement>
 				<text><![CDATA[Cadastro]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="80" y="130" width="470" height="20" uuid="9cf19c7d-02b1-4ef9-8200-1c4dc730b16f"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NR_PRONTUARIO}]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement x="0" y="150" width="80" height="20" uuid="dd42438f-18f1-429d-a3a4-bda48eca555b"/>
 				<box padding="1">
@@ -73,6 +97,19 @@
 				</textElement>
 				<text><![CDATA[Educando(a)]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="80" y="150" width="300" height="20" uuid="d2e1ad8d-2b97-4d0f-a3a9-c5be99f2d13a"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NM_ALUNO}]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement x="380" y="150" width="80" height="20" uuid="68de4059-b8cc-42c7-84eb-f4c705356dab"/>
 				<box padding="1">
@@ -86,6 +123,19 @@
 				</textElement>
 				<text><![CDATA[Nascimento]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="460" y="150" width="90" height="20" uuid="24a4499f-f417-4e41-b41b-fdc8d60f5472"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{DS_DT_NASCIMENTO}]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement x="0" y="170" width="80" height="20" uuid="3e107b4b-fe0c-4775-ac27-d5e0698741f1"/>
 				<box padding="1">
@@ -99,6 +149,19 @@
 				</textElement>
 				<text><![CDATA[Idade]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="80" y="170" width="60" height="20" uuid="d9287531-bf42-4f0d-a056-5210e7e9c4d9"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NR_IDADE}]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement x="140" y="170" width="80" height="20" uuid="da525d87-13d6-4a75-b6e7-a1f014c4c3e2"/>
 				<box padding="1">
@@ -138,6 +201,19 @@
 				</textElement>
 				<text><![CDATA[Telefone]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="360" y="170" width="190" height="20" uuid="c1afecce-b9a7-43b9-b75a-7b817dc1ef12"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NR_TELEFONE}]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement x="0" y="190" width="80" height="20" uuid="1431c85b-9741-441a-9cfb-837c81a4e91d"/>
 				<box padding="1">
@@ -177,6 +253,19 @@
 				</textElement>
 				<text><![CDATA[Escola]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="260" y="190" width="290" height="20" uuid="6e00d2aa-2fee-4f9c-8e77-acbe1c5ef0b0"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NM_ESCOLA}]]></textFieldExpression>
+			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement stretchType="ContainerHeight" x="0" y="230" width="550" height="70" uuid="a6d71563-a313-4232-9ba7-474070d9f8fd">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
@@ -193,7 +282,7 @@
 					<font size="12" isBold="true"/>
 					<paragraph firstLineIndent="5" leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA["\tAutorizo a volta da criança ou adolescente para casa,, no horário: , assumindo a inteira responsabilidade do que possa ocorrer no seu deslocamento."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["\tAutorizo a volta da criança ou adolescente para casa, "+$P{DS_ACOMPANHANTE}+", no horário: "+$P{DS_HR_SAIDA}+", assumindo a inteira responsabilidade do que possa ocorrer no seu deslocamento."]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="210" width="180" height="20" uuid="3009df57-a178-4e89-b412-4f235ec38bf1"/>
@@ -265,6 +354,19 @@
 				<text><![CDATA[Responsável pelas informações]]></text>
 			</staticText>
 			<textField>
+				<reportElement x="180" y="380" width="370" height="20" uuid="bd513144-12e8-42ea-a941-d48d0d1d2811"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NM_USUARIO}]]></textFieldExpression>
+			</textField>
+			<textField>
 				<reportElement x="0" y="410" width="550" height="20" uuid="5d6731e1-3517-443f-98f6-dd58a0873808"/>
 				<box padding="1">
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -318,6 +420,19 @@
 				</textElement>
 				<text><![CDATA[Educando(a)]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="80" y="603" width="290" height="20" uuid="1ea79dbe-770e-45aa-a64b-99344e0ad42e"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NM_ALUNO}]]></textFieldExpression>
+			</textField>
 			<textField>
 				<reportElement x="0" y="573" width="550" height="30" uuid="5ee2e79e-444b-4e8b-a9fb-a4e1e7b7a5bd"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">

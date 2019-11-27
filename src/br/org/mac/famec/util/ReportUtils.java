@@ -7,9 +7,10 @@ import java.util.HashMap;
 
 import com.lowagie.text.pdf.PdfWriter;
 
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -34,7 +35,7 @@ public class ReportUtils {
 			File file = new File(url.getPath());
 			
 			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-			JRBeanCollectionDataSource datasource = new JRBeanCollectionDataSource(rsmDataSource.getLines());	
+			JRDataSource datasource = rsmDataSource==null ? new JREmptyDataSource() : new JRBeanCollectionDataSource(rsmDataSource.getLines());	
 			
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, datasource);	
 			

@@ -256,13 +256,14 @@ public class FamiliaServices {
 		try {
 			
 			 ResultSetMap rsm = Search.find(
-					  " SELECT A.*, C.*, D.*, E.*, F.* "
+					  " SELECT A.*, C.*, D.*, E.*, F.*, G.nm_usuario "
 					+ " FROM familia 				A"
 					+ " JOIN aluno 					B ON (A.cd_familia = B.cd_familia)"
 					+ " JOIN responsavel 			C ON (A.cd_familia = C.cd_familia)"
 					+ " JOIN habitacao 			  	D ON (A.cd_familia = D.cd_familia)"
 					+ " JOIN perfil_social 		  	E ON (A.cd_familia = E.cd_familia)"
-					+ " JOIN endereco_responsavel 	F ON (C.cd_responsavel = F.cd_responsavel)", 
+					+ " JOIN endereco_responsavel 	F ON (C.cd_responsavel = F.cd_responsavel)"
+					+ " LEFT OUTER JOIN	usuario		G ON (A.cd_usuario_cadastro = G.cd_usuario)", 
 					criterios, connect!=null ? connect : Conexao.connect(), connect==null);
 			 
 			 while(rsm.next()) {
@@ -320,15 +321,23 @@ public class FamiliaServices {
 			crt.add(new ItemComparator("B.cd_aluno", Integer.toString(cdFamilia), ItemComparator.EQUAL, Types.INTEGER));	
 			ResultSetMap rsm = find(crt);
 			
-			HashMap<String, Object> parameters = new HashMap<>();
+			HashMap<String, Object> params = new HashMap<>();
 			
-			Result result = ReportUtils.generate("comprovante_matricula", parameters, rsm);
+			if(rsm.next()) {
+				params.put("NR_PRONTUARIO", rsm.getInt("nr_prontuario"));
+				params.put("NM_ALUNO", rsm.getString("NM_ALUNO"));
+				params.put("DS_DT_NASCIMENTO", rsm.getString("DS_DT_NASCIMENTO"));
+				params.put("NR_IDADE", rsm.getInt("NR_IDADE"));
+				params.put("TP_SEXO", rsm.getInt("TP_SEXO"));
+				params.put("NR_TELEFONE", rsm.getString("NR_TELEFONE"));
+				params.put("TP_TURNO_FAMEC", rsm.getInt("TP_TURNO_FAMEC"));
+				params.put("NM_ESCOLA", rsm.getString("NM_ESCOLA"));
+				params.put("DS_ACOMPANHANTE", "dsf");
+				params.put("DS_HR_SAIDA", "00:00");
+				params.put("NM_USUARIO", rsm.getString("nr_prontuario"));
+			}
 			
-//			OutputStream os = new FileOutputStream("C:/test.pdf");
-//			os.write((byte[])result.getObjects().get("PDF_BYTES"));
-//			
-//			os.flush();
-//			os.close();
+			Result result = ReportUtils.generate("comprovante_matricula", params, null);
 			
 			return result;
 		}
