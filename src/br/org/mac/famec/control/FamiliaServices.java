@@ -258,7 +258,7 @@ public class FamiliaServices {
 			 ResultSetMap rsm = Search.find(
 					  " SELECT A.*, C.*, D.*, E.*, F.* "
 					+ " FROM familia 				A"
-//					+ " JOIN aluno 					B ON (A.cd_familia = B.cd_familia)"
+					+ " JOIN aluno 					B ON (A.cd_familia = B.cd_familia)"
 					+ " JOIN responsavel 			C ON (A.cd_familia = C.cd_familia)"
 					+ " JOIN habitacao 			  	D ON (A.cd_familia = D.cd_familia)"
 					+ " JOIN perfil_social 		  	E ON (A.cd_familia = E.cd_familia)"
@@ -301,6 +301,34 @@ public class FamiliaServices {
 			
 			os.flush();
 			os.close();
+			
+			return result;
+		}
+		catch(Exception e) {
+			e.printStackTrace(System.out);
+			System.out.println("Erro! FamiliaServices.generateFormulario: " + e);
+			return null;
+		}
+	}
+	
+
+	public static Result generateComprovante(int cdFamilia, int cdAluno) {		
+		try {
+			
+			ArrayList<ItemComparator> crt = new ArrayList<>();
+			crt.add(new ItemComparator("A.cd_familia", Integer.toString(cdFamilia), ItemComparator.EQUAL, Types.INTEGER));	
+			crt.add(new ItemComparator("B.cd_aluno", Integer.toString(cdFamilia), ItemComparator.EQUAL, Types.INTEGER));	
+			ResultSetMap rsm = find(crt);
+			
+			HashMap<String, Object> parameters = new HashMap<>();
+			
+			Result result = ReportUtils.generate("comprovante_matricula", parameters, rsm);
+			
+//			OutputStream os = new FileOutputStream("C:/test.pdf");
+//			os.write((byte[])result.getObjects().get("PDF_BYTES"));
+//			
+//			os.flush();
+//			os.close();
 			
 			return result;
 		}

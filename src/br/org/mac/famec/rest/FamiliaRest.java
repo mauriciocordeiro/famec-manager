@@ -7,7 +7,6 @@ import java.util.GregorianCalendar;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -18,9 +17,7 @@ import javax.ws.rs.core.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import br.org.mac.famec.control.AlunoServices;
 import br.org.mac.famec.control.FamiliaServices;
-import br.org.mac.famec.control.UsuarioServices;
 import br.org.mac.famec.model.Aluno;
 import br.org.mac.famec.model.EnderecoResponsavel;
 import br.org.mac.famec.model.Familia;
@@ -243,9 +240,9 @@ public class FamiliaRest {
 	@Path("/report/comprovante")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces("application/pdf")
-	public static Response reportComprovante(@QueryParam("codigo") int cdFamilia) {
+	public static Response reportComprovante(@QueryParam("cdFamilia") int cdFamilia, @QueryParam("cdAluno") int cdAluno) {
 		try {			
-			Result result = FamiliaServices.generateFormulario(cdFamilia);
+			Result result = FamiliaServices.generateComprovante(cdFamilia, cdAluno);
 			
 			return Response.ok((byte[])result.getObjects().get("PDF_BYTES")).build();
 		} catch (Exception e) {
