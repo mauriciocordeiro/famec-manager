@@ -398,7 +398,7 @@ export class FamiliaComponent implements OnInit {
   }
 
   print() {
-    this.familiaService.printComprovante(this.formGroup.value.cdFamilia)
+    this.familiaService.printComprovante(this.formGroup.value.cdFamilia, this.formGroup.value.arrayAlunos[0].value.cdAluno)
       .subscribe(item => {
         console.log(item);
         let file = new Blob([item], { type: 'application/pdf' });    

@@ -56,11 +56,11 @@ export class FamiliaService extends Services {
     );
   }
 
-  printComprovante(cdFamilia: any): Observable<any> {
+  printComprovante(cdFamilia, cdAluno): Observable<any> {
     
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     
-    return this.http.get(`${this.serviceUrl}/report/comprovante?codigo=${cdFamilia}`, 
+    return this.http.get(`${this.serviceUrl}/report/comprovante?cdFamilia=${cdFamilia}&cdAluno=${cdAluno}`, 
       {headers, responseType: 'blob'})
         .pipe(
           tap((result:any) => this.log("Erro ao gerar relatório")),
