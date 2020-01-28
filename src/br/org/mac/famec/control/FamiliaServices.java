@@ -21,6 +21,7 @@ import br.org.mac.famec.model.PerfilSocial;
 import br.org.mac.famec.model.Responsavel;
 import br.org.mac.famec.util.Conexao;
 import br.org.mac.famec.util.ReportUtils;
+import br.org.mac.famec.util.Util;
 
 public class FamiliaServices {
 
@@ -327,26 +328,28 @@ public class FamiliaServices {
 			
 			ArrayList<ItemComparator> crt = new ArrayList<>();
 			crt.add(new ItemComparator("A.cd_familia", Integer.toString(cdFamilia), ItemComparator.EQUAL, Types.INTEGER));	
-			ResultSetMap rsm = find(crt);
-			
-			System.out.println(rsm);
+			ResultSetMap rsm = Search.find(
+					  " SELECT A.*, B.*, C.*, D.*, E.*, F.*, G.nm_usuario "
+					+ " FROM familia 				A"
+					+ " JOIN aluno 					B ON (A.cd_familia = B.cd_familia)"
+					+ " JOIN responsavel 			C ON (A.cd_familia = C.cd_familia)"
+					+ " JOIN habitacao 			  	D ON (A.cd_familia = D.cd_familia)"
+					+ " JOIN perfil_social 		  	E ON (A.cd_familia = E.cd_familia)"
+					+ " JOIN endereco_responsavel 	F ON (C.cd_responsavel = F.cd_responsavel)"
+					+ " LEFT OUTER JOIN	usuario		G ON (A.cd_usuario_cadastro = G.cd_usuario)", 
+					crt, Conexao.connect(), true);
 			
 			HashMap<String, Object> params = new HashMap<>();
 			
-			if(rsm.next()) {
-				params.put("NR_PRONTUARIO", rsm.getString("nr_prontuario"));
-				params.put("NM_ALUNO", rsm.getString("NM_ALUNO"));
-				params.put("DS_DT_NASCIMENTO", rsm.getString("DS_DT_NASCIMENTO"));
-//				params.put("NR_IDADE", rsm.getInt("NR_IDADE"));
-				params.put("TP_SEXO", rsm.getInt("TP_SEXO"));
-				params.put("NR_TELEFONE", rsm.getString("NR_TELEFONE"));
-				params.put("TP_TURNO_FAMEC", rsm.getInt("TP_TURNO_FAMEC"));
-				params.put("NM_ESCOLA", rsm.getString("NM_ESCOLA"));
-				params.put("DS_ACOMPANHANTE", "dsf");
-				params.put("DS_HR_SAIDA", "00:00");
-				params.put("NM_USUARIO", rsm.getString("nm_usuario"));
+			while(rsm.next()) {
+				rsm.setValueToField("NM_TP_SEXO", AlunoServices.sexo[rsm.getInt("TP_SEXO")]);
+				rsm.setValueToField("NM_LG_ALMOCO_INSTITUICAO", rsm.getInt("LG_ALMOCO_INSTITUICAO") == 1 ? "Sim" : "Não");
+				rsm.setValueToField("NM_TP_TURNO_FAMEC", AlunoServices.turnoInstituicao[rsm.getInt("TP_TURNO_FAMEC")]);
+				rsm.setValueToField("DS_DT_NASCIMENTO", sol.util.Util.convCalendarString(rsm.getGregorianCalendar("DT_NASCIMENTO")));
 			}
 			rsm.beforeFirst();
+
+			System.out.println(rsm);
 			
 			Result result = ReportUtils.generate("comprovante_matricula", params, rsm);
 			

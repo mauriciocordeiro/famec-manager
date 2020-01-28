@@ -22,6 +22,8 @@ import sol.util.Result;
 public class AlunoServices {
 	
 	public static final String[] turnoInstituicao = {"", "Matutino", "Vespertino", "Noturno", "Diurno"};
+	public static final String[] sexo= {"", "Masculino", "Feminino"};
+	
 
 	public static Result save(Aluno aluno){
 		return save(aluno, null);
