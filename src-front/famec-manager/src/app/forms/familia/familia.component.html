@@ -363,6 +363,10 @@
       </mat-expansion-panel>
     </mat-accordion>
     <mat-card-actions class="done">
+        <button mat-button color="primary" type="button" (click)="print()" matTooltip="Imprimir comprovante família">
+          <mat-icon>print</mat-icon>
+          Comprovante
+        </button>
       <button *ngIf="formGroup.value.cdFamilia && formGroup.value.cdFamilia>0" mat-button 
           color="warn" type="button" (click)="onDelete()" matTooltip="Excluir cadastro da família">
         <mat-icon>delete</mat-icon>

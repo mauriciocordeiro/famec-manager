@@ -55,4 +55,16 @@ export class FamiliaService extends Services {
       catchError(this.handleError<Result>('Erro! deleteFamilia'))
     );
   }
+
+  printComprovante(cdFamilia, cdAluno): Observable<any> {
+    
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    
+    return this.http.get(`${this.serviceUrl}/report/comprovante?cdFamilia=${cdFamilia}&cdAluno=${cdAluno}`, 
+      {headers, responseType: 'blob'})
+        .pipe(
+          tap((result:any) => this.log("Erro ao gerar relatório")),
+          catchError(this.handleError<any>('Erro! reportComprovante'))
+    );
+  }
 }
