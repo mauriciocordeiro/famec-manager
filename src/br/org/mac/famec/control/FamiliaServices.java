@@ -4,7 +4,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import sol.dao.ResultSetMap;
@@ -346,6 +350,45 @@ public class FamiliaServices {
 				rsm.setValueToField("NM_LG_ALMOCO_INSTITUICAO", rsm.getInt("LG_ALMOCO_INSTITUICAO") == 1 ? "Sim" : "Não");
 				rsm.setValueToField("NM_TP_TURNO_FAMEC", AlunoServices.turnoInstituicao[rsm.getInt("TP_TURNO_FAMEC")]);
 				rsm.setValueToField("DS_DT_NASCIMENTO", sol.util.Util.convCalendarString(rsm.getGregorianCalendar("DT_NASCIMENTO")));
+				
+				GregorianCalendar dtN = rsm.getGregorianCalendar("DT_NASCIMENTO");
+				LocalDate start = LocalDate.of(dtN.get(Calendar.YEAR), dtN.get(Calendar.MONTH), dtN.get(Calendar.DAY_OF_MONTH));
+				LocalDate end = LocalDate.now(); 
+				long years = ChronoUnit.YEARS.between(start, end);
+				rsm.setValueToField("NR_IDADE", Long.toString(years)+" anos");
+
+				String nrTelefone = "";
+				if(rsm.getString("NR_TELEFONE_1", null) != null) {
+					nrTelefone += rsm.getString("NR_TELEFONE_1");
+				}
+				if(rsm.getString("NR_TELEFONE_2", null) != null) {
+					nrTelefone += " "+rsm.getString("NR_TELEFONE_2");
+				}
+				if(rsm.getString("NR_TELEFONE_TRABALHO", null) != null) {
+					nrTelefone += " "+rsm.getString("NR_TELEFONE_TRABALHO");
+				}
+				rsm.setValueToField("NR_TELEFONE", nrTelefone);
+				
+				if(rsm.getInt("LG_ACOMPANHANTE_SAIDA") > 0) {
+					String dsAcompanhante = "acompanhado";
+					
+					if(rsm.getString("NM_ACOMPANHANTE_SAIDA", null) != null && !rsm.getString("NM_ACOMPANHANTE_SAIDA").trim().equals("")) {
+						dsAcompanhante += " por "+rsm.getString("NM_ACOMPANHANTE_SAIDA");
+					}
+					
+					rsm.setValueToField("DS_ACOMPANHANTE", dsAcompanhante);
+				} else {
+					rsm.setValueToField("DS_ACOMPANHANTE", "sozinho");
+				}
+				
+				if(rsm.getGregorianCalendar("HR_SAIDA") != null) {
+					GregorianCalendar hrSaida = rsm.getGregorianCalendar("HR_SAIDA");
+					rsm.setValueToField("DS_HR_SAIDA", Util.format(hrSaida, "HH:mm"));
+				} else {
+					rsm.setValueToField("DS_HR_SAIDA", "qualquer");
+				}
+				
+				
 			}
 			rsm.beforeFirst();
 			

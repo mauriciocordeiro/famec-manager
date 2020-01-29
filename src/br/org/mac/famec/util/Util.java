@@ -1,5 +1,7 @@
 package br.org.mac.famec.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.StringTokenizer;
 
@@ -56,6 +58,14 @@ public class Util {
 			e.printStackTrace(System.out);
 			return null;
 		}
+	}
+	
+	public static String format(GregorianCalendar date, String mask) {
+		SimpleDateFormat formatter = new SimpleDateFormat(mask);
+		
+		Date d = date.getTime();
+		
+		return formatter.format(d);
 	}
 
 }
