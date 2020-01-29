@@ -62,10 +62,14 @@ public class Util {
 	
 	public static String format(GregorianCalendar date, String mask) {
 		SimpleDateFormat formatter = new SimpleDateFormat(mask);
-		
 		Date d = date.getTime();
-		
 		return formatter.format(d);
+	}
+	
+	public static String leadingZero(int num, int length) {
+		String format = String.format("%%0%dd", length);
+		String result = String.format(format, num);
+		return result;
 	}
 
 }

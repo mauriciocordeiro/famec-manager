@@ -3,6 +3,7 @@ package br.org.mac.famec.control;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -344,6 +345,9 @@ public class FamiliaServices {
 					crt, Conexao.connect(), true);
 			
 			HashMap<String, Object> params = new HashMap<>();
+			params.put("LOGO", FamiliaServices.class.getResourceAsStream("/reports/img/famec_1.png"));
+			params.put("DS_HOJE", Util.format(new GregorianCalendar(), "DD 'de' MMMM 'de' yyyy"));
+			
 			
 			while(rsm.next()) {
 				rsm.setValueToField("NM_TP_SEXO", AlunoServices.sexo[rsm.getInt("TP_SEXO")]);
@@ -352,7 +356,7 @@ public class FamiliaServices {
 				rsm.setValueToField("DS_DT_NASCIMENTO", sol.util.Util.convCalendarString(rsm.getGregorianCalendar("DT_NASCIMENTO")));
 				
 				GregorianCalendar dtN = rsm.getGregorianCalendar("DT_NASCIMENTO");
-				LocalDate start = LocalDate.of(dtN.get(Calendar.YEAR), dtN.get(Calendar.MONTH), dtN.get(Calendar.DAY_OF_MONTH));
+				LocalDate start = LocalDate.of(dtN.get(Calendar.YEAR), dtN.get(Calendar.MONTH)+1, dtN.get(Calendar.DAY_OF_MONTH));
 				LocalDate end = LocalDate.now(); 
 				long years = ChronoUnit.YEARS.between(start, end);
 				rsm.setValueToField("NR_IDADE", Long.toString(years)+" anos");
@@ -388,7 +392,7 @@ public class FamiliaServices {
 					rsm.setValueToField("DS_HR_SAIDA", "qualquer");
 				}
 				
-				
+				rsm.setValueToField("NR_PRONTUARIO", Util.leadingZero(Integer.parseInt(rsm.getString("NR_PRONTUARIO")), 5));
 			}
 			rsm.beforeFirst();
 			
