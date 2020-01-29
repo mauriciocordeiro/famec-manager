@@ -348,8 +348,6 @@ public class FamiliaServices {
 				rsm.setValueToField("DS_DT_NASCIMENTO", sol.util.Util.convCalendarString(rsm.getGregorianCalendar("DT_NASCIMENTO")));
 			}
 			rsm.beforeFirst();
-
-			System.out.println(rsm);
 			
 			Result result = ReportUtils.generate("comprovante_matricula", params, rsm);
 			
