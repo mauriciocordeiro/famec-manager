@@ -12,13 +12,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import br.org.mac.famec.control.AlunoServices;
 import br.org.mac.famec.control.FamiliaServices;
-import br.org.mac.famec.control.UsuarioServices;
 import br.org.mac.famec.model.Aluno;
 import br.org.mac.famec.model.EnderecoResponsavel;
 import br.org.mac.famec.model.Familia;
@@ -231,6 +230,21 @@ public class FamiliaRest {
 			}
 			
 			return new JSONArray(list).toString();
+		} catch (Exception e) {
+			e.printStackTrace(System.out);
+			return null;
+		}
+	}
+	
+	@GET
+	@Path("/report/comprovante")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/pdf")
+	public static Response reportComprovante(@QueryParam("cdFamilia") int cdFamilia, @QueryParam("cdAluno") int cdAluno) {
+		try {			
+			Result result = FamiliaServices.generateComprovante(cdFamilia, cdAluno);
+			
+			return Response.ok((byte[])result.getObjects().get("PDF_BYTES")).build();
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
 			return null;

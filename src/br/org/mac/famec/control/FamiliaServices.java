@@ -1,5 +1,8 @@
 package br.org.mac.famec.control;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +20,8 @@ import br.org.mac.famec.model.Habitacao;
 import br.org.mac.famec.model.PerfilSocial;
 import br.org.mac.famec.model.Responsavel;
 import br.org.mac.famec.util.Conexao;
+import br.org.mac.famec.util.ReportUtils;
+import br.org.mac.famec.util.Util;
 
 public class FamiliaServices {
 
@@ -252,13 +257,14 @@ public class FamiliaServices {
 		try {
 			
 			 ResultSetMap rsm = Search.find(
-					  " SELECT A.*, C.*, D.*, E.*, F.* "
+					  " SELECT A.*, C.*, D.*, E.*, F.*, G.nm_usuario "
 					+ " FROM familia 				A"
 //					+ " JOIN aluno 					B ON (A.cd_familia = B.cd_familia)"
 					+ " JOIN responsavel 			C ON (A.cd_familia = C.cd_familia)"
 					+ " JOIN habitacao 			  	D ON (A.cd_familia = D.cd_familia)"
 					+ " JOIN perfil_social 		  	E ON (A.cd_familia = E.cd_familia)"
-					+ " JOIN endereco_responsavel 	F ON (C.cd_responsavel = F.cd_responsavel)", 
+					+ " JOIN endereco_responsavel 	F ON (C.cd_responsavel = F.cd_responsavel)"
+					+ " LEFT OUTER JOIN	usuario		G ON (A.cd_usuario_cadastro = G.cd_usuario)", 
 					criterios, connect!=null ? connect : Conexao.connect(), connect==null);
 			 
 			 while(rsm.next()) {
@@ -286,14 +292,68 @@ public class FamiliaServices {
 			
 			ArrayList<ItemComparator> crt = new ArrayList<>();
 			crt.add(new ItemComparator("A.cd_familia", Integer.toString(cdFamilia), ItemComparator.EQUAL, Types.INTEGER));	
-			ResultSetMap rsm = find(crt);
+			ResultSetMap rsm = Search.find(
+					  " SELECT A.*, B.*, C.*, D.*, E.*, F.*, G.nm_usuario "
+					+ " FROM familia 				A"
+					+ " JOIN aluno 					B ON (A.cd_familia = B.cd_familia)"
+					+ " JOIN responsavel 			C ON (A.cd_familia = C.cd_familia)"
+					+ " JOIN habitacao 			  	D ON (A.cd_familia = D.cd_familia)"
+					+ " JOIN perfil_social 		  	E ON (A.cd_familia = E.cd_familia)"
+					+ " JOIN endereco_responsavel 	F ON (C.cd_responsavel = F.cd_responsavel)"
+					+ " LEFT OUTER JOIN	usuario		G ON (A.cd_usuario_cadastro = G.cd_usuario)", 
+					crt, Conexao.connect(), true);
 			
 			HashMap<String, Object> parameters = new HashMap<>();
 			
-			//Result result = ReportUtils.generate("cadastro_familia", parameters, rsm);
+			Result result = ReportUtils.generate("cadastro_familia", parameters, rsm);
 			
+			OutputStream os = new FileOutputStream("C:/test.pdf");
+			os.write((byte[])result.getObjects().get("PDF_BYTES"));
 			
+			os.flush();
+			os.close();
+			
+			return result;
+		}
+		catch(Exception e) {
+			e.printStackTrace(System.out);
+			System.out.println("Erro! FamiliaServices.generateFormulario: " + e);
 			return null;
+		}
+	}
+	
+
+	public static Result generateComprovante(int cdFamilia, int cdAluno) {		
+		try {
+			
+			ArrayList<ItemComparator> crt = new ArrayList<>();
+			crt.add(new ItemComparator("A.cd_familia", Integer.toString(cdFamilia), ItemComparator.EQUAL, Types.INTEGER));	
+			ResultSetMap rsm = Search.find(
+					  " SELECT A.*, B.*, C.*, D.*, E.*, F.*, G.nm_usuario "
+					+ " FROM familia 				A"
+					+ " JOIN aluno 					B ON (A.cd_familia = B.cd_familia)"
+					+ " JOIN responsavel 			C ON (A.cd_familia = C.cd_familia)"
+					+ " JOIN habitacao 			  	D ON (A.cd_familia = D.cd_familia)"
+					+ " JOIN perfil_social 		  	E ON (A.cd_familia = E.cd_familia)"
+					+ " JOIN endereco_responsavel 	F ON (C.cd_responsavel = F.cd_responsavel)"
+					+ " LEFT OUTER JOIN	usuario		G ON (A.cd_usuario_cadastro = G.cd_usuario)", 
+					crt, Conexao.connect(), true);
+			
+			HashMap<String, Object> params = new HashMap<>();
+			
+			while(rsm.next()) {
+				rsm.setValueToField("NM_TP_SEXO", AlunoServices.sexo[rsm.getInt("TP_SEXO")]);
+				rsm.setValueToField("NM_LG_ALMOCO_INSTITUICAO", rsm.getInt("LG_ALMOCO_INSTITUICAO") == 1 ? "Sim" : "Não");
+				rsm.setValueToField("NM_TP_TURNO_FAMEC", AlunoServices.turnoInstituicao[rsm.getInt("TP_TURNO_FAMEC")]);
+				rsm.setValueToField("DS_DT_NASCIMENTO", sol.util.Util.convCalendarString(rsm.getGregorianCalendar("DT_NASCIMENTO")));
+			}
+			rsm.beforeFirst();
+
+			System.out.println(rsm);
+			
+			Result result = ReportUtils.generate("comprovante_matricula", params, rsm);
+			
+			return result;
 		}
 		catch(Exception e) {
 			e.printStackTrace(System.out);
