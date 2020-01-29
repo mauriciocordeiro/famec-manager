@@ -41,4 +41,16 @@ export class AlunoService extends Services {
         catchError(this.handleError<JSON[]>('find', []))
       );
   }
+
+  printList(): Observable<any> {
+    
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    
+    return this.http.get(`${this.serviceUrl}/report/list`, 
+      {headers, responseType: 'blob'})
+        .pipe(
+          tap((result:any) => this.log("Erro ao gerar relatório")),
+          catchError(this.handleError<any>('Erro! reportList'))
+    );
+  }
 }

@@ -3,15 +3,19 @@ package br.org.mac.famec.control;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 
 import br.org.mac.famec.model.Aluno;
 import br.org.mac.famec.model.AlunoDAO;
 import br.org.mac.famec.util.Conexao;
+import br.org.mac.famec.util.ReportUtils;
 import br.org.mac.famec.util.Util;
 import br.org.mac.midgard.util.Date;
 import sol.dao.ItemComparator;
@@ -211,6 +215,97 @@ public class AlunoServices {
 		}
 		finally {
 			Conexao.disconnect(connect);
+		}
+	}
+	
+	public static Result printLista() {		
+		try {
+			
+			ArrayList<ItemComparator> crt = new ArrayList<>();
+			crt.add(new ItemComparator("B.st_aluno", Integer.toString(1), ItemComparator.EQUAL, Types.INTEGER));	
+			ResultSetMap rsm = Search.find(
+					  " SELECT A.*, B.*, C.*, D.*, E.*, F.*, G.nm_usuario "
+					+ " FROM familia 				A"
+					+ " JOIN aluno 					B ON (A.cd_familia = B.cd_familia)"
+					+ " JOIN responsavel 			C ON (A.cd_familia = C.cd_familia)"
+					+ " JOIN habitacao 			  	D ON (A.cd_familia = D.cd_familia)"
+					+ " JOIN perfil_social 		  	E ON (A.cd_familia = E.cd_familia)"
+					+ " JOIN endereco_responsavel 	F ON (C.cd_responsavel = F.cd_responsavel)"
+					+ " LEFT OUTER JOIN	usuario		G ON (A.cd_usuario_cadastro = G.cd_usuario)", 
+					crt, Conexao.connect(), true);
+			
+			HashMap<String, Object> params = new HashMap<>();
+			params.put("LOGO", FamiliaServices.class.getResourceAsStream("/reports/img/famec_1.png"));
+			params.put("DS_HOJE", Util.format(new GregorianCalendar(), "DD 'de' MMMM 'de' yyyy"));
+			
+			
+			while(rsm.next()) {
+				rsm.setValueToField("NM_TP_SEXO", AlunoServices.sexo[rsm.getInt("TP_SEXO")]);
+				rsm.setValueToField("NM_LG_ALMOCO_INSTITUICAO", rsm.getInt("LG_ALMOCO_INSTITUICAO") == 1 ? "Sim" : "Não");
+				rsm.setValueToField("NM_TP_TURNO_FAMEC", AlunoServices.turnoInstituicao[rsm.getInt("TP_TURNO_FAMEC")]);
+				rsm.setValueToField("DS_DT_NASCIMENTO", sol.util.Util.convCalendarString(rsm.getGregorianCalendar("DT_NASCIMENTO")));
+				
+				GregorianCalendar dtN = rsm.getGregorianCalendar("DT_NASCIMENTO");
+				LocalDate start = LocalDate.of(dtN.get(Calendar.YEAR), dtN.get(Calendar.MONTH)+1, dtN.get(Calendar.DAY_OF_MONTH));
+				LocalDate end = LocalDate.now(); 
+				long years = ChronoUnit.YEARS.between(start, end);
+				rsm.setValueToField("NR_IDADE", Long.toString(years)+" anos");
+
+				String nrTelefone = "";
+				if(rsm.getString("NR_TELEFONE_1", null) != null) {
+					nrTelefone += rsm.getString("NR_TELEFONE_1");
+				}
+				if(rsm.getString("NR_TELEFONE_2", null) != null) {
+					nrTelefone += " "+rsm.getString("NR_TELEFONE_2");
+				}
+				if(rsm.getString("NR_TELEFONE_TRABALHO", null) != null) {
+					nrTelefone += " "+rsm.getString("NR_TELEFONE_TRABALHO");
+				}
+				rsm.setValueToField("NR_TELEFONE", nrTelefone);
+				
+				if(rsm.getInt("LG_ACOMPANHANTE_SAIDA") > 0) {
+					String dsAcompanhante = "acompanhado";
+					
+					if(rsm.getString("NM_ACOMPANHANTE_SAIDA", null) != null && !rsm.getString("NM_ACOMPANHANTE_SAIDA").trim().equals("")) {
+						dsAcompanhante += " por "+rsm.getString("NM_ACOMPANHANTE_SAIDA");
+					}
+					
+					rsm.setValueToField("DS_ACOMPANHANTE", dsAcompanhante);
+				} else {
+					rsm.setValueToField("DS_ACOMPANHANTE", "sozinho");
+				}
+				
+				if(rsm.getGregorianCalendar("HR_SAIDA") != null) {
+					GregorianCalendar hrSaida = rsm.getGregorianCalendar("HR_SAIDA");
+					rsm.setValueToField("DS_HR_SAIDA", Util.format(hrSaida, "HH:mm"));
+				} else {
+					rsm.setValueToField("DS_HR_SAIDA", "qualquer");
+				}
+				
+				rsm.setValueToField("NR_PRONTUARIO", Util.leadingZero(Integer.parseInt(rsm.getString("NR_PRONTUARIO")), 5));
+				
+				String dsEndereco = "";
+				if(rsm.getString("NM_RUA") != null) {
+					dsEndereco += rsm.getString("NM_RUA");
+				}
+				if(rsm.getInt("NR_CASA") > 0) {
+					dsEndereco += ", "+rsm.getInt("NR_CASA");
+				}
+				if(rsm.getString("NM_BAIRRO") != null) {
+					dsEndereco += ", "+rsm.getString("NM_BAIRRO");
+				}
+				rsm.setValueToField("DS_ENDERECO", dsEndereco);
+			}
+			rsm.beforeFirst();
+			
+			Result result = ReportUtils.generate("lista_aluno", params, rsm);
+			
+			return result;
+		}
+		catch(Exception e) {
+			e.printStackTrace(System.out);
+			System.out.println("Erro! FamiliaServices.generateComprovante: " + e);
+			return null;
 		}
 	}
 

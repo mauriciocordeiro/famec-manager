@@ -326,7 +326,6 @@ public class FamiliaServices {
 			return null;
 		}
 	}
-	
 
 	public static Result generateComprovante(int cdFamilia, int cdAluno) {		
 		try {
@@ -402,7 +401,7 @@ public class FamiliaServices {
 		}
 		catch(Exception e) {
 			e.printStackTrace(System.out);
-			System.out.println("Erro! FamiliaServices.generateFormulario: " + e);
+			System.out.println("Erro! FamiliaServices.generateComprovante: " + e);
 			return null;
 		}
 	}

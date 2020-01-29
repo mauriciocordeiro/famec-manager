@@ -87,20 +87,13 @@ export class RelatorioAlunoComponent implements OnInit {
   }
 
   onPrint() {
-    this.printMode = true;
-    const elementToPrint = document.getElementById('table'); //The html element to become a pdf
-    const pdf = new jsPDF({
-      orientation: 'landscape',
-      unit: 'mm',
-      format: 'A4'
-    });
-    pdf.setFontSize(10);
-    pdf.addHTML(elementToPrint, () => {
-      pdf.save(new Date().toLocaleTimeString()+'alunos.pdf');
-    });
-
-    
-    this.printMode = false;
+    this.alunoService.printList()
+      .subscribe(item => {
+        console.log(item);
+        let file = new Blob([item], { type: 'application/pdf' });    
+        let url = URL.createObjectURL(file);
+        window.open(url);
+      });
   }
 
 }
