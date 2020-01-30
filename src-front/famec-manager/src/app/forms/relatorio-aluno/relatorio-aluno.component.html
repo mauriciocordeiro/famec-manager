@@ -5,22 +5,17 @@
     </div>
     <mat-card-title>Alunos</mat-card-title>
     <mat-card-subtitle>Lista de Alunos</mat-card-subtitle>
-    <button mat-raised-button color="accent" (click)="onPrint()">
-      <mat-icon>print</mat-icon>
-      Imprimir
-    </button>
   </mat-card-header>
   <mat-card-content>
     <div class="filter">
-      <!-- <span style="width:100%;"></span>
-      <button mat-raised-button color="primary" (click)="onSearch()">
-        <mat-icon>search</mat-icon>
-        <span>Pesquisar</span>
-      </button> -->
       <mat-form-field *ngIf="!printMode">
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Pesquisar">
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
+      <button mat-button color="accent" (click)="onPrint()">
+        <mat-icon>print</mat-icon>
+        Imprimir
+      </button>
     </div>
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" id="table">
         <ng-container matColumnDef="nr_prontuario">
