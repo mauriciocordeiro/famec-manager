@@ -345,7 +345,7 @@ public class FamiliaServices {
 			
 			HashMap<String, Object> params = new HashMap<>();
 			params.put("LOGO", FamiliaServices.class.getResourceAsStream("/reports/img/famec_1.png"));
-			params.put("DS_HOJE", Util.format(new GregorianCalendar(), "DD 'de' MMMM 'de' yyyy"));
+			params.put("DS_HOJE", Util.format(new GregorianCalendar(), "dd 'de' MMMM 'de' yyyy"));
 			
 			
 			while(rsm.next()) {

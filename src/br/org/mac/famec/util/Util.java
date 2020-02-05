@@ -33,25 +33,18 @@ public class Util {
 	        if(data==null || data.trim().equals(""))
 	        	return null;
 	        StringTokenizer token = new StringTokenizer(data, "T");
+	        
 	        String d = token.nextToken(), h = "";
+
 	        int hora =0, min = 0, sec = 0, millisec=0;
-//	        if(token.hasMoreTokens())	{
-//	        	h	=	token.nextToken();
-//				StringTokenizer token2	= new StringTokenizer(h, ":");
-//				hora =	Integer.parseInt(token2.nextToken().trim());
-//				min  =	Integer.parseInt(token2.nextToken().trim());
-//				String token3 = token2.hasMoreTokens() ? token2.nextToken() : null;
-//				sec  =	token3==null ? 0 : Integer.parseInt(token3.trim());
-////				token3 = token2.hasMoreTokens() ? token2.nextToken() : null;
-////				millisec  =	token3==null ? 0 : Integer.parseInt(token3.trim());
-//			}
+
         	token = new StringTokenizer(d, "-");
         	int ano = Integer.parseInt(token.nextToken());
         	int mes = Integer.parseInt(token.nextToken());
         	int dia = Integer.parseInt(token.nextToken());
 
 	        GregorianCalendar date = new GregorianCalendar(ano, mes-1, dia, hora, min, sec);
-	        //date.set(Calendar.MILLISECOND, millisec);
+	        
 	        return date;
 		}
 		catch(Exception e) {
@@ -60,16 +53,20 @@ public class Util {
 		}
 	}
 	
-	public static String format(GregorianCalendar date, String mask) {
+	public static String format(GregorianCalendar current, String mask) {
 		SimpleDateFormat formatter = new SimpleDateFormat(mask);
-		Date d = date.getTime();
-		return formatter.format(d);
+		Date date = current.getTime();
+		return formatter.format(date);
 	}
 	
 	public static String leadingZero(int num, int length) {
 		String format = String.format("%%0%dd", length);
 		String result = String.format(format, num);
 		return result;
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(format(new GregorianCalendar(), "dd 'de' MMMM 'de' yyyy"));
 	}
 
 }
