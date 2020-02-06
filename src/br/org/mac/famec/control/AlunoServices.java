@@ -199,8 +199,8 @@ public class AlunoServices {
 	}
 
 	public static ResultSetMap quickFind(String nmAluno, Connection connect) {
+		connect = connect==null ? Conexao.connect() : connect;
 		try {
-			connect = connect==null ? Conexao.connect() : connect;
 			return new ResultSetMap(connect.prepareStatement(
 					"SELECT cd_aluno, nm_aluno, cd_familia "
 					+ " FROM aluno "
@@ -232,11 +232,12 @@ public class AlunoServices {
 					+ " JOIN perfil_social 		  	E ON (A.cd_familia = E.cd_familia)"
 					+ " JOIN endereco_responsavel 	F ON (C.cd_responsavel = F.cd_responsavel)"
 					+ " LEFT OUTER JOIN	usuario		G ON (A.cd_usuario_cadastro = G.cd_usuario)", 
-					crt, Conexao.connect(), true);
+					  " ORDER BY B.nm_aluno ", 
+					  crt, Conexao.connect(), true);
 			
 			HashMap<String, Object> params = new HashMap<>();
 			params.put("LOGO", FamiliaServices.class.getResourceAsStream("/reports/img/famec_1.png"));
-			params.put("DS_HOJE", Util.format(new GregorianCalendar(), "DD 'de' MMMM 'de' yyyy"));
+			params.put("DS_HOJE", Util.format(new GregorianCalendar(), "dd 'de' MMMM 'de' yyyy"));
 			
 			
 			while(rsm.next()) {
@@ -304,7 +305,7 @@ public class AlunoServices {
 		}
 		catch(Exception e) {
 			e.printStackTrace(System.out);
-			System.out.println("Erro! FamiliaServices.generateComprovante: " + e);
+			System.out.println("Erro! AlunoServices.printLista: " + e);
 			return null;
 		}
 	}

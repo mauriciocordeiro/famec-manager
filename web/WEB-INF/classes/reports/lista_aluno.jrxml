@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="lista_aluno" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="14a516da-494c-432f-a351-38baf9d80dc0">
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<parameter name="LOGO" class="java.io.InputStream"/>
+	<parameter name="DS_HOJE" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="NM_ALUNO" class="java.lang.String"/>
+	<field name="NR_PRONTUARIO" class="java.lang.String"/>
+	<field name="DS_DT_NASCIMENTO" class="java.lang.String"/>
+	<field name="NR_IDADE" class="java.lang.String"/>
+	<field name="NM_TP_SEXO" class="java.lang.String"/>
+	<field name="NR_TELEFONE" class="java.lang.String"/>
+	<field name="NM_TP_TURNO_FAMEC" class="java.lang.String"/>
+	<field name="NM_ESCOLA" class="java.lang.String"/>
+	<field name="DS_ACOMPANHANTE" class="java.lang.String"/>
+	<field name="DS_HR_SAIDA" class="java.lang.String"/>
+	<field name="NM_USUARIO" class="java.lang.String"/>
+	<field name="NM_LG_ALMOCO_INSTITUICAO" class="java.lang.String"/>
+	<field name="NM_RESPONSAVEL" class="java.lang.String"/>
+	<field name="DS_ENDERECO" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="119">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<staticText>
+				<reportElement x="80" y="3" width="640" height="31" uuid="85044b3a-521f-45c2-ab81-ca7da2b71fcb">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+					<paragraph leftIndent="10" rightIndent="10"/>
+				</textElement>
+				<text><![CDATA[Fundação de Assistência e Desenvolvimento Humano para Crianças, Adolescentes e seus Familiares de Vitória da Conquista - BA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="34" width="640" height="15" uuid="cb798fbc-f8a8-486f-82a7-ea0a704753f2"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Utilidade Pública Municipal - Lei nº 305/84 - Utilidade Pública Estadual - Lei 10.198/2006]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="49" width="640" height="15" uuid="7550edad-d59e-437c-b567-57f23fa7da90"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Utilidade Pública Federal - Portaria nº 3.935/2004	CNPJ: 13.245.121/0001-45]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="64" width="640" height="15" uuid="c875fa0b-d50b-4a9a-9fa9-1f84ad23c552"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Reg. CNAS - Resolução nº 135, em 11/08/2005	D.O.U. 16/08/2005]]></text>
+			</staticText>
+			<image onErrorType="Blank">
+				<reportElement x="1" y="0" width="75" height="75" uuid="9183804a-d098-4f94-b8c0-9abe61ebb0c9">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{LOGO}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="1" y="90" width="799" height="20" uuid="9909f163-f597-40a0-924c-190b0133da64"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LISTA DE EDUCANDOS]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20">
+			<staticText>
+				<reportElement x="0" y="0" width="40" height="20" uuid="9ec720ff-91e4-4e63-8c00-0fc078e53f64">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Pront.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="90" y="0" width="110" height="20" uuid="b0d4fbd6-ae20-4b15-b107-0cd46d78e92b">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Educando]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="60" height="20" uuid="ef41daf8-d393-446d-9d9d-371c9b6f8971">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Nasc.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="0" width="170" height="20" uuid="5f41f427-68c4-425d-bb56-92ad4829eefe">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Endereço]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="680" y="0" width="120" height="20" uuid="9d38e0ad-0657-4160-89b9-379ebff5706b">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Escola]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="0" width="50" height="20" uuid="8540db82-9a76-42e3-9843-663d3f97fea0">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Turno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="470" y="0" width="130" height="20" uuid="0f7128cb-31a0-48e8-b95e-cc25f2217f77">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Responsável]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="600" y="0" width="80" height="20" uuid="f22415a5-8a81-411c-8a61-dc3b203cb5cd">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Telefone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="0" width="40" height="20" uuid="fe9ec1db-322e-4b08-8e16-d6e8d02be445">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Idade]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="ContainerHeight" x="0" y="0" width="40" height="20" uuid="098000a3-85a0-442c-862e-9cf652cb8f44">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NR_PRONTUARIO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="ContainerHeight" x="90" y="0" width="110" height="20" uuid="1a0b55e0-d3bc-432f-addc-602db48c2b23">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NM_ALUNO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="ContainerHeight" x="200" y="0" width="60" height="20" uuid="9ea7a120-5056-4f80-b464-94766ef653a2">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DS_DT_NASCIMENTO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="ContainerHeight" x="300" y="0" width="170" height="20" uuid="b6a80454-5f8c-4097-87ff-4690c8959ff5">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DS_ENDERECO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="ContainerHeight" x="680" y="0" width="120" height="20" uuid="ab5f4513-f6d7-4b15-92ae-7a06125632dd">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NM_ESCOLA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="ContainerHeight" x="40" y="0" width="50" height="20" uuid="4ad6737f-ece4-4efe-9690-8acff8f1afac">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NM_TP_TURNO_FAMEC}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="ContainerHeight" x="470" y="0" width="130" height="20" uuid="e8b5a352-26a5-451f-b307-31da1de6b783">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NM_RESPONSAVEL}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="ContainerHeight" x="600" y="0" width="80" height="20" uuid="5c57dd8b-035e-4778-aa9b-806bc04f85db">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NR_TELEFONE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="ContainerHeight" x="260" y="0" width="40" height="20" uuid="e3acf839-ed1e-4edf-88bb-f85b69a287df">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NR_IDADE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="55" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="800" height="15" uuid="1c1ef5de-8358-4f23-97b2-9e3469ae4ce2"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Av. Ivo Freire de Aguiar S/N - Candeias - Vitória da Conquista - BA CEP: 45.050-460]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="25" width="800" height="15" uuid="f32629a6-db0d-4be4-b481-ce0a3449eb65"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[(0**77) FAX: 3424-4709 - TEL: 3424-2301]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="800" height="15" uuid="8bd91b10-2a1f-4c0d-b907-e55ae4afc8e5"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-mail: famec.vc@outlook.com]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="720" y="41" width="80" height="13" uuid="3329fd83-0806-47e9-bb3c-b06ecf5e5c49"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="20">
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="380" y="0" width="420" height="20" uuid="323b3bbb-861a-4e8e-b072-bfcf2d546eba"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Emitido em "+$P{DS_HOJE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
