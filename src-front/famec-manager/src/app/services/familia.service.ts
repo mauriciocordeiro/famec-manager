@@ -25,15 +25,14 @@ export class FamiliaService extends Services {
   }
 
   saveFamilia(familia: any): Observable<Result> {
-    console.log('familia: ', familia)
-    return this.http.put(this.serviceUrl + "/save", JSON.stringify(familia, null, 2), httpOptions).pipe(
+    return this.http.post(this.serviceUrl, JSON.stringify(familia, null, 2), httpOptions).pipe(
       tap((result: Result) => this.log(result.message)),
       catchError(this.handleError<Result>('Erro! saveFamilia'))
     );
   }
 
   getFamilia(cdFamilia: number): Observable<any> {
-    return this.http.get(`${this.serviceUrl}/get?cod=${cdFamilia}`)
+    return this.http.get(`${this.serviceUrl}/${cdFamilia}`)
       .pipe(
         tap(_ => this.log(`found familias matching "${cdFamilia}"`)),
         catchError(this.handleError<any[]>('getFamilias', [])
@@ -50,7 +49,7 @@ export class FamiliaService extends Services {
   }
 
   deleteFamilia(cdFamilia: any): Observable<Result> {
-    return this.http.delete(`${this.serviceUrl}/delete?codigo=${cdFamilia}`, httpOptions).pipe(
+    return this.http.delete(`${this.serviceUrl}/${cdFamilia}`, httpOptions).pipe(
       tap((result: Result) => this.log(result.message)),
       catchError(this.handleError<Result>('Erro! deleteFamilia'))
     );
