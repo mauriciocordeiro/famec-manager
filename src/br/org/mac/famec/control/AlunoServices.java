@@ -232,7 +232,8 @@ public class AlunoServices {
 					+ " JOIN perfil_social 		  	E ON (A.cd_familia = E.cd_familia)"
 					+ " JOIN endereco_responsavel 	F ON (C.cd_responsavel = F.cd_responsavel)"
 					+ " LEFT OUTER JOIN	usuario		G ON (A.cd_usuario_cadastro = G.cd_usuario)", 
-					crt, Conexao.connect(), true);
+					  " ORDER BY B.nm_aluno ", 
+					  crt, Conexao.connect(), true);
 			
 			HashMap<String, Object> params = new HashMap<>();
 			params.put("LOGO", FamiliaServices.class.getResourceAsStream("/reports/img/famec_1.png"));
