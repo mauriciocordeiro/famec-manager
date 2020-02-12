@@ -50,12 +50,6 @@ export class UsuarioService extends Services {
     );
   }
 
-  // public static async doLogin(nmLogin, nmSenha): Promise<Result> {
-  //   return Object.assign(new Result(-1), await function(): Observable<Result> {
-  //     return null;
-  //   });
-  // }
-
   doLogin(nmLogin, nmSenha): Observable<Result> {
     return this.http.post(this.serviceUrl + "/login", JSON.stringify({ nmLogin: nmLogin, nmSenha: nmSenha }, null, 2), httpOptions).pipe(
       tap((result: Result) => this.log(result.message)),

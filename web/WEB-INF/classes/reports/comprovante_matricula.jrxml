@@ -165,7 +165,7 @@
 				<text><![CDATA[Sexo]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="180" y="89" width="60" height="20" uuid="a6bae02b-a954-4e85-a650-d579685fb811"/>
+				<reportElement x="180" y="89" width="70" height="20" uuid="a6bae02b-a954-4e85-a650-d579685fb811"/>
 				<box padding="1">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -178,7 +178,7 @@
 				<textFieldExpression><![CDATA[$F{NM_TP_SEXO}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="240" y="89" width="80" height="20" uuid="a1cc0653-c1db-4659-92d3-f7e9cb21115b"/>
+				<reportElement x="250" y="89" width="70" height="20" uuid="a1cc0653-c1db-4659-92d3-f7e9cb21115b"/>
 				<box padding="1">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -217,7 +217,7 @@
 				<textFieldExpression><![CDATA[$F{NM_TP_TURNO_FAMEC}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="180" y="109" width="60" height="20" uuid="9bfe88c6-a4b9-4743-ae94-6cd79719b031"/>
+				<reportElement x="180" y="109" width="70" height="20" uuid="9bfe88c6-a4b9-4743-ae94-6cd79719b031"/>
 				<box padding="1">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -230,7 +230,7 @@
 				<text><![CDATA[Escola]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="240" y="109" width="310" height="20" uuid="6e00d2aa-2fee-4f9c-8e77-acbe1c5ef0b0"/>
+				<reportElement x="250" y="109" width="300" height="20" uuid="6e00d2aa-2fee-4f9c-8e77-acbe1c5ef0b0"/>
 				<box padding="1">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>

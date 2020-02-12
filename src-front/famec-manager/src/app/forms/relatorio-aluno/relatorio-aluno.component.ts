@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlunoService } from 'src/app/services/aluno.services';
 import { Utils } from 'src/app/services/Utils';
-import { Router } from '@angular/router';
 import { MatSnackBar, MatSort, MatTableDataSource } from '@angular/material';
 
 import * as jsPDF from 'jspdf';
@@ -40,7 +39,6 @@ export class RelatorioAlunoComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private router: Router,
     private snackBar: MatSnackBar,
     private alunoService: AlunoService) { }
 
@@ -89,7 +87,6 @@ export class RelatorioAlunoComponent implements OnInit {
   onPrint() {
     this.alunoService.printList()
       .subscribe(item => {
-        console.log(item);
         let file = new Blob([item], { type: 'application/pdf' });    
         let url = URL.createObjectURL(file);
         window.open(url);

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { Services } from './services';
 import { Result } from './result';
@@ -18,21 +18,21 @@ export class FamiliaService extends Services {
    */
 
   // URL to web api
-  private serviceUrl = this.FULL_CONTEXT + "/rws/familia";
+  private endpoint = this.FULL_CONTEXT + "/rws/familia";
 
   constructor(private http: HttpClient) {
     super();
   }
 
   saveFamilia(familia: any): Observable<Result> {
-    return this.http.post(this.serviceUrl, JSON.stringify(familia, null, 2), httpOptions).pipe(
+    return this.http.post(this.endpoint, JSON.stringify(familia, null, 2), httpOptions).pipe(
       tap((result: Result) => this.log(result.message)),
       catchError(this.handleError<Result>('Erro! saveFamilia'))
     );
   }
 
   getFamilia(cdFamilia: number): Observable<any> {
-    return this.http.get(`${this.serviceUrl}/${cdFamilia}`)
+    return this.http.get(`${this.endpoint}/${cdFamilia}`)
       .pipe(
         tap(_ => this.log(`found familias matching "${cdFamilia}"`)),
         catchError(this.handleError<any[]>('getFamilias', [])
@@ -41,7 +41,7 @@ export class FamiliaService extends Services {
   }
 
   quickSearch(term: string): Observable<any> {
-    return this.http.get(`${this.serviceUrl}/quick/search?term=${term}`)
+    return this.http.get(`${this.endpoint}/quick/search?term=${term}`)
       .pipe(
         tap(_ => this.log(`found aluno matching "${term}"`)),
         catchError(this.handleError<Aluno[]>('quickSearch', []))
@@ -49,17 +49,16 @@ export class FamiliaService extends Services {
   }
 
   deleteFamilia(cdFamilia: any): Observable<Result> {
-    return this.http.delete(`${this.serviceUrl}/${cdFamilia}`, httpOptions).pipe(
+    return this.http.delete(`${this.endpoint}/${cdFamilia}`, httpOptions).pipe(
       tap((result: Result) => this.log(result.message)),
       catchError(this.handleError<Result>('Erro! deleteFamilia'))
     );
   }
 
   printComprovante(cdFamilia, cdAluno): Observable<any> {
-    
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     
-    return this.http.get(`${this.serviceUrl}/report/comprovante?cdFamilia=${cdFamilia}&cdAluno=${cdAluno}`, 
+    return this.http.get(`${this.endpoint}/report/comprovante?cdFamilia=${cdFamilia}&cdAluno=${cdAluno}`, 
       {headers, responseType: 'blob'})
         .pipe(
           tap((result:any) => this.log("Erro ao gerar relatório")),

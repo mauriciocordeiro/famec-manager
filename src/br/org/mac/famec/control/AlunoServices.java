@@ -178,7 +178,7 @@ public class AlunoServices {
 				rsm.setValueToField("nm_bairro", rsm.getString("nm_bairro"));
 				rsm.setValueToField("ds_endereco", rsm.getString("nm_rua") + ", " + rsm.getString("nr_casa") + ", " + rsm.getString("nm_complemento"));
 				
-				rsm.setValueToField("nm_turno_famec", turnoInstituicao[rsm.getInt("tp_turno_famec")]);
+				rsm.setValueToField("nm_turno_famec", turnoInstituicao[rsm.getInt("tp_turno_famec")].toUpperCase());
 			}
 			rsm.beforeFirst();
 			return rsm;

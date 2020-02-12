@@ -9,7 +9,7 @@
   </mat-card-header>
   <mat-form-field class="search-field">
     <mat-label>Pesquisar</mat-label>
-    <input matInput #searchField type="search" placeholder="Nome do aluno" (keyup)="onSearch(searchField.value)">
+    <input oninput="this.value = this.value.toUpperCase()" matInput #searchField type="search" placeholder="Nome do aluno" (keyup)="onSearch(searchField.value)">
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
   <mat-list class="search-result">
@@ -41,11 +41,11 @@
         <div class="form-line">
             <mat-form-field class="form-field-inline" appearance="outline" style="width: 100px;">
               <mat-label>Prontuário</mat-label>
-              <input matInput required formControlName="nrProntuario" placeholder="007">
+              <input oninput="this.value = this.value.toUpperCase()" matInput required formControlName="nrProntuario" placeholder="007">
             </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Nome</mat-label>
-            <input matInput required formControlName="nmResponsavel"
+            <input oninput="this.value = this.value.toUpperCase()" matInput required formControlName="nmResponsavel"
               placeholder="Pedro de Alcântara Francisco António João Carlos Xavier de Paula Miguel Rafael Joaquim José Gonzaga Pascoal Cipriano Serafim de Bragança e Bourbon">
           </mat-form-field>
           <mat-form-field class="form-field-inline" style="width: 120px;" appearance="outline">
@@ -67,11 +67,11 @@
         <div class="form-line">
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Endereço</mat-label>
-            <input matInput required formControlName="nmRua" placeholder="Av. Ivo Freire de Aguiar">
+            <input oninput="this.value = this.value.toUpperCase()" matInput required formControlName="nmRua" placeholder="Av. Ivo Freire de Aguiar">
           </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline" style="width: 100px;">
               <mat-label>Nº</mat-label>
-              <input matInput type="number" required formControlName="nrCasa" placeholder="637">
+              <input oninput="this.value = this.value.toUpperCase()" matInput type="number" required formControlName="nrCasa" placeholder="637">
             </mat-form-field>
         </div>
 
@@ -79,11 +79,11 @@
         <div class="form-line">
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Bairro</mat-label>
-            <input matInput required formControlName="nmBairro" placeholder="Candeias">
+            <input oninput="this.value = this.value.toUpperCase()" matInput required formControlName="nmBairro" placeholder="Candeias">
           </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Ponto de referência</mat-label>
-            <input matInput formControlName="nmComplemento" placeholder="Próx. ao ">
+            <input oninput="this.value = this.value.toUpperCase()" matInput formControlName="nmComplemento" placeholder="Próx. ao ">
           </mat-form-field>
         </div>
 
@@ -91,18 +91,18 @@
         <div class="form-line">
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Data de nascimento</mat-label>
-            <input matInput formControlName="dtNascimento" [matDatepicker]="dtNascPicker" placeholder="Data de nascimento" required  
+            <input oninput="this.value = this.value.toUpperCase()" matInput formControlName="dtNascimento" [matDatepicker]="dtNascPicker" placeholder="Data de nascimento" required  
               (dateChange)="onDtNascChange($event)">
             <mat-datepicker-toggle matSuffix [for]="dtNascPicker"></mat-datepicker-toggle>
             <mat-datepicker #dtNascPicker></mat-datepicker>
           </mat-form-field>
           <mat-form-field class="form-field-inline" style="width: 80px;" appearance="outline">
             <mat-label>Idade</mat-label>
-            <input matInput type="number" #nrIdade>
+            <input oninput="this.value = this.value.toUpperCase()" matInput type="number" #nrIdade>
           </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Naturalidade</mat-label>
-            <input matInput formControlName="nmNaturalidade" placeholder="Vitória da Conquista - BA">
+            <input oninput="this.value = this.value.toUpperCase()" matInput formControlName="nmNaturalidade" placeholder="Vitória da Conquista - BA">
           </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Estado Civil</mat-label>
@@ -118,11 +118,11 @@
         <div class="form-line">
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Telefone 1</mat-label>
-            <input matInput formControlName="nrTelefone1" placeholder="(77) 0000-0000">
+            <input oninput="this.value = this.value.toUpperCase()" matInput formControlName="nrTelefone1" placeholder="(77) 0000-0000">
           </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Telefone 2</mat-label>
-            <input matInput formControlName="nrTelefone2" placeholder="(77) 99191-9911">
+            <input oninput="this.value = this.value.toUpperCase()" matInput formControlName="nrTelefone2" placeholder="(77) 99191-9911">
           </mat-form-field>
         </div>
 
@@ -130,11 +130,11 @@
         <div class="form-line">
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>RG</mat-label>
-            <input matInput formControlName="nrRg" required placeholder="0000000000">
+            <input oninput="this.value = this.value.toUpperCase()" matInput formControlName="nrRg" required placeholder="0000000000">
           </mat-form-field>
           <mat-form-field class="form-field-inline" style="width: 200px;" appearance="outline">
             <mat-label>Órgão Emissor</mat-label>
-            <input matInput formControlName="nmOrgaoExpedidorRg" placeholder="SSP">
+            <input oninput="this.value = this.value.toUpperCase()" matInput formControlName="nmOrgaoExpedidorRg" placeholder="SSP">
           </mat-form-field>
           <mat-form-field class="form-field-inline" style="width: 80px;" appearance="outline">
             <mat-label>UF</mat-label>
@@ -146,7 +146,7 @@
           </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>CPF</mat-label>
-            <input matInput formControlName="nrCpf" required placeholder="000.000.000-00">
+            <input oninput="this.value = this.value.toUpperCase()" matInput formControlName="nrCpf" required placeholder="000.000.000-00">
           </mat-form-field>
         </div>
 
@@ -154,7 +154,7 @@
         <div class="form-line">
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Escolaridade</mat-label>
-            <input matInput formControlName="dsEscolaridade">
+            <input oninput="this.value = this.value.toUpperCase()" matInput formControlName="dsEscolaridade">
           </mat-form-field>
           <mat-checkbox #ckEstudante formControlName="lgEstudante" style="margin-left: 10px; padding-top: 20px;" (change)=onChangeEstudando($event) color="primary">
             Estudando atualmente
@@ -181,7 +181,7 @@
           </mat-form-field>
           <mat-form-field class="form-field-inline" style="width: 180px;" appearance="outline">
             <mat-label>Ano</mat-label>
-            <input matInput type="number">
+            <input oninput="this.value = this.value.toUpperCase()" matInput type="number">
           </mat-form-field>
         </div>
 
@@ -189,19 +189,19 @@
         <div class="form-line">
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Ocupação atual</mat-label>
-            <input matInput formControlName="nmOcupacao">
+            <input oninput="this.value = this.value.toUpperCase()" matInput formControlName="nmOcupacao">
           </mat-form-field>
           <mat-form-field class="form-field-inline" style="width: 120px;" appearance="outline">
             <mat-label>Renda mensal</mat-label>
-            <input matInput type="number" formControlName="vlRendaMensal">
+            <input oninput="this.value = this.value.toUpperCase()" matInput type="number" formControlName="vlRendaMensal">
           </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Local de trabalho</mat-label>
-            <input matInput formControlName="nmLocalTrabalho">
+            <input oninput="this.value = this.value.toUpperCase()" matInput formControlName="nmLocalTrabalho">
           </mat-form-field>
           <mat-form-field class="form-field-inline" style="width: 150px;" appearance="outline">
             <mat-label>Telefone</mat-label>
-            <input matInput formControlName="nrTelefoneTrabalho" type="tel" placeholder="(77) 0000-0000">
+            <input oninput="this.value = this.value.toUpperCase()" matInput formControlName="nrTelefoneTrabalho" type="tel" placeholder="(77) 0000-0000">
           </mat-form-field>
         </div>
 
@@ -226,7 +226,7 @@
           <mat-checkbox formControlName="lgNis" style="margin-left: 10px; padding-top: 20px;" color="primary">Família com CAD-ÚNICO</mat-checkbox>
           <mat-form-field style="margin-left: 10px;" appearance="outline">
             <mat-label>NIS</mat-label>
-            <input matInput formControlName="nrNis">
+            <input oninput="this.value = this.value.toUpperCase()" matInput formControlName="nrNis">
           </mat-form-field>
         </div>
 
@@ -242,11 +242,11 @@
         <div class="form-line">
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Nome do Programa/Benefício</mat-label>
-            <input matInput formControlName="nmBeneficio">
+            <input oninput="this.value = this.value.toUpperCase()" matInput formControlName="nmBeneficio">
           </mat-form-field>
           <mat-form-field class="form-field-inline" style="width: 120px;" appearance="outline">
             <mat-label>Valor</mat-label>
-            <input matInput type="number" formControlName="vlBeneficio">
+            <input oninput="this.value = this.value.toUpperCase()" matInput type="number" formControlName="vlBeneficio">
           </mat-form-field>
         </div>
 
@@ -279,11 +279,11 @@
           </mat-form-field>
           <mat-form-field class="form-field-inline" style="width: 180px;" appearance="outline" *ngIf="lgHabitacaoAluguel">
             <mat-label>Valor</mat-label>
-            <input matInput type="number" formControlName="vlAluguel">
+            <input oninput="this.value = this.value.toUpperCase()" matInput type="number" formControlName="vlAluguel">
           </mat-form-field>
           <mat-form-field class="form-field-inline" style="width: 180px;" appearance="outline">
             <mat-label>Nº de Cômodos</mat-label>
-            <input matInput type="number" formControlName="nrComodos">
+            <input oninput="this.value = this.value.toUpperCase()" matInput type="number" formControlName="nrComodos">
           </mat-form-field>
           <mat-form-field class="form-field-inline" appearance="outline">
             <mat-label>Iluminação</mat-label>

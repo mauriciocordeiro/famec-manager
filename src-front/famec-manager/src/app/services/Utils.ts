@@ -5,236 +5,235 @@ import { MatSnackBar } from '@angular/material';
 
 export class Utils {
 
-  
-  // snackbar message type
-  static SNACK_ALERT: string = 'alert';
-  static SNACK_ERROR: string = 'error';
-  static SNACK_SUCCESS: string = 'success';
 
-  static CYPHER:string = 'famec-manager';
+	// snackbar message type
+	static SNACK_ALERT: string = 'alert';
+	static SNACK_ERROR: string = 'error';
+	static SNACK_SUCCESS: string = 'success';
 
-  constructor() { }
+	static CYPHER: string = 'famec-manager';
 
-  static abreviarNome(nome: string): string {
-    let parts = nome.split(' ');
-    if (parts.length > 1)
-      return parts[0] + ' ' + parts[1].substring(0, 1);
-    else
-      return nome;
-  }
+	constructor() { }
 
-  public static objToCamelCase(o): object {
-    try {
-      let obj2 = {};
+	static abreviarNome(nome: string): string {
+		let parts = nome.split(' ');
+		if (parts.length > 1)
+			return parts[0] + ' ' + parts[1].substring(0, 1);
+		else
+			return nome;
+	}
 
-      Object.keys(o).forEach((key) => {
-        let value = o[key];
-        key = key.toLowerCase();
-        obj2[this.toCamelCase(key)] = value;
-      });
+	public static objToCamelCase(o): object {
+		try {
+			let obj2 = {};
 
-      return obj2;
-    } catch (e) {
-      console.log(e);
-    }
-  }
+			Object.keys(o).forEach((key) => {
+				let value = o[key];
+				key = key.toLowerCase();
+				obj2[this.toCamelCase(key)] = value;
+			});
 
-  public static toCamelCase(str) {
-    var arr = str.split(/[_-]/);
-    var newStr = "";
-    for (var i = 1; i < arr.length; i++) {
-      newStr += arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
-    }
-    return arr[0] + newStr;
-  }
+			return obj2;
+		} catch (e) {
+			console.log(e);
+		}
+	}
 
-  public static objToUnderscore(o): object {
-    try {
-      let obj2 = {};
+	public static toCamelCase(str) {
+		var arr = str.split(/[_-]/);
+		var newStr = "";
+		for (var i = 1; i < arr.length; i++) {
+			newStr += arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+		}
+		return arr[0] + newStr;
+	}
 
-      Object.keys(o).forEach((key) => {
-        let value = o[key];
-        key = key.toLowerCase();
-        obj2[this.toCamelCase(key)] = value;
-      });
+	public static objToUnderscore(o): object {
+		try {
+			let obj2 = {};
 
-      return obj2;
-    } catch (e) {
-      console.log(e);
-    }
-  }
+			Object.keys(o).forEach((key) => {
+				let value = o[key];
+				key = key.toLowerCase();
+				obj2[this.toCamelCase(key)] = value;
+			});
 
-  static isJSON(value: any): boolean {
-    try {
-      let isParsable = JSON.parse(value) || false;
-      return isParsable;
-    } catch (e) {
-      return false;
-    }
-  }
+			return obj2;
+		} catch (e) {
+			console.log(e);
+		}
+	}
 
-  static reloadBrowser(): void {
-    window.location.reload()
-  }
+	static isJSON(value: any): boolean {
+		try {
+			let isParsable = JSON.parse(value) || false;
+			return isParsable;
+		} catch (e) {
+			return false;
+		}
+	}
 
-  static getRequest(url: string): Promise<any> {
-    return new Promise<any>(
-      function (resolve, reject) {
-        const request = new XMLHttpRequest();
-        request.onload = function () {
-          if (request.status === 200) {
-            resolve(request.response);
-          }
-          else {
-            reject(new Error(request.statusText));
-          }
-        };
-        request.onerror = function () {
-          reject(new Error('XMLHttpRequest Error: ' + request.statusText));
-        };
-        request.open('GET', url);
-        request.send();
-      });
-  }
+	static reloadBrowser(): void {
+		window.location.reload()
+	}
 
-  static getDateTime(date: any) {
-    if (!date)
-      return null;
+	static getRequest(url: string): Promise<any> {
+		return new Promise<any>(
+			function (resolve, reject) {
+				const request = new XMLHttpRequest();
+				request.onload = function () {
+					if (request.status === 200) {
+						resolve(request.response);
+					}
+					else {
+						reject(new Error(request.statusText));
+					}
+				};
+				request.onerror = function () {
+					reject(new Error('XMLHttpRequest Error: ' + request.statusText));
+				};
+				request.open('GET', url);
+				request.send();
+			});
+	}
 
-    if (typeof (date) === 'number') {
-      return new Date(date * 1000);
-    }
+	static getDateTime(date: any) {
+		if (!date)
+			return null;
 
-    if (date.substring(2, 3) === '/' && date.substring(5, 6) === '/') {
-      let year = date.substring(6, 10);
-      let month = date.substring(3, 5);
-      let day = date.substring(0, 2);
-      return new Date(Date.parse(year + '-' + month + '-' + day + 'T03:00:00Z')).getTime();
-    } else if (date.substring(4, 5) === '-' && date.substring(7, 8) === '-') {
-      return new Date(date).getTime();
-    }
+		if (typeof (date) === 'number') {
+			return new Date(date * 1000);
+		}
 
-    return null;
-  }
+		if (date.substring(2, 3) === '/' && date.substring(5, 6) === '/') {
+			let year = date.substring(6, 10);
+			let month = date.substring(3, 5);
+			let day = date.substring(0, 2);
+			return new Date(Date.parse(year + '-' + month + '-' + day + 'T03:00:00Z')).getTime();
+		} else if (date.substring(4, 5) === '-' && date.substring(7, 8) === '-') {
+			return new Date(date).getTime();
+		}
 
-  static getDataAtualStr() {
-    let date = new Date();
-    let dateStr = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
-    return dateStr;
-  }
+		return null;
+	}
 
-  static getIdade(dtNascimento, diaReferencia, mesReferencia, anoReferencia) {
+	static getDataAtualStr() {
+		let date = new Date();
+		let dateStr = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+		return dateStr;
+	}
 
-    if (typeof (dtNascimento) == "string") {
-      dtNascimento = new Date(parseInt(dtNascimento.substring(0, 4)), (parseInt(dtNascimento.substring(5, 7)) - 1), parseInt(dtNascimento.substring(8, 10)));
-    }
+	static getIdade(dtNascimento, diaReferencia, mesReferencia, anoReferencia) {
 
-    let dtHoje = new Date();
+		if (typeof (dtNascimento) == "string") {
+			dtNascimento = new Date(parseInt(dtNascimento.substring(0, 4)), (parseInt(dtNascimento.substring(5, 7)) - 1), parseInt(dtNascimento.substring(8, 10)));
+		}
 
-    if (diaReferencia > 0)
-      dtHoje.setDate(diaReferencia);
-    if (mesReferencia > 0)
-      dtHoje.setMonth(mesReferencia);
-    if (anoReferencia > 0)
-      dtHoje.setFullYear(anoReferencia);
+		let dtHoje = new Date();
 
-    let idade = dtHoje.getFullYear() - dtNascimento.getFullYear();
+		if (diaReferencia > 0)
+			dtHoje.setDate(diaReferencia);
+		if (mesReferencia > 0)
+			dtHoje.setMonth(mesReferencia);
+		if (anoReferencia > 0)
+			dtHoje.setFullYear(anoReferencia);
 
-    if (dtNascimento.getMonth() > dtHoje.getMonth()) {
-      idade--;
-    }
-    else if (dtNascimento.getMonth() == dtHoje.getMonth()) {
-      if (dtNascimento.getDate() > dtHoje.getDate()) {
-        idade--;
-      }
-    }
+		let idade = dtHoje.getFullYear() - dtNascimento.getFullYear();
 
-    return idade;
-  }
+		if (dtNascimento.getMonth() > dtHoje.getMonth()) {
+			idade--;
+		}
+		else if (dtNascimento.getMonth() == dtHoje.getMonth()) {
+			if (dtNascimento.getDate() > dtHoje.getDate()) {
+				idade--;
+			}
+		}
 
-  static zeroFill(num: number, numZeros: number) {
-    var n = Math.abs(num);
-    var zeros = Math.max(0, numZeros - Math.floor(n).toString().length);
-    var zeroString = Math.pow(10, zeros).toString().substr(1);
-    if (num < 0) {
-      zeroString = '-' + zeroString;
-    }
+		return idade;
+	}
 
-    return zeroString + n;
-  }
+	static zeroFill(num: number, numZeros: number) {
+		var n = Math.abs(num);
+		var zeros = Math.max(0, numZeros - Math.floor(n).toString().length);
+		var zeroString = Math.pow(10, zeros).toString().substr(1);
+		if (num < 0) {
+			zeroString = '-' + zeroString;
+		}
 
-  /**
-   * json-stringify-safe
-   * Like JSON.stringify, but doesn't blow up on circular refs.
-   * 
-   * @version 5.0.1
-   * @author Isaac Z. Schlueter <i@izs.me> (http://blog.izs.me)
-   * contributors: Andri Möll <andri@dot.ee> (http://themoll.com)
-   * 
-   * @license ISC
-   * @homepage https://github.com/isaacs/json-stringify-safe
-   * @param obj 
-   * @param replacer 
-   * @param spaces 
-   * @param cycleReplacer 
-   */
+		return zeroString + n;
+	}
 
-  static stringify(obj, replacer, spaces, cycleReplacer?) {
-    return JSON.stringify(obj, Utils.serializer(replacer, cycleReplacer), spaces);
-  }
+	/**
+	 * json-stringify-safe
+	 * Like JSON.stringify, but doesn't blow up on circular refs.
+	 * 
+	 * @version 5.0.1
+	 * @author Isaac Z. Schlueter <i@izs.me> (http://blog.izs.me)
+	 * contributors: Andri Möll <andri@dot.ee> (http://themoll.com)
+	 * 
+	 * @license ISC
+	 * @homepage https://github.com/isaacs/json-stringify-safe
+	 * @param obj 
+	 * @param replacer 
+	 * @param spaces 
+	 * @param cycleReplacer 
+	 */
+	static stringify(obj, replacer, spaces, cycleReplacer?) {
+		return JSON.stringify(obj, Utils.serializer(replacer, cycleReplacer), spaces);
+	}
 
-  static serializer(replacer, cycleReplacer) {
-    var stack = [], keys = []
+	static serializer(replacer, cycleReplacer) {
+		var stack = [], keys = []
 
-    if (cycleReplacer == null) cycleReplacer = function (key, value) {
-      if (stack[0] === value) return "[Circular ~]"
-      return "[Circular ~." + keys.slice(0, stack.indexOf(value)).join(".") + "]"
-    }
+		if (cycleReplacer == null) cycleReplacer = function (key, value) {
+			if (stack[0] === value) return "[Circular ~]"
+			return "[Circular ~." + keys.slice(0, stack.indexOf(value)).join(".") + "]"
+		}
 
-    return function (key, value) {
-      if (stack.length > 0) {
-        var thisPos = stack.indexOf(this)
-        ~thisPos ? stack.splice(thisPos + 1) : stack.push(this)
-        ~thisPos ? keys.splice(thisPos, Infinity, key) : keys.push(key)
-        if (~stack.indexOf(value)) value = cycleReplacer.call(this, key, value)
-      }
-      else stack.push(value)
+		return function (key, value) {
+			if (stack.length > 0) {
+				var thisPos = stack.indexOf(this)
+				~thisPos ? stack.splice(thisPos + 1) : stack.push(this)
+				~thisPos ? keys.splice(thisPos, Infinity, key) : keys.push(key)
+				if (~stack.indexOf(value)) value = cycleReplacer.call(this, key, value)
+			}
+			else stack.push(value)
 
-      return replacer == null ? value : replacer.call(this, key, value)
-    }
-  }  
+			return replacer == null ? value : replacer.call(this, key, value)
+		}
+	}
 
-  static getAge(date:Date):any {
-    try {
-      let timeDiff = Math.abs(Date.now() - date.getTime());
-      let age = Math.floor((timeDiff / (1000 * 3600 * 24))/365.25);
-      return age;
-    } catch(e) {
-      return 0;
-    }
-  }
+	static getAge(date: Date): any {
+		try {
+			let timeDiff = Math.abs(Date.now() - date.getTime());
+			let age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365.25);
+			return age;
+		} catch (e) {
+			return 0;
+		}
+	}
 
-  /** ============================================================
-   * SimpleCrypto
-   * 
-   * @description Simplified AES crypthography for safe 
-   * and easier encryption and decryption proccesses of 
-   * any JavaScript objects
-   * 
-   * @see https://github.com/danang-id/simple-crypto-js
-   * @author danang-id
-   * @version v2.0.2
-   * @license MIT
-   */
-  //
-  static encrypt(source: string): string {
-    let crypter = new SimpleCrypto(this.CYPHER);
-    return crypter.encrypt(source);
-  }
-  //
-  static decrypt(source: string): string | object {
-    let crypter = new SimpleCrypto(this.CYPHER);
-    return crypter.decrypt(source);
-  }
-  //   ============================================================
+	/** ============================================================
+	 * SimpleCrypto
+	 * 
+	 * @description Simplified AES crypthography for safe 
+	 * and easier encryption and decryption proccesses of 
+	 * any JavaScript objects
+	 * 
+	 * @see https://github.com/danang-id/simple-crypto-js
+	 * @author danang-id
+	 * @version v2.0.2
+	 * @license MIT
+	 */
+	//
+	static encrypt(source: string): string {
+		let crypter = new SimpleCrypto(this.CYPHER);
+		return crypter.encrypt(source);
+	}
+	//
+	static decrypt(source: string): string | object {
+		let crypter = new SimpleCrypto(this.CYPHER);
+		return crypter.decrypt(source);
+	}
+	//   ============================================================
 }
