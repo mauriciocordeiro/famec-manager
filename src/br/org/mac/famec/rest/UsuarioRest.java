@@ -9,6 +9,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -26,8 +27,8 @@ import sol.util.Result;
 @Path("/usuario")
 public class UsuarioRest {
 	
-	@PUT
-	@Path("/save")
+	@POST
+	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public static String save(String args) {
@@ -85,10 +86,10 @@ public class UsuarioRest {
 	}
 	
 	@DELETE
-	@Path("/delete")
+	@Path("/{codigo}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public static String delete(@QueryParam("codigo") String codigo) {
+	public static String delete(@PathParam("codigo") String codigo) {
 		try {
 			Result result = UsuarioServices.remove(Integer.parseInt(codigo));
 						
@@ -99,7 +100,7 @@ public class UsuarioRest {
 		}
 	}
 	
-	@PUT
+	@POST
 	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)

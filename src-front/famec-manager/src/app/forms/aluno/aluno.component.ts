@@ -21,23 +21,23 @@ export class AlunoComponent implements OnInit {
   ];
 
   modalidadeEscolar = [
-    { id: 1, label: 'Infantil' },
-    { id: 2, label: 'Fundamental' },
-    { id: 3, label: 'Médio' }
+    { id: 1, label: 'INFANTIL' },
+    { id: 2, label: 'FUNDAMENTAL' },
+    { id: 3, label: 'MÉDIO' }
   ];
 
   horarioEscolar = [
-    { id: 1, label: 'Matutino' },
-    { id: 2, label: 'Vespertino' },
-    { id: 3, label: 'Noturno' },
-    { id: 4, label: 'Diurno' }
+    { id: 1, label: 'FUNDAMENTAL' },
+    { id: 2, label: 'MÉDIO' },
+    { id: 3, label: 'SUPERIOR' },
+    { id: 4, label: 'OUTRO' }
   ];
 
   horarioInstituicao = [
-    { id: 1, label: 'Matutino' },
-    { id: 2, label: 'Vespertino' },
-    { id: 3, label: 'Noturno' },
-    { id: 4, label: 'Diurno' }
+    { id: 1, label: 'FUNDAMENTAL' },
+    { id: 2, label: 'MÉDIO' },
+    { id: 3, label: 'SUPERIOR' },
+    { id: 4, label: 'OUTRO' }
   ];
 
   constructor(private router:Router) { }

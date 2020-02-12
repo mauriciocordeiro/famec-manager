@@ -3,7 +3,7 @@
   <div class="form-line">
     <mat-form-field appearance="outline">
       <mat-label>Nome</mat-label>
-      <input matInput required formControlName="nmAluno" placeholder="Pedro de Alcântara Francisco António João Carlos Xavier de Paula Miguel Rafael Joaquim José Gonzaga Pascoal Cipriano Serafim de Bragança e Bourbon">
+      <input oninput="this.value = this.value.toUpperCase()"  matInput required formControlName="nmAluno" placeholder="Pedro de Alcântara Francisco António João Carlos Xavier de Paula Miguel Rafael Joaquim José Gonzaga Pascoal Cipriano Serafim de Bragança e Bourbon">
     </mat-form-field>
   </div>
 
@@ -11,14 +11,14 @@
   <div class="form-line">
     <mat-form-field class="form-field-inline" appearance="outline">
       <mat-label>Data de nascimento</mat-label>
-      <input matInput formControlName="dtNascimento" [matDatepicker]="dtNascPicker" placeholder="Data de nascimento"
+      <input oninput="this.value = this.value.toUpperCase()"  matInput formControlName="dtNascimento" [matDatepicker]="dtNascPicker" placeholder="Data de nascimento"
         required (dateChange)="onDtNascChange($event)">
       <mat-datepicker-toggle matSuffix [for]="dtNascPicker"></mat-datepicker-toggle>
       <mat-datepicker #dtNascPicker></mat-datepicker>
     </mat-form-field>
     <mat-form-field class="form-field-inline" style="width: 80px;" appearance="outline">
       <mat-label>Idade</mat-label>
-      <input matInput #nrIdade type="number" formControlName="nrIdade">
+      <input oninput="this.value = this.value.toUpperCase()"  matInput #nrIdade type="number" formControlName="nrIdade">
     </mat-form-field>
     <mat-radio-group class="radio-group" formControlName="tpSexo">
       <mat-label style="margin-top: -5px; margin-left: 10px" >Sexo</mat-label>
@@ -27,7 +27,7 @@
     </mat-radio-group>
     <mat-form-field class="form-field-inline" appearance="outline">
       <mat-label>Naturalidade</mat-label>
-      <input matInput formControlName="nmNaturalidade" placeholder="Vitória da Conquista - BA">
+      <input oninput="this.value = this.value.toUpperCase()"  matInput formControlName="nmNaturalidade" placeholder="Vitória da Conquista - BA">
     </mat-form-field>
   </div>
 
@@ -35,7 +35,7 @@
   <div class="form-line">
     <mat-form-field class="form-field-inline" appearance="outline">
       <mat-label>Escola</mat-label>
-      <input matInput formControlName="nmEscola">
+      <input oninput="this.value = this.value.toUpperCase()"  matInput formControlName="nmEscola">
     </mat-form-field>
   </div>
 
@@ -81,18 +81,14 @@
     </mat-checkbox>
     <mat-form-field class="form-field-inline" style="width: 110px;" appearance="outline">
       <mat-label>Saída da FAMEC</mat-label>
-      <input matInput type="text" formControlName="hrSaida" placeholder="--:--">
+      <input oninput="this.value = this.value.toUpperCase()"  matInput type="text" formControlName="hrSaida" placeholder="--:--">
     </mat-form-field>
-    <!-- <mat-radio-group class="radio-group" formControlName="lgAcompanhanteSaida">
-      <mat-radio-button class="radio-button" [value]="0" color="primary">Sozinho</mat-radio-button>
-      <mat-radio-button class="radio-button" [value]="1" color="primary">Acompanhado</mat-radio-button>
-    </mat-radio-group> -->
     <mat-checkbox style="margin-right: 10px; margin-left: 10px; padding-top: 20px;" formControlName="lgAcompanhanteSaida" color="primary">
       Acompanhado
     </mat-checkbox>
     <mat-form-field class="form-field-inline" appearance="outline">
       <mat-label>Acompanhante</mat-label>
-      <input matInput formControlName="nmAcompanhanteSaida">
+      <input oninput="this.value = this.value.toUpperCase()"  matInput formControlName="nmAcompanhanteSaida">
     </mat-form-field>
   </div>
   <mat-divider style="margin-top: 10px; margin-bottom: 10px;" [inset]="true"></mat-divider>

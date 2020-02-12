@@ -349,9 +349,9 @@ public class FamiliaServices {
 			
 			
 			while(rsm.next()) {
-				rsm.setValueToField("NM_TP_SEXO", AlunoServices.sexo[rsm.getInt("TP_SEXO")]);
-				rsm.setValueToField("NM_LG_ALMOCO_INSTITUICAO", rsm.getInt("LG_ALMOCO_INSTITUICAO") == 1 ? "Sim" : "Não");
-				rsm.setValueToField("NM_TP_TURNO_FAMEC", AlunoServices.turnoInstituicao[rsm.getInt("TP_TURNO_FAMEC")]);
+				rsm.setValueToField("NM_TP_SEXO", AlunoServices.sexo[rsm.getInt("TP_SEXO")].toUpperCase());
+				rsm.setValueToField("NM_LG_ALMOCO_INSTITUICAO", (rsm.getInt("LG_ALMOCO_INSTITUICAO") == 1 ? "Sim" : "Não").toUpperCase());
+				rsm.setValueToField("NM_TP_TURNO_FAMEC", AlunoServices.turnoInstituicao[rsm.getInt("TP_TURNO_FAMEC")].toUpperCase());
 				rsm.setValueToField("DS_DT_NASCIMENTO", sol.util.Util.convCalendarString(rsm.getGregorianCalendar("DT_NASCIMENTO")));
 				
 				GregorianCalendar dtN = rsm.getGregorianCalendar("DT_NASCIMENTO");

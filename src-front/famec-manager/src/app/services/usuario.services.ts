@@ -26,7 +26,7 @@ export class UsuarioService extends Services {
   }
 
   saveUsuario(usuario: Usuario): Observable<Result> {
-    return this.http.put(this.serviceUrl + "/save", JSON.stringify(usuario, null, 2), httpOptions).pipe(
+    return this.http.post(this.serviceUrl + "/", JSON.stringify(usuario, null, 2), httpOptions).pipe(
       tap((result: Result) => this.log(result.message)),
       catchError(this.handleError<Result>('Erro! saveUsuario.'))
     );
@@ -42,7 +42,7 @@ export class UsuarioService extends Services {
   }
 
   deleteUsuario(cdUsuario): Observable<Result> {
-    const url = `${this.serviceUrl}/delete?codigo=${cdUsuario}`;
+    const url = `${this.serviceUrl}/${cdUsuario}`;
 
     return this.http.delete<Result>(url, httpOptions).pipe(
       tap(_ => this.log(`deleted user cdUsuario=${cdUsuario}`)),
@@ -50,14 +50,8 @@ export class UsuarioService extends Services {
     );
   }
 
-  // public static async doLogin(nmLogin, nmSenha): Promise<Result> {
-  //   return Object.assign(new Result(-1), await function(): Observable<Result> {
-  //     return null;
-  //   });
-  // }
-
   doLogin(nmLogin, nmSenha): Observable<Result> {
-    return this.http.put(this.serviceUrl + "/login", JSON.stringify({ nmLogin: nmLogin, nmSenha: nmSenha }, null, 2), httpOptions).pipe(
+    return this.http.post(this.serviceUrl + "/login", JSON.stringify({ nmLogin: nmLogin, nmSenha: nmSenha }, null, 2), httpOptions).pipe(
       tap((result: Result) => this.log(result.message)),
       catchError(this.handleError<Result>('Erro! auth.'))
     );

@@ -3,13 +3,10 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { FamiliaService } from 'src/app/services/familia.service';
 import { ObjectUtils } from 'src/app/services/ObjectUtils';
-import { Familia } from 'src/app/services/familia';
 import { Router } from '@angular/router';
 import { Utils } from 'src/app/services/Utils';
 import { UsuarioService } from 'src/app/services/usuario.services';
 import { Usuario } from 'src/app/services/usuario';
-import { LocalStorage } from 'src/app/services/LocalStorage';
-import { AlunoService } from 'src/app/services/aluno.services';
 import { Aluno } from 'src/app/services/aluno';
 import { SessionStorage } from 'src/app/services/SessionStorage';
 import { ConfirmationDialogComponent } from 'src/app/nav/confirmation-dialog/confirmation-dialog.component';
@@ -36,73 +33,73 @@ export class FamiliaComponent implements OnInit {
   lgResponsavelEstudando: boolean = false;
 
   parentesco = [
-    { id: 1, label: 'Mãe/Pai' },
-    { id: 2, label: 'Avó/Avô' },
-    { id: 3, label: 'Irmã/Irmão' },
-    { id: 4, label: 'Tia/Tio' },
-    { id: 5, label: 'Outro' }
+    { id: 1, label: 'MÃE/PAI' },
+    { id: 2, label: 'AVÓ/AVÔ' },
+    { id: 3, label: 'IRMÃ/IRMÃO' },
+    { id: 4, label: 'TIA/TIO' },
+    { id: 5, label: 'OUTRO' }
   ];
 
   estadoCivil = [
-    { id: 1, label: 'Solteiro' },
-    { id: 1, label: 'Casado' },
-    { id: 1, label: 'Separado' },
-    { id: 1, label: 'Divorciado' },
-    { id: 1, label: 'Viúvo' }
+    { id: 1, label: 'SOLTEIRO' },
+    { id: 1, label: 'CASADO' },
+    { id: 1, label: 'SEPARADO' },
+    { id: 1, label: 'DICORCIADO' },
+    { id: 1, label: 'VIÚVO' }
   ];
 
   nivelEscolaridade = [
-    { id: 1, label: 'Fundamental' },
-    { id: 2, label: 'Médio' },
-    { id: 3, label: 'Superior' },
-    { id: 4, label: 'Outro' }
+    { id: 1, label: 'FUNDAMENTAL' },
+    { id: 2, label: 'MÉDIO' },
+    { id: 3, label: 'SUPERIOR' },
+    { id: 4, label: 'OUTRO' }
   ];
 
   horarioEscolar = [
-    { id: 1, label: 'Matutino' },
-    { id: 2, label: 'Vespertino' },
-    { id: 3, label: 'Noturno' },
-    { id: 4, label: 'Diurno' }
+    { id: 1, label: 'MATUTINO' },
+    { id: 2, label: 'VESPERTINO' },
+    { id: 3, label: 'NOTURNO' },
+    { id: 4, label: 'DIURNO' }
   ];
 
   situacaoHabitacional = [
-    { id: 1, label: 'Própria' },
-    { id: 2, label: 'Alugada' },
-    { id: 3, label: 'Cedida' },
-    { id: 4, label: 'Invasão' },
-    { id: 5, label: 'De favor' }
+    { id: 1, label: 'PRÓPRIA' },
+    { id: 2, label: 'ALUGADA' },
+    { id: 3, label: 'CEDIDA' },
+    { id: 4, label: 'INVASÃO' },
+    { id: 5, label: 'DE FAVOR' }
   ];
 
   abastecimentoAgua = [
-    { id: 1, label: 'Rede pública' }
+    { id: 1, label: 'REDE PÚBLICA' }
   ];
 
   tratamentoAgua = [
-    { id: 1, label: 'Filtração' },
-    { id: 2, label: 'Fervura' },
-    { id: 3, label: 'S/ Tratamento' },
-    { id: 4, label: 'Outro' }
+    { id: 1, label: 'FILTRAÇÃO' },
+    { id: 2, label: 'FERVURA' },
+    { id: 3, label: 'S/ TRATAMENTO' },
+    { id: 4, label: 'OUTROS' }
   ];
 
   iluminacao = [
-    { id: 1, label: 'Medidor próprio' },
-    { id: 2, label: 'S/ Medidor' },
-    { id: 3, label: 'Outros' }
+    { id: 1, label: 'MEDIDOR PRÓXIMO' },
+    { id: 2, label: 'S/ MEDIDOR' },
+    { id: 3, label: 'OUTROS' }
   ];
 
   escoamentoSanitario = [
-    { id: 1, label: 'Esgoto' },
-    { id: 2, label: 'Fossa' },
-    { id: 3, label: 'Céu aberto' },
-    { id: 4, label: 'Outros' }
+    { id: 1, label: 'ESGOTO' },
+    { id: 2, label: 'FOSSA' },
+    { id: 3, label: 'CÉU ABERTO' },
+    { id: 4, label: 'OUTROS' }
   ];
 
   destinoLixo = [
-    { id: 1, label: 'Coletado' },
-    { id: 2, label: 'Queimado' },
-    { id: 3, label: 'Enterrado' },
-    { id: 4, label: 'Céu aberto' },
-    { id: 5, label: 'Outros' }
+    { id: 1, label: 'COLETADO' },
+    { id: 2, label: 'QUEIMADO' },
+    { id: 3, label: 'ENTERRADO' },
+    { id: 4, label: 'CÉU ABERTO' },
+    { id: 5, label: 'OUTROS' }
   ];
 
   sgUf = ['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO'];
