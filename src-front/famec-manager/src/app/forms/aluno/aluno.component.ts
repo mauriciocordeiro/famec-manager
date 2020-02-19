@@ -27,17 +27,17 @@ export class AlunoComponent implements OnInit {
   ];
 
   horarioEscolar = [
-    { id: 1, label: 'FUNDAMENTAL' },
-    { id: 2, label: 'MÉDIO' },
-    { id: 3, label: 'SUPERIOR' },
-    { id: 4, label: 'OUTRO' }
+    { id: 1, label: 'MATUTINO' },
+    { id: 2, label: 'VESPERTINO' },
+    { id: 3, label: 'NOTURNO' },
+    { id: 4, label: 'DIURNO' }
   ];
 
   horarioInstituicao = [
-    { id: 1, label: 'FUNDAMENTAL' },
-    { id: 2, label: 'MÉDIO' },
-    { id: 3, label: 'SUPERIOR' },
-    { id: 4, label: 'OUTRO' }
+    { id: 1, label: 'MATUTINO' },
+    { id: 2, label: 'VESPERTINO' },
+    { id: 3, label: 'NOTURNO' },
+    { id: 4, label: 'DIURNO' }
   ];
 
   constructor(private router:Router) { }
